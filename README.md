@@ -8,7 +8,7 @@ World Map
 ---------
 ![The World of Grevnyrch](./Grevnyrch.png)[1]
 
-![HD World Map](./Grevnyrch.svg) [1]
+![HD World Map](./Grevnyrch.html) [1]
 
 
 City Map - Kla'Bbbert
