@@ -4,10 +4,10 @@
 AcutallyFro, and PandaPiglet
 
 === Status
-Draft (v.0.2.0)
+Draft (v.0.2.1)
 
 === Problem
-(1) Documentary actions/events/logs for DnD takes too long and (2) There's no
+Documenting actions, events, with written or typed logs, for Dungeons & Dragons, can (1) take a long time (i.e., slow down game play, or delay Players) and (2) there's no
 "replay" standard (i.e., a standard form/notation that allows missing Party
 members to "replay", step by step, what they missed).
 
