@@ -1,0 +1,210 @@
+= RFC XXXX: Grevnyrch Log Standard
+
+=== Authors
+AcutallyFro, and PandaPiglet
+
+=== Status
+Draft (v.0.2.0)
+
+=== Problem
+(1) Documentary actions/events/logs for DnD takes too long and (2) There's no
+"replay" standard (i.e., a standard form/notation that allows missing Party
+members to "replay", step by step, what they missed).
+
+=== Related
+"MLB scorecards" ; DnD "Adventure League Log sheet", shorthand chess notation;
+court stenographer(s)
+
+=== Anti-goals
+NOT for establishing initiative issues (BUT you could log it!), rules (or
+clarification), and/or role playing (as of 0.1.0 the ).
+
+=== Solution
+The Grevnyrch Log Standard (GLS) aims to create a standard method of logging DnD
+information. Using single line entry lines can quickly conveys a "replay" of
+activities. Also, combined with Unicode brackets, their contained information
+succinctly will tell types, results, statuses, etc. of most, if not all, actions.
+Furthermore, rapid tag logging can be joined with a dynamically-reducible tags.
+These combined items solves both issues highlighted above.
+
+Simply, recordable actions, decisions, and events are documented in tags. These
+tags are Unicode brackets (see Backwards Compatibility for ASCII rationale),
+which have specific content within them defined in this standard. Both the tags
+and the content can be shortened by exempting some or all acceptable bracket
+information (think IPv6 address shortening). Appendix A provides the definition
+and use of brackets both Unicode and Ascii. Appendix B provides the syntax with
+examples.
+
+==== Reserved/Key Words
+
+[cols="1,1"]
+|===
+
+| *Description*
+| *Words/Symbol*
+
+| Actions
+| Atk or A (Attack), +
+  Gra or G (Grapple), +
+  Shv or V (Shove), +
+  Spe or L (Cast a spell), +
+  Dsh or H (Dash), +
+  Dis or N (Disengage), +
+  Dge or O (Dodge), +
+  Esc or E (Escape), +
+  Hlp or H (Help), +
+  Use or U (Use Object), +
+  Shd or D (Use shield), +
+  Hid or I (Hide), +
+  Src or S (Search), +
+  Rdy or R (Ready), +
+  Clf or C (Use class feature), +
+  Imp or P (Improvise), +
+  Bns or B (Bonus action), +
+  Res or T (Rest - Long), +
+  res or t (Rest - Short)
+
+| Symbols
+| -> (to show the left thing moves to or affects the right thing)
+
+|===
+
+=== Backwards Compatibility
+Alternate ASCII keyword representations shall be created for Unicode-based
+brackets. Alt-key combinations work for most Unicode, but an ASCII-only
+
+
+
+== Appendix A: Current Symbol List
+
+== Locations
+[cols="1,1,1,1"]
+|===
+
+| *Bracket*
+| *Representation*
+| *Acceptable content*
+| *Additional Notes*
+
+| ༺ ༻
+| Realm
+| String: Full name or symbol
+| None
+
+|〖 〗
+| City
+| String: Full name or symbol
+| None
+
+|《 》
+| District
+| String: Full name or symbol
+| None
+
+|〈 〉
+| Place/Building
+| String: Full name or symbol
+| None
+
+|===
+
+
+== Timing
+[cols="1,1,1,1"]
+|===
+
+| ⟅ ⟆ or $ $
+| Round
+| Integer
+| Long form: `String: Battle name or symbol; Integer`
+
+| ⧼ ⧽
+| Time/Duration
+| Integer
+| Units of Rounds (r), Seconds (s), Minutes (m), Days (d) acceptable
+
+|===
+
+
+== PC or NPC Level Actions
+[cols="1,1,1,1"]
+|===
+
+| *Bracket*
+| *Representation*
+| *Acceptable content*
+| *Additional Notes*
+
+| [ ]
+| PC or NPC
+| String: Full name or symbol
+| None
+
+| ] [
+| Hostile NPC/encounter (Single)
+| String: Full name or symbol
+| Numbered sequences
+
+| [[ ]] or ⟦ ⟧
+| Grouping of PCs/NPC
+| String: Party/Group or symbol
+| EMPTY brackets means the main, PC party!
+
+| ]] [[ or ⟧ ⟦
+| Grouping of Hostile NPCs/encounter
+| None
+| Lettered sequences
+
+| ( )
+| Action
+| String: Type (or Type Abbreviation) -> String: target name or symbol
+| *See keywords*
+
+| < >
+| Movement
+| String: stop coordinate
+| Long form: `String: Start coordinate; Strings: Actions -> String: stop coordinate`
+
+| ⸢ ⸣ or //
+| Right hand
+| String: item name or symbol
+| Think lowercase `r`
+
+| ⸤ ⸥ or \\
+| Left hand
+| String: item name or symbol
+| Think left hand for `l`
+
+| ⸢ ⸥ or /\ or \/
+| Both hands/two handed
+| String: name or symbol
+| Think left & right hands
+
+| ⦇ ⦈ or \|( )\|
+| Armor class
+| Integer
+| None
+
+| ⟮ ⟯ or \|< >\|
+| Dice Roll Success (check)
+| Integer
+| None
+
+| ⟯ ⟮ or \|> <\|
+| Dice Roll Success (check)
+| Integer
+| None
+
+| ⧘ ⧙ or \|{ }\|
+| Damage Amount
+| Integer
+| None
+
+|===
+
+
+
+<<<
+== Appendix B: Syntax and Examples
+
+**TODO**
