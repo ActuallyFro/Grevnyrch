@@ -22,6 +22,10 @@ City Map - Kla'Bbbert
 2. Go to the [City Viewer](https://watabou.itch.io/city-viewer)
 3. Upload the JSON and enjoy!
 
+Tools
+=====
+1. [GLS Logger](https://actuallyfro.github.io/Grevnyrch/01_GLS/GLSL.html)
+
 Credits
 =======
 1. [Fractal World Generator](https://donjon.bin.sh/code/world/) for World Map
