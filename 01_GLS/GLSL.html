@@ -1,0 +1,140 @@
+<!-- This form enables rapid creation of GLS-compliant Logs  -->
+<!-- Source: https://www.w3schools.com/js/tryit.asp?filename=try_dom_select_option -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GLSL</title>
+
+<script>
+  // Global var to store the propsed ledger entry, as array of strings
+  var isLedgerEmpty = true;
+  var isLogEmpty = true;
+  var oldLedger = [];
+  var Log = [];
+
+  function LedgerIt() {
+    var obj = document.getElementById("bracket");
+    oldLedger.push(document.getElementById("ledger").innerHTML);
+    var tempBracket = obj.options[obj.selectedIndex].value;
+    var tempTarget = document.getElementById("target").value;
+
+    if (isLedgerEmpty){
+      document.getElementById("ledger").innerHTML = tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
+      isLedgerEmpty = false;
+
+    } else {
+      document.getElementById("ledger").innerHTML += tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
+    }
+  }
+   
+  function LogIt() {
+    var obj = document.getElementById("ledger");
+    var currentLedger = document.getElementById("ledger").innerHTML;
+    Log.push(currentLedger);
+
+    if (isLedgerEmpty){
+      return;
+    }
+
+    if (isLogEmpty){
+      document.getElementById("log").innerHTML = currentLedger + "<br>";
+      isLogEmpty = false;
+    } else {
+      document.getElementById("log").innerHTML += currentLedger + "<br>";
+    }
+    ClearLedger();
+
+  }
+
+  function RemoveLastLog() {
+    Log.pop();
+    document.getElementById("log").innerHTML = "";
+    if (Log.length > 0){
+      for (var i = 0; i < Log.length; i++) {
+        document.getElementById("log").innerHTML += Log[i] + "<br>";
+      }
+
+    } else {
+      ClearLog();
+    }
+
+  }
+
+  function ClearLedger() {
+    isLedgerEmpty = true;
+    document.getElementById("ledger").innerHTML = "<h2><i>{Ledger is empty}</i></h2>";
+    oldLedger = [];
+  }
+
+  function ClearLog() {
+    isLogEmpty = true;
+    document.getElementById("log").innerHTML = "<h2><i>{Logs are empty}</i></h2>";
+    Log = [];
+  }
+
+  function UndoLedger() {
+    if (oldLedger.length > 0) {
+      document.getElementById("ledger").innerHTML = oldLedger[oldLedger.length-1];
+      oldLedger.pop();  
+
+    } else {
+      ClearLedger();
+    }
+  }
+
+</script>
+</head>
+<body>
+
+<form>
+    <!-- text box with tooltip-->
+    <label for="target">Target</label>
+    <input type="text" id="target" name="target" placeholder="Inner-bracket target/content">
+    <span id="targetError"></span>
+    <br>
+
+
+Select your tag:
+<select id="bracket">
+  <option value="༺༻">Realm: ༺ ༻</option>
+  <option value="〖〗">City: 〖 〗</option>
+  <option value="《》">District: 《 》</option>
+  <option value="〈〉">Location: 〈 〉</option>
+</select>
+
+<select id="operator">
+  <option></option>
+  <option>Act upon: →</option>
+  <option>Add to symbol table: ;;</option>
+</select>
+
+<br><br>
+
+<input type="button" onclick="LedgerIt()" value="Ledger It!">
+<input type="button" onclick="LogIt()" value="LogIt!">
+<input type="button" onclick="ClearLedger()" value="Reset">
+<input type="button" onclick="UndoLedger()" value="Undo">
+
+</form>
+
+<div id="ledger" style="background-color:rgba(72, 72, 255, 0.571);">
+  <h2><i>{Ledger is empty}</i></h2>
+</div>
+
+<br><br>
+
+<div id="log" style="background-color:rgba(178, 178, 188, 0.571);">
+  <h2><i>{Logs are empty}</i></h2>
+</div>
+
+
+
+<p id="Logs"></p>
+<form>
+  <input type="button" onclick="RemoveLastLog()" value="Remove Last Log">
+  <input type="button" onclick="ClearLog()" value="Clear Log">
+</form>
+
+</body>
+</html>
