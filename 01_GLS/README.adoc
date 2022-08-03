@@ -4,20 +4,20 @@
 AcutallyFro, and PandaPiglet
 
 === Status
-Draft (v.0.2.0)
+Draft (v.0.2.2)
 
 === Problem
-(1) Documentary actions/events/logs for DnD takes too long and (2) There's no
+Documenting actions, events, with written or typed logs, for Dungeons & Dragons, can (1) take a long time (i.e., slow down game play, or delay Players) and (2) there's no
 "replay" standard (i.e., a standard form/notation that allows missing Party
 members to "replay", step by step, what they missed).
 
 === Related
-"MLB scorecards" ; DnD "Adventure League Log sheet", shorthand chess notation;
-court stenographer(s)
+"MLB scorecards" ; DnD "Adventure League Log sheet", shorthand, chess notation;
+court stenographer machines
 
 === Anti-goals
-NOT for establishing initiative issues (BUT you could log it!), rules (or
-clarification), and/or role playing (as of 0.1.0 the ).
+This standard is NOT for establishing/resolving: initiative issues (BUT you could log them!), rules (or
+clarifications), and/or role playing (as of 0.X.X of the standard).
 
 === Solution
 The Grevnyrch Log Standard (GLS) aims to create a standard method of logging DnD
