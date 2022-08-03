@@ -13,15 +13,23 @@
   var oldLedger = [];
   var Log = [];
 
-// var brackets = [
-//   ["{}"", "Item", "N/PC Level"],
-//   ["{}"", "Item", "N/PC Level"],
-//   ["{}", "Item". "N/PC Level"]
-// ];
+var brackets = [
+  ["{}", "Item", "N/PC Level"],
+  ["{}", "Item", "N/PC Level"],
+  ["{}", "Item", "N/PC Level"]
+];
 
   // Generate default brackets
   window.onload = function() {
-    document.getElementById("bracket").innerHTML = "<option value=\"༺༻\">Realm: ༺ ༻</option><option value=\"〖〗\">City: 〖 〗</option><option value=\"《》\">District: 《 》</option><option value=\"〈〉\">Location: 〈 〉</option><option value=\"⟅⟆\">Round: ⟅ ⟆</option>";
+    // document.getElementById("bracket").innerHTML = "<option value=\"༺༻\">Realm: ༺ ༻</option><option value=\"〖〗\">City: 〖 〗</option><option value=\"《》\">District: 《 》</option><option value=\"〈〉\">Location: 〈 〉</option><option value=\"⟅⟆\">Round: ⟅ ⟆</option>";
+
+    //generate option tags from brackets array
+    for (var i = 0; i < brackets.length; i++) {
+      var option = document.createElement("option");
+      option.value = brackets[i][0];
+      option.text = brackets[i][1] + ": " + brackets[i][0];
+      document.getElementById("bracket").appendChild(option);
+    }
   }
 
   function LedgerIt() {
