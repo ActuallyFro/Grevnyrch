@@ -13,6 +13,17 @@
   var oldLedger = [];
   var Log = [];
 
+// var brackets = [
+//   ["{}"", "Item", "N/PC Level"],
+//   ["{}"", "Item", "N/PC Level"],
+//   ["{}", "Item". "N/PC Level"]
+// ];
+
+  // Generate default brackets
+  window.onload = function() {
+    document.getElementById("bracket").innerHTML = "<option value=\"༺༻\">Realm: ༺ ༻</option><option value=\"〖〗\">City: 〖 〗</option><option value=\"《》\">District: 《 》</option><option value=\"〈〉\">Location: 〈 〉</option><option value=\"⟅⟆\">Round: ⟅ ⟆</option>";
+  }
+
   function LedgerIt() {
     var obj = document.getElementById("bracket");
     oldLedger.push(document.getElementById("ledger").innerHTML);
@@ -97,10 +108,6 @@
 
 Select your tag:
 <select id="bracket">
-  <option value="༺༻">Realm: ༺ ༻</option>
-  <option value="〖〗">City: 〖 〗</option>
-  <option value="《》">District: 《 》</option>
-  <option value="〈〉">Location: 〈 〉</option>
 </select>
 
 <select id="operator">
