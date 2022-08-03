@@ -2,9 +2,20 @@
 <!-- Source: https://www.w3schools.com/js/tryit.asp?filename=try_dom_select_option -->
 
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
-    <title>GLSL</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- https://getbootstrap.com/docs/5.2/getting-started/introduction/ -->
+  <title>GLSL</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+  <!-- 
+    Separate Popper & JS:
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script> -->
 
 <script>
   // Global var to store the propsed ledger entry, as array of strings
@@ -121,50 +132,59 @@ var brackets = [
 </head>
 <body>
 
-<form>
-    <!-- text box with tooltip-->
-    <label for="target">Target</label>
-    <input type="text" id="target" name="target" placeholder="Inner-bracket target/content">
-    <span id="targetError"></span>
-    <br>
+<!-- bootstrap form -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <form>
+        <!-- text box with tooltip-->
+        <label for="target">Target</label>
+        <input type="text" id="target" name="target" placeholder="Inner-bracket target/content">
+        <span id="targetError"></span>
+        <br>
 
 
-Select your tag:
-<select id="bracket">
-</select>
+        Select your tag:
+        <select id="bracket">
+        </select>
 
-<select id="operator">
-  <option></option>
-  <option>Act upon: →</option>
-  <option>Add to symbol table: ;;</option>
-</select>
+        <select id="operator">
+        <option></option>
+        <option>Act upon: →</option>
+        <option>Add to symbol table: ;;</option>
+        </select>
 
-<br><br>
+        <br><br>
 
-<input type="button" onclick="LedgerIt()" value="Ledger It!">
-<input type="button" onclick="LogIt()" value="LogIt!">
-<input type="button" onclick="ClearLedger()" value="Reset">
-<input type="button" onclick="UndoLedger()" value="Undo">
+        <input type="button" onclick="LedgerIt()" value="Ledger It!">
+        <input type="button" onclick="LogIt()" value="LogIt!">
+        <input type="button" onclick="ClearLedger()" value="Reset">
+        <input type="button" onclick="UndoLedger()" value="Undo">
+      </form>    
+    
 
-</form>
 
-<div id="ledger" style="background-color:rgba(72, 72, 255, 0.571);">
-  <h2><i>{Ledger is empty}</i></h2>
+      <div id="ledger" style="background-color:rgba(72, 72, 255, 0.571);">
+        <h2><i>{Ledger is empty}</i></h2>
+      </div>
+
+      <br><br>
+
+      <div id="log" style="background-color:rgba(178, 178, 188, 0.571);">
+        <h2><i>{Logs are empty}</i></h2>
+      </div>
+
+
+
+      <p id="Logs"></p>
+      <form>
+        <input type="button" onclick="RemoveLastLog()" value="Remove Last Log">
+        <input type="button" onclick="ClearLog()" value="Clear Log">
+      </form>
+
+    </div>
+  </div>
 </div>
-
-<br><br>
-
-<div id="log" style="background-color:rgba(178, 178, 188, 0.571);">
-  <h2><i>{Logs are empty}</i></h2>
-</div>
-
-
-
-<p id="Logs"></p>
-<form>
-  <input type="button" onclick="RemoveLastLog()" value="Remove Last Log">
-  <input type="button" onclick="ClearLog()" value="Clear Log">
-</form>
 
 </body>
 </html>
