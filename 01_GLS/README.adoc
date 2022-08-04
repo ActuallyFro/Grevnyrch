@@ -145,12 +145,12 @@ brackets. Alt-key combinations work for most Unicode, but an ASCII-only
 | String: Full name or symbol
 | Numbered sequences
 
-| [[ ]] or ⟦ ⟧
+| ⟦ ⟧ or [[ ]]
 | Grouping of PCs/NPC
 | String: Party/Group or symbol
 | EMPTY brackets means the main, PC party!
 
-| ]] [[ or ⟧ ⟦
+| ⟧ ⟦ or ]] [[
 | Grouping of Hostile NPCs/encounter
 | None
 | Lettered sequences
