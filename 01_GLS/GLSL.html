@@ -185,9 +185,8 @@ var brackets = [
         <br><br>
 
         <input type="button" onclick="LedgerIt()" value="Ledger It!">
-        <input type="button" onclick="LogIt()" value="LogIt!">
-        <input type="button" onclick="ClearLedger()" value="Reset">
-        <input type="button" onclick="UndoLedger()" value="Undo">
+        <input type="button" onclick="ClearLedger()" value="Clear Ledger">
+        <input type="button" onclick="UndoLedger()" value="Undo last Ledger Entry">
       </form>    
     
 
@@ -195,6 +194,10 @@ var brackets = [
       <div id="ledger" style="background-color:rgba(72, 72, 255, 0.571);">
         <h2><i>{Ledger is empty}</i></h2>
       </div>
+
+      <form>    
+        <input type="button" onclick="LogIt()" value="LogIt!">
+      </form>    
 
       <br><br>
 
