@@ -138,17 +138,18 @@ var brackets = [
     <div class="col-sm-12">
       <form>
 
-        <label for="target">Target</label>
+        <label for="bracket">Select your tag:</label>
+        <select id="bracket">
+        </select>
+        <br>
+
+        <label for="target">Target:</label>
         <input type="text" list="targets" id="target" name="target" placeholder="Inner-bracket target/content"/>
         <datalist id="targets">
           <option>Grevnyrch</option>
           <option>Kla'Bbbert</option>
         </datalist>
         <br>
-
-        Select your tag:
-        <select id="bracket">
-        </select>
 
         <select id="operator">
         <option></option>
