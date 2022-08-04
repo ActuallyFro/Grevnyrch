@@ -54,6 +54,9 @@ var brackets = [
   window.onload = function() {
     // document.getElementById("bracket").innerHTML = "<option value=\"༺༻\">Realm: ༺ ༻</option><option value=\"〖〗\">City: 〖 〗</option><option value=\"《》\">District: 《 》</option><option value=\"〈〉\">Location: 〈 〉</option><option value=\"⟅⟆\">Round: ⟅ ⟆</option>";
 
+    var optionBlank = document.createElement("option");
+    document.getElementById("bracket").appendChild(optionBlank);
+
     //generate option tags from brackets array
     for (var i = 0; i < brackets.length; i++) {
       var option = document.createElement("option");
@@ -79,6 +82,9 @@ var brackets = [
     } else {
       document.getElementById("ledger").innerHTML += tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
     }
+    ClearTag();
+    ClearTarget();
+
   }
    
   function LogIt() {
@@ -98,7 +104,8 @@ var brackets = [
       document.getElementById("log").innerHTML += currentLedger + "<br>";
     }
     ClearLedger();
-
+    ClearTag();
+    ClearTarget();
   }
 
   function RemoveLastLog() {
@@ -139,6 +146,10 @@ var brackets = [
 
   function ClearTarget() {
     document.getElementById("target").value = "";
+  }
+
+  function ClearTag() {
+    document.getElementById("bracket").value = "";
   }
 
 </script>
