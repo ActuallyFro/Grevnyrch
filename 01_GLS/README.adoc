@@ -35,6 +35,15 @@ information (think IPv6 address shortening). Appendix A provides the definition
 and use of brackets both Unicode and Ascii. Appendix B provides the syntax with
 examples.
 
+
+==== Global-to-specific Logged Activities
+
+A Holistic way to view GLS is scale from MACRO to micro activities. 
+The Logs start with the Realm/World, focus in on Locales (e.g., cities, landmarks, named-locations), call out specific locations (that are traveserable and tracked by a DM to near coordinate-level), and end with specific actions within adveturer encounters.
+
+Thus, an example would be logging the Realm as Grevnyrch, the locale as Kla'Bbbert, a city district or house, with the players acting out encounters therein.
+However, timing and movement events have a parallel scale: Realm movements are measured in months/weeks/days with miles/kilometers level tracking, which "zoom down" to the level of Encounters in adventurer battles. 
+
 ==== Reserved/Key Words
 
 [cols="1,1"]
