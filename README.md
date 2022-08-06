@@ -37,6 +37,28 @@ City Districts
 Tools
 =====
 1. [GLS Logger](https://actuallyfro.github.io/Grevnyrch/01_GLS/GLSL.html)
+2. [Initiative.sh](https://initiative.sh/)
+3. [Treasure - Donjon](https://donjon.bin.sh/5e/random/#type=treasure;cr=0;loot_type=Individual%20Treasure?refer_by=scabard.com)
+4. [Fantasy Names Generator](https://www.fantasynamegenerators.com/shop-names.php)
+
+Known, but not used
+-------------------
+1. [Dave's Mapper - Online Dungeon Builder](https://davesmapper.com/dungeon)
+2. [Encounter Builder - Kolod Fight Club](https://kobold.club/fight/#/encounter-builder)
+3. [Encounter Builder - Goblinist](http://tools.goblinist.com/5enc)
+4. [Encounter Builder - Donjon](https://donjon.bin.sh/5e/random/#type=encounter;n_pc=4;level=1;difficulty=any;environment=Underdark)
+5. [Treasure - Redkat's Tools](http://redkatart.com/dnd5tools/?refer_by=scabard.com#treasureBox)
+
+Reference Materials
+===================
+1. [D&D official Monsters by CR](https://media.wizards.com/2014/downloads/dnd/MM_MonstersCR.pdf)
+2. [D&D official Monsters List](https://media.wizards.com/2017/dnd/downloads/DnDMonsterLists.pdf)
+3. [D&D SRD](https://media.wizards.com/2016/downloads/SRD-OGL_V1.1.pdf)
+
+Known, but not used
+-------------------
+1. [Customizing Backgrounds](https://roleplayersrespite.com/custom-backgrounds-dnd-5e)
+2. [Anglo Saxon Runes (for potential symbols in GLS)](https://en.m.wikipedia.org/wiki/Anglo-Saxon_runes)
 
 Credits
 =======
