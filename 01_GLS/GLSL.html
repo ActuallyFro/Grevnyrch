@@ -70,12 +70,17 @@ var brackets = [
       }
       document.getElementById("bracket").appendChild(option);
 
-      //Adding options to Button Pannel
+
       if (brackets[i][2] == "Locations"){
-    // <!-- Generate buttons from brackets[] that have "Location" -->
-    // <form id="PannelButtonsLocations">
         document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket('" + brackets[i][0] + "')\">" + brackets[i][0] + "</button>";
       }
+      else if (brackets[i][2] == "Timing"){
+        document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket('" + brackets[i][0] + "')\">" + brackets[i][0] + "</button>";
+      }
+      else if (brackets[i][2] == "PC or NPC Level Actions"){
+        document.getElementById("PannelButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket('" + brackets[i][0] + "')\">" + brackets[i][0] + "</button>";
+      }
+
     }
 
 
@@ -239,6 +244,14 @@ var brackets = [
   <div class="row">
     <div class="col-sm-12">
       <form id="PannelButtonsLocations">        
+      </form>
+    </div>
+    <div class="col-sm-12">
+      <form id="PannelButtonsTiming">        
+      </form>
+    </div>
+    <div class="col-sm-12">
+      <form id="PannelButtonsN-PCActions">        
       </form>
     </div>
   </div>
