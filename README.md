@@ -17,6 +17,18 @@ City Map - Kla'Bbbert
 ![City Map](./klabbbert.png)[2]
 
 
+City Districts
+--------------
+
+### Haunted Road
+![General Layout](Haunted_Road.png)
+
+1. The Blue Thief - Inn and Pub -- favorite hangout of the party
+2. Sew & Tell - Clothing and Tailor Shop
+
+![Haunted Road Relative to Party's Apartment](Home_and_Haunted-Locations.png)
+
+
 ### See the City in 3D
 1. Download the JSON [here](./klabbbert.json)
 2. Go to the [City Viewer](https://watabou.itch.io/city-viewer)
