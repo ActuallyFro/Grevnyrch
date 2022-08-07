@@ -51,6 +51,13 @@ var brackets = [
   ["⧘ ⧙", "Damage Amount", "PC or NPC Level Actions", ""]
 ];
 
+var targets = [
+  ["Grevnyrch", "Locations", "G"],
+  ["Kla'Bbbert", "Locations", "KB"]
+  // ["", "=== Location Brackets ===", "GUI - Selection Title", "Disabled"],
+  // ["༺ ༻", "Realm", "Locations", ""]
+];
+
   // Generate default brackets
   window.onload = function() {
     // document.getElementById("bracket").innerHTML = "<option value=\"༺༻\">Realm: ༺ ༻</option><option value=\"〖〗\">City: 〖 〗</option><option value=\"《》\">District: 《 》</option><option value=\"〈〉\">Location: 〈 〉</option><option value=\"⟅⟆\">Round: ⟅ ⟆</option>";
@@ -58,6 +65,7 @@ var brackets = [
     var optionBlank = document.createElement("option");
     document.getElementById("bracket").appendChild(optionBlank);
 
+    // 1. Setup Brackets
     var seletionBracketCount = 1; //due to blank --^
     //generate option tags from brackets array
     for (var i = 0; i < brackets.length; i++) {
@@ -71,7 +79,6 @@ var brackets = [
       }
       document.getElementById("bracket").appendChild(option);
 
-
       if (brackets[i][2] == "Locations"){
         document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
       
@@ -83,6 +90,14 @@ var brackets = [
       }
 
       seletionBracketCount++;
+    }
+
+    // 2. Setup Targets
+    for (var j = 0; j < targets.length; j++) {
+      var option = document.createElement("option");
+      option.text = targets[j][0];
+
+      document.getElementById("targets").appendChild(option);
     }
   }
 
@@ -217,8 +232,8 @@ var brackets = [
         <label for="target">Target:</label>
         <input type="text" list="targets" id="target" name="target" placeholder="Inner-bracket target/content"/>
         <datalist id="targets">
-          <option>Grevnyrch</option>
-          <option>Kla'Bbbert</option>
+          <!-- <option>Grevnyrch</option>
+          <option>Kla'Bbbert</option> -->
         </datalist>
         <input type="button" class="btn btn-primary" value="Clear target" onclick="ClearTarget()">
         <br>
