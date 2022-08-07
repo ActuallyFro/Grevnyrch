@@ -32,23 +32,23 @@ var brackets = [
   ["〈 〉", "Place/Building", "Locations", ""],
 
   ["", "=== Timing Brackets ===", "GUI - Selection Title", "Disabled"],
-  ["⟅ ⟆", "Round", "Timing", ""],
-  ["⧼ ⧽", "Time/Duration", "Timing", ""],
+  ["⟅ ⟆", "Round", "Timing", "Ignore"],
+  ["⧼ ⧽", "Time/Duration", "Timing", "Ignore"],
   
   ["", "=== N/PC Brackets ===", "GUI - Selection Title", "Disabled"],
   ["[ ]", "PC or NPC", "PC or NPC Level Actions", ""],
   ["] [", "Hostile NPC/encounter (Single)", "PC or NPC Level Actions", ""],
   ["⟦ ⟧", "Grouping of PCs/NPC", "PC or NPC Level Actions", ""],
   ["⟧ ⟦", "Grouping of Hostile NPCs/encounter", "PC or NPC Level Actions", ""],
-  ["( )", "Action", "PC or NPC Level Actions", ""],
-  ["< >", "Movement", "PC or NPC Level Actions", ""],
-  ["⸢ ⸣", "Right hand", "PC or NPC Level Actions", ""],
-  ["⸤ ⸥", "Left hand", "PC or NPC Level Actions", ""],
-  ["⸢ ⸥", "Both hands/two handed", "PC or NPC Level Actions", ""],
-  ["⦇ ⦈", "Armor class", "PC or NPC Level Actions", ""],
+  ["( )", "Action", "PC or NPC Level Actions", "FilterAction"],
+  ["< >", "Movement", "PC or NPC Level Actions", "Ignore"],
+  ["⸢ ⸣", "Right hand", "PC or NPC Level Actions", "Ignore"],
+  ["⸤ ⸥", "Left hand", "PC or NPC Level Actions", "Ignore"],
+  ["⸢ ⸥", "Both hands/two handed", "PC or NPC Level Actions", "Ignore"],
+  ["⦇ ⦈", "Armor class", "PC or NPC Level Actions", "Ignore"],
   ["⟮ ⟯", "Dice Roll Success (check)", "PC or NPC Level Actions", "Dice"],
   ["⟯ ⟮", "Dice Roll Failure (check)", "PC or NPC Level Actions", "Dice"],
-  ["⧘ ⧙", "Damage Amount", "PC or NPC Level Actions", ""]
+  ["⧘ ⧙", "Damage Amount", "PC or NPC Level Actions", "Ignore"]
 ];
 
 var targets = [
@@ -77,6 +77,7 @@ var targets = [
       if (brackets[i][3] == "Disabled") {
         option.disabled = true;
       }
+
       document.getElementById("bracket").appendChild(option);
 
       if (brackets[i][2] == "Locations"){
@@ -149,7 +150,19 @@ var targets = [
       }
     }
 
-    if (newTarget) {
+    
+    //get bracket optional value
+    var bracketSelectedOption = document.getElementById("bracket").selectedIndex;
+    var BannedOption = true;
+    var bracketSetting = brackets[bracketSelectedOption][3];
+    // for (var j = 0; j < brackets.length; j++) {
+    if (bracketSetting != "Dice" && bracketSetting != "Ignore") {
+      BannedOption = false; //target exists
+    }
+  // }
+
+
+    if (newTarget && !BannedOption) {
       var option = document.createElement("option");
       option.text = targetToCheck;
       document.getElementById("targets").appendChild(option);
