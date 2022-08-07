@@ -58,6 +58,7 @@ var brackets = [
     var optionBlank = document.createElement("option");
     document.getElementById("bracket").appendChild(optionBlank);
 
+    var seletionBracketCount = 1; //due to blank --^
     //generate option tags from brackets array
     for (var i = 0; i < brackets.length; i++) {
 
@@ -72,20 +73,25 @@ var brackets = [
 
 
       if (brackets[i][2] == "Locations"){
-        document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket('" + brackets[i][0] + "')\">" + brackets[i][0] + "</button>";
-      }
-      else if (brackets[i][2] == "Timing"){
-        document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket('" + brackets[i][0] + "')\">" + brackets[i][0] + "</button>";
-      }
-      else if (brackets[i][2] == "PC or NPC Level Actions"){
-        document.getElementById("PannelButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket('" + brackets[i][0] + "')\">" + brackets[i][0] + "</button>";
+        document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      
+      } else if (brackets[i][2] == "Timing"){
+        document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      
+      } else if (brackets[i][2] == "PC or NPC Level Actions"){
+        document.getElementById("PannelButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
       }
 
+      seletionBracketCount++;
     }
+  }
 
-
-  
-
+  function addBracket(bracketNumber) {  
+    if (bracketNumber >= 0 && bracketNumber < brackets.length) {
+      document.getElementById("bracket").selectedIndex = bracketNumber;
+    } else {
+      document.getElementById("bracket").selectedIndex = 0;
+    }
   }
 
   function LedgerIt() {
