@@ -133,6 +133,33 @@ var targets = [
     }
   }
 
+  function CheckAndAddTarget(){
+    var targetToCheck = document.getElementById("target").value;
+    
+    //check if passedTargetToCheck is in targetToCheck
+    //iterate through targets[]
+    if (targetToCheck == ""){
+      return;
+    }
+
+    var newTarget = true;
+    for (var i = 0; i < targets.length; i++) {
+      if (targets[i][0] == targetToCheck) {
+        newTarget = false; //target exists
+      }
+    }
+
+    if (newTarget) {
+      var option = document.createElement("option");
+      option.text = targetToCheck;
+      document.getElementById("targets").appendChild(option);
+
+      //add to targets[]
+      var newTarget = [targetToCheck, "TBD", ""];
+    }
+
+  }
+
   function LedgerIt() {
     var obj = document.getElementById("bracket");
     oldLedger.push(document.getElementById("ledger").innerHTML);
@@ -146,6 +173,7 @@ var targets = [
     } else {
       document.getElementById("ledger").innerHTML += tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
     }
+    CheckAndAddTarget();
     ClearTag();
     ClearTarget();
 
@@ -167,6 +195,7 @@ var targets = [
     } else {
       document.getElementById("log").innerHTML += currentLedger + "<br>";
     }
+    CheckAndAddTarget();
     ClearLedger();
     ClearTag();
     ClearTarget();
