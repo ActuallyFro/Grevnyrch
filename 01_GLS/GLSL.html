@@ -46,8 +46,8 @@ var brackets = [
   ["⸤ ⸥", "Left hand", "PC or NPC Level Actions", ""],
   ["⸢ ⸥", "Both hands/two handed", "PC or NPC Level Actions", ""],
   ["⦇ ⦈", "Armor class", "PC or NPC Level Actions", ""],
-  ["⟮ ⟯", "Dice Roll Success (check)", "PC or NPC Level Actions", ""],
-  ["⟯ ⟮", "Dice Roll Success (check)", "PC or NPC Level Actions", ""],
+  ["⟮ ⟯", "Dice Roll Success (check)", "PC or NPC Level Actions", "Dice"],
+  ["⟯ ⟮", "Dice Roll Success (check)", "PC or NPC Level Actions", "Dice"],
   ["⧘ ⧙", "Damage Amount", "PC or NPC Level Actions", ""]
 ];
 
@@ -103,17 +103,30 @@ var targets = [
     // 3. Add Integers to Dice Div
   }
 
-  function addBracket(bracketNumber) {  
-    if (bracketNumber >= 0 && bracketNumber < brackets.length) {
+  function addBracket(bracketNumber) {
+    var adjustedBracketNumber = bracketNumber - 1;
+    if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
       document.getElementById("bracket").selectedIndex = bracketNumber;
+      //if bracket[bracketNumber][3] == "Dice" then toggle
+      if (brackets[adjustedBracketNumber][3] == "Dice") {
+        hideShowDice(true);
+        // console.log("[DEBUG] [addBracket()] Toggle Dice - on");
+      } else {
+        // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
+        hideShowDice(false);
+      }
+
     } else {
       document.getElementById("bracket").selectedIndex = 0;
+      // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
+      hideShowDice(false);
     }
+    
   }
 
-  function hideShowDice() { // https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
+  function hideShowDice(showDice=false) { // https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
     var x = document.getElementById("Dice");
-    if (x.style.display === "none") {
+    if (x.style.display === "none" && showDice) {
       x.style.display = "block";
     } else {
       x.style.display = "none";
@@ -263,7 +276,7 @@ var targets = [
         <input type="button" onclick="UndoLedger()" value="Undo last Ledger Entry">
       </form>    
 
-      <button onclick="hideShowDice()">Show/Hide</button>
+      <!-- <button onclick="hideShowDice()">Show/Hide</button> -->
 
       <div id="Dice">
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
