@@ -159,16 +159,24 @@ var targets = [
     if (bracketSetting != "Dice" && bracketSetting != "Ignore") {
       BannedOption = false; //target exists
     }
-  // }
 
+    var Repeat = false;
+    for (var k = 0; k < targets.length; k++) {
+      // console.log("[DEBUG] [CheckAndAddTarget()] Comparing " + targetToCheck + " to " + targets[k][0]);
+      if (targets[k][0] == targetToCheck) {
+        Repeat = true; //target exists
+        // console.log("[DEBUG] [CheckAndAddTarget()] Repeating Target... skipping!");
+      }
+    }
 
-    if (newTarget && !BannedOption) {
+    if (newTarget && !BannedOption && !Repeat) {
       var option = document.createElement("option");
       option.text = targetToCheck;
       document.getElementById("targets").appendChild(option);
-
+      
       //add to targets[]
       var newTarget = [targetToCheck, "TBD", ""];
+      targets.push(newTarget);
     }
 
   }
