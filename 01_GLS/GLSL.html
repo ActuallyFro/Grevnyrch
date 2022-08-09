@@ -402,6 +402,21 @@ var targets = [
       URL.revokeObjectURL(url);
     }, 100);
   }
+  
+  function ImportTargetArrayFromJson() {
+    //load json file, echo to console
+    var file = document.getElementById("file").files[0];
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var contents = e.target.result;
+      var json = JSON.parse(contents);
+      console.log(json);
+    };
+    reader.readAsText(file);
+
+    
+
+  }
 
 </script>
 <!-- Button to save target array to txt file -->
@@ -410,9 +425,61 @@ var targets = [
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h2>Targets:</h2>
+        <h2>Targets Export/Import:</h2>
         <input type="button" class="btn btn-primary" onclick="ExportTargetArrayToJson()" value="Save Target Array">
-      </div>
+        <!-- import Target Array from JSON -->
+          <!-- <input  type="submit" value="Load Targets"> -->
+
+          <!-- <form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+
+            <fieldset>
+              <h2>Json File</h2> -->
+               <br><label for="file">Load Saved Targets:</label>
+               <input type='file' class="btn btn-primary" id='fileinput' value='Load Targets'>
+               <!-- <input type='button' class="btn btn-primary" id='btnLoad' value='Load' onclick='loadFile();'> -->
+            <!-- </fieldset>
+          </form> -->
+          
+          
+          <script type="text/javascript">
+          
+            // function loadFile() { //https://stackoverflow.com/questions/7346563/loading-local-json-file
+            //   var input, file, fr;
+          
+            //   input = document.getElementById('fileinput');
+            //   if (!input) {
+            //     alert("Um, couldn't find the fileinput element.");
+              
+            //   } else if (!input.files[0]) {
+            //     alert("Please select a file before clicking 'Load'");
+              
+            //   } else {
+            //     file = input.files[0];
+            //     fr = new FileReader();
+            //     fr.onload = receivedText;
+            //     fr.readAsArrayBuffer(file);  
+            //   }
+          
+            //   function receivedText(e) {
+            //     let lines = e.target.result;
+            //     var newArr = JSON.parse(lines); 
+            //     console.log(newArr);
+            //   }
+            // }
+
+            document.getElementById("fileinput").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
+              var file_to_read = document.getElementById("fileinput").files[0];
+              var fileread = new FileReader();
+              fileread.onload = function(e) {
+                var content = e.target.result;
+                var intern = JSON.parse(content); // parse json 
+                console.log(intern); // You can index every object
+              };
+              fileread.readAsText(file_to_read);
+            });
+          </script>
+
+        </div>
     </div>
 </form>
 
