@@ -188,11 +188,11 @@ var targets = [
     var tempTarget = document.getElementById("target").value;
 
     if (isLedgerEmpty){
-      document.getElementById("ledger").innerHTML = tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
-      isLedgerEmpty = false;
+      document.getElementById("ledger").innerText = tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
+     isLedgerEmpty = false;
 
     } else {
-      document.getElementById("ledger").innerHTML += tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
+      document.getElementById("ledger").innerText += tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
     }
     CheckAndAddTarget();
     ClearTag();
