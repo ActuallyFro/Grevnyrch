@@ -32,7 +32,7 @@ var brackets = [
   ["〈 〉", "Place/Building", "Locations", ""],
 
   ["", "=== Timing Brackets ===", "GUI - Selection Title", "Disabled"],
-  ["⟅ ⟆", "Round", "Timing", "Ignore"],
+  ["⟅ ⟆", "Round", "Timing", "Numbers"],
   ["⧼ ⧽", "Time/Duration", "Timing", "Ignore"],
   
   ["", "=== N/PC Brackets ===", "GUI - Selection Title", "Disabled"],
@@ -45,18 +45,18 @@ var brackets = [
   ["⸢ ⸣", "Right hand", "PC or NPC Level Actions", "Ignore"],
   ["⸤ ⸥", "Left hand", "PC or NPC Level Actions", "Ignore"],
   ["⸢ ⸥", "Both hands/two handed", "PC or NPC Level Actions", "Ignore"],
-  ["⦇ ⦈", "Armor class", "PC or NPC Level Actions", "Ignore"],
+  ["⦇ ⦈", "Armor class", "PC or NPC Level Actions", "Numbers"],
   ["⟮ ⟯", "Dice Roll Success (check)", "PC or NPC Level Actions", "Dice"],
   ["⟯ ⟮", "Dice Roll Failure (check)", "PC or NPC Level Actions", "Dice"],
-  ["⧘ ⧙", "Damage Amount", "PC or NPC Level Actions", "Ignore"]
+  ["⧘ ⧙", "Damage Amount", "PC or NPC Level Actions", "Numbers"]
 ];
 
 var targets = [
   ["Grevnyrch", "Locations", "G"],
   ["Kla'Bbbert", "Locations", "KB"]
-  // ["", "=== Location Brackets ===", "GUI - Selection Title", "Disabled"],
-  // ["༺ ༻", "Realm", "Locations", ""]
 ];
+
+  var isShowingNumbers = false;
 
   // Generate default brackets
   window.onload = function() {
@@ -102,6 +102,12 @@ var targets = [
     }
 
     // 3. Add Integers to Dice Div
+    for (var k = 0; k <= 26; k++) {
+      document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addNumToLedger(" + k + ")\">" + k + "</button>";
+    }
+    document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"+\")\"> + </button>";
+    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addNumToLedger(\"-\")\"> - </button>";
+    document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";
   }
 
   function addBracket(bracketNumber) {
@@ -109,7 +115,7 @@ var targets = [
     if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
       document.getElementById("bracket").selectedIndex = bracketNumber;
       //if bracket[bracketNumber][3] == "Dice" then toggle
-      if (brackets[adjustedBracketNumber][3] == "Dice") {
+      if (brackets[adjustedBracketNumber][3] == "Dice" || brackets[adjustedBracketNumber][3] == "Numbers") {
         hideShowDice(true);
         // console.log("[DEBUG] [addBracket()] Toggle Dice - on");
       } else {
@@ -127,10 +133,16 @@ var targets = [
 
   function hideShowDice(showDice=false) { // https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
     var x = document.getElementById("Dice");
+    if (isShowingNumbers && showDice){
+      return;
+    }
+
     if (x.style.display === "none" && showDice) {
       x.style.display = "block";
+      isShowingNumbers = true;
     } else {
       x.style.display = "none";
+      isShowingNumbers = false;
     }
   }
 
@@ -329,7 +341,7 @@ var targets = [
       <!-- <button onclick="hideShowDice()">Show/Hide</button> -->
 
       <div id="Dice">
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+        <!-- 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ... -->
       </div>
 
 
