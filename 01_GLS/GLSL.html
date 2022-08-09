@@ -373,6 +373,43 @@ var targets = [
 
 <hr>
 
+<!-- javascript for SaveTargetArray() -->
+<script>
+  // function ExportTargetArrayToTxt() {
+  //   var text = "";
+  //   for (var i = 0; i < targets.length; i++) {
+  //     text += targets[i] + "\n";
+
+  //   }
+
+  //   var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+  //   saveAs(blob, "targetArray.txt");
+  // }
+
+  function ExportTargetArrayToJson() {
+    var text = JSON.stringify(targets);
+    var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, "GSL_Targets.json");
+  }
+  
+  function saveAs(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+    setTimeout(function() {
+      URL.revokeObjectURL(url);
+    }, 100);
+  }
+
+</script>
+<!-- Button to save target array to txt file -->
+<form>
+  <input type="button" class="btn btn-primary" onclick="ExportTargetArrayToJson()" value="Save Target Array">
+</form>
+
+
 </body>
 </html>
 
