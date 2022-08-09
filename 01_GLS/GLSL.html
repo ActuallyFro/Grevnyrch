@@ -375,16 +375,6 @@ var targets = [
 
 <!-- javascript for SaveTargetArray() -->
 <script>
-  // function ExportTargetArrayToTxt() {
-  //   var text = "";
-  //   for (var i = 0; i < targets.length; i++) {
-  //     text += targets[i] + "\n";
-
-  //   }
-
-  //   var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
-  //   saveAs(blob, "targetArray.txt");
-  // }
 
   function ExportTargetArrayToJson() {
     var text = JSON.stringify(targets);
@@ -404,7 +394,6 @@ var targets = [
   }
   
   function ImportTargetArrayFromJson() {
-    //load json file, echo to console
     var file = document.getElementById("file").files[0];
     var reader = new FileReader();
     reader.onload = function(e) {
@@ -413,68 +402,49 @@ var targets = [
       console.log(json);
     };
     reader.readAsText(file);
-
-    
-
   }
 
 </script>
-<!-- Button to save target array to txt file -->
+
 <form>
-  <!-- Title area for Targets -->
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
         <h2>Targets Export/Import:</h2>
         <input type="button" class="btn btn-primary" onclick="ExportTargetArrayToJson()" value="Save Target Array">
-        <!-- import Target Array from JSON -->
-          <!-- <input  type="submit" value="Load Targets"> -->
+        
+        <br><label for="file">Load Saved Targets:</label>
+        <input type='file' class="btn btn-primary" id='fileinput' value='Load Targets'>
 
-          <!-- <form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+        <script type="text/javascript">          
+          document.getElementById("fileinput").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
+            var file_to_read = document.getElementById("fileinput").files[0];
+            var fileread = new FileReader();
 
-            <fieldset>
-              <h2>Json File</h2> -->
-               <br><label for="file">Load Saved Targets:</label>
-               <input type='file' class="btn btn-primary" id='fileinput' value='Load Targets'>
-               <!-- <input type='button' class="btn btn-primary" id='btnLoad' value='Load' onclick='loadFile();'> -->
-            <!-- </fieldset>
-          </form> -->
-          
-          
-          <script type="text/javascript">
-          
-            document.getElementById("fileinput").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
-              var file_to_read = document.getElementById("fileinput").files[0];
-              var fileread = new FileReader();
-              fileread.onload = function(e) {
-                var content = e.target.result;
-                var intern = JSON.parse(content); // parse json 
-                console.log(intern); // You can index every object
+            fileread.onload = function(e) {
+              var content = e.target.result;
+              var intern = JSON.parse(content); // parse json 
+              console.log(intern); // You can index every object
 
-                //iterate through array and add to targets array
-                targets = [];
-                for (var i = 0; i < intern.length; i++) {
-                  targets.push(intern[i]);
-                }
+              targets = [];
+              for (var i = 0; i < intern.length; i++) {
+                targets.push(intern[i]);
+              }
 
-                //clear document.getElementById("targets")
-                var el = document.getElementById("targets");
-                el.innerHTML = "";
+              // var el = document.getElementById("targets");
+              // el.innerHTML = "";
 
-                // 2. Setup Targets
-                for (var j = 0; j < targets.length; j++) {
-                  var option = document.createElement("option");
-                  option.text = targets[j][0];
+              for (var j = 0; j < targets.length; j++) {
+                var option = document.createElement("option");
+                option.text = targets[j][0];
 
-                  document.getElementById("targets").appendChild(option);
-                }
+                document.getElementById("targets").appendChild(option);
+              }
+            };
+            fileread.readAsText(file_to_read);
 
-
-              };
-              fileread.readAsText(file_to_read);
-
-            });
-          </script>
+          });
+        </script>
 
         </div>
     </div>
