@@ -416,23 +416,20 @@ var targets = [
         <br><label for="file">Load Saved Targets:</label>
         <input type='file' class="btn btn-primary" id='fileinput' value='Load Targets'>
 
-        <script type="text/javascript">          
+        <script type="text/javascript">
           document.getElementById("fileinput").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
             var file_to_read = document.getElementById("fileinput").files[0];
             var fileread = new FileReader();
 
             fileread.onload = function(e) {
               var content = e.target.result;
-              var intern = JSON.parse(content); // parse json 
-              console.log(intern); // You can index every object
+              var intern = JSON.parse(content);
+              // console.log(intern);
 
               targets = [];
               for (var i = 0; i < intern.length; i++) {
                 targets.push(intern[i]);
               }
-
-              // var el = document.getElementById("targets");
-              // el.innerHTML = "";
 
               for (var j = 0; j < targets.length; j++) {
                 var option = document.createElement("option");
@@ -442,6 +439,8 @@ var targets = [
               }
             };
             fileread.readAsText(file_to_read);
+
+            
 
           });
         </script>
