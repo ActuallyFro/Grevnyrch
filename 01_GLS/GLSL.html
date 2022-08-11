@@ -423,12 +423,12 @@ var targets = [
 
             fileread.onload = function(e) {
               var content = e.target.result;
-              var intern = JSON.parse(content);
-              // console.log(intern);
+              var parsedTarget = JSON.parse(content);
+              // console.log(parsedTarget);
 
               targets = [];
-              for (var i = 0; i < intern.length; i++) {
-                targets.push(intern[i]);
+              for (var i = 0; i < parsedTarget.length; i++) {
+                targets.push(parsedTarget[i]);
               }
 
               for (var j = 0; j < targets.length; j++) {
@@ -441,6 +441,7 @@ var targets = [
             fileread.readAsText(file_to_read);
 
             // alert("Successfully loaded (" + targets.length + ") targets!");
+            
             alert("Successfully loaded targets!");
 
 
