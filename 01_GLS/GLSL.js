@@ -142,13 +142,15 @@ document.getElementById("fileInputTargets").addEventListener("change", function(
       // console.log(Log);
 
       for (var j = 0; j < Log.length; j++) {
-        // var option = document.createElement("option");
-        // var option = document.createElement("option");
-        // option.text = targets[j][0];
+        var row = document.createElement("tr");
 
-        document.getElementById("Logs").innerHTML += "<div class=\"alert alert-primary\" role=\"alert\">" + Log[j] + "</div>";
+        var cell = document.createElement("td");
+        cell.innerHTML = Log[j];
+        row.appendChild(cell);
+        document.getElementById("LogsTable").appendChild(row);
+
+        // document.getElementById("LogsTable").innerHTML +="<div class=\"alert alert-primary\" role=\"alert\">" + Log[j] + "</div>";
         
-        // document.getElementById("targets").appendChild(option);
       }
 
 
