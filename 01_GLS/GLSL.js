@@ -93,8 +93,10 @@ document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"b
 document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addNumToLedger(\"-\")\"> - </button>";
 document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";
 
-document.getElementById("fileinput").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
-    var file_to_read = document.getElementById("fileinput").files[0];
+
+//Create Listener that will load file into targets[] 
+document.getElementById("fileInputTargets").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
+    var file_to_read = document.getElementById("fileInputTargets").files[0];
     var fileread = new FileReader();
 
     fileread.onload = function(e) {
@@ -123,7 +125,39 @@ document.getElementById("fileinput").addEventListener("change", function() { //h
 
   });
 
+  //Create Listener that will load file into Log[]
+  document.getElementById("fileInputLog").addEventListener("change", function() {
+    var file_to_read = document.getElementById("fileInputLog").files[0];
+    var fileread = new FileReader();
 
+    fileread.onload = function(e) {
+      var content = e.target.result;
+      var parsedLog = JSON.parse(content);
+
+      Log = [];
+      for (var i = 0; i < parsedLog.length; i++) {
+        // console.log(parsedLog[i]);
+        Log.push(parsedLog[i]);
+      }
+      // console.log(Log);
+
+      for (var j = 0; j < Log.length; j++) {
+        // var option = document.createElement("option");
+        // var option = document.createElement("option");
+        // option.text = targets[j][0];
+
+        document.getElementById("Logs").innerHTML += "<div class=\"alert alert-primary\" role=\"alert\">" + Log[j] + "</div>";
+        
+        // document.getElementById("targets").appendChild(option);
+      }
+
+
+      alert("Successfully loaded Log!");
+    };
+    fileread.readAsText(file_to_read);
+
+  });
+    
 }
 
 function addBracket(bracketNumber) {
@@ -300,6 +334,18 @@ function ExportTargetArrayToJson() {
   var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
   saveAs(blob, "GSL_Targets.json");
 }
+
+function ExportLogToJson() {
+  var text = JSON.stringify(Log);
+  var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+
+  var date = new Date();
+  var textIso = date.toISOString();  
+  console.log("[DEBUG] [ExportLogToJson()] date str:<" + textIso+">");
+
+  saveAs(blob, "GSL_Log_"+textIso+".json");
+}
+
 
 function ImportTargetArrayFromJson() {
   var file = document.getElementById("file").files[0];
