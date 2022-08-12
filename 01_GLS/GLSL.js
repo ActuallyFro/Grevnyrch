@@ -293,3 +293,32 @@ document.getElementById("target").value = "";
 function ClearTag() {
 document.getElementById("bracket").value = "";
 }
+
+
+function ExportTargetArrayToJson() {
+  var text = JSON.stringify(targets);
+  var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+  saveAs(blob, "GSL_Targets.json");
+}
+
+function ImportTargetArrayFromJson() {
+  var file = document.getElementById("file").files[0];
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var contents = e.target.result;
+    var json = JSON.parse(contents);
+    console.log(json);
+  };
+  reader.readAsText(file);
+}
+
+function saveAs(blob, filename) {
+  var url = URL.createObjectURL(blob);
+  var link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+  setTimeout(function() {
+    URL.revokeObjectURL(url);
+  }, 100);
+}
