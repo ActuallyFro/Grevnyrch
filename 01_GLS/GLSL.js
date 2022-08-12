@@ -149,14 +149,19 @@ document.getElementById("fileInputTargets").addEventListener("change", function(
         row.appendChild(cell);
         document.getElementById("LogsTable").appendChild(row);
 
+        // HAX!
+        document.getElementById("log").innerHTML = "";
+
         // document.getElementById("LogsTable").innerHTML +="<div class=\"alert alert-primary\" role=\"alert\">" + Log[j] + "</div>";
         
       }
 
 
-      alert("Successfully loaded Log!");
+      // alert("Successfully loaded Log!");
     };
     fileread.readAsText(file_to_read);
+
+    alert("Successfully loaded Log!");
 
   });
     
