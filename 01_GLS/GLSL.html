@@ -96,7 +96,20 @@
 
 
 
-      <p id="Logs"></p>
+      <p id="Logs">
+        <table class="table table-striped">
+          <!-- <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Event</th>
+            </tr>
+          </thead> -->
+          <tbody id="LogsTable">
+
+          </tbody>
+
+        </table>
+      </p>
       <form>
         <input type="button" onclick="RemoveLastLog()" value="Remove Last Log">
         <input type="button" onclick="ClearLog()" value="Clear Log">
