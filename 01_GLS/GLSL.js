@@ -270,35 +270,30 @@ ClearTarget();
 }
 
 function LogIt() {
-if (isLedgerEmpty){
-  // return;
-  LedgerIt(); //Auto-ledger then log it
-}
+  if (isLedgerEmpty){
+    LedgerIt(); //Auto-ledger then log it
+  }
 
-var obj = document.getElementById("ledger");
-var currentLedger = document.getElementById("ledger").innerHTML;
-Log.push(currentLedger);
+  var obj = document.getElementById("ledger");
+  var currentLedger = document.getElementById("ledger").innerHTML;
+  Log.push(currentLedger);
 
-if (isLogEmpty){
-  // document.getElementById("log").innerHTML = currentLedger + "<br>";
-  isLogEmpty = false;
-} 
-// else {
-//   document.getElementById("log").innerHTML += currentLedger + "<br>";
-// }
+  if (isLogEmpty){
+    isLogEmpty = false;
+  } 
 
-var row = document.createElement("tr");
+  var row = document.createElement("tr");
 
-var cell = document.createElement("td");
-cell.innerHTML = currentLedger;
-row.appendChild(cell);
-document.getElementById("LogsTable").appendChild(row);
+  var cell = document.createElement("td");
+  cell.innerHTML = currentLedger;
+  row.appendChild(cell);
+  document.getElementById("LogsTable").appendChild(row);
 
 
-CheckAndAddTarget();
-ClearLedger();
-ClearTag();
-ClearTarget();
+  CheckAndAddTarget();
+  ClearLedger();
+  ClearTag();
+  ClearTarget();
 }
 
 function RemoveLastLog() {
