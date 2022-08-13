@@ -44,6 +44,8 @@ var isShowingNumbers = false;
 
 // Generate default brackets
 window.onload = function() {
+  document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
+
 // document.getElementById("bracket").innerHTML = "<option value=\"༺༻\">Realm: ༺ ༻</option><option value=\"〖〗\">City: 〖 〗</option><option value=\"《》\">District: 《 》</option><option value=\"〈〉\">Location: 〈 〉</option><option value=\"⟅⟆\">Round: ⟅ ⟆</option>";
 
 var optionBlank = document.createElement("option");
@@ -284,14 +286,16 @@ function LogIt() {
     LedgerIt(); //Auto-ledger then log it
   }
 
+  if (isLogEmpty){
+    isLogEmpty = false;
+    document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
+    console.log("[DEBUG] [LogIt()] Logs table created");
+  } 
+
   var obj = document.getElementById("ledger");
   var currentLedger = document.getElementById("ledger").innerHTML;
   Log.push(currentLedger);
 
-  if (isLogEmpty){
-    isLogEmpty = false;
-    document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
-  } 
 
   var row = document.createElement("tr");
 
