@@ -42,11 +42,12 @@ var targets = [
 
 var isShowingNumbers = false;
 
-// Generate default brackets
+//=========== 
+//Page setup:
+//=========== 
 window.onload = function() {
   document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
 
-// document.getElementById("bracket").innerHTML = "<option value=\"༺༻\">Realm: ༺ ༻</option><option value=\"〖〗\">City: 〖 〗</option><option value=\"《》\">District: 《 》</option><option value=\"〈〉\">Location: 〈 〉</option><option value=\"⟅⟆\">Round: ⟅ ⟆</option>";
 
 var optionBlank = document.createElement("option");
 document.getElementById("bracket").appendChild(optionBlank);
