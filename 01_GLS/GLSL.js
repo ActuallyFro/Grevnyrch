@@ -349,50 +349,50 @@ function ImportTargetArrayFromJson() {
 
 function ImportJsonToLog(){
   //Create Listener that will load file into Log[]
-    var file_to_read = document.getElementById("fileInputLog").files[0];
-    var fileread = new FileReader();
+  var file_to_read = document.getElementById("fileInputLog").files[0];
+  var fileread = new FileReader();
 
-    fileread.onload = function(e) {
-      var content = e.target.result;
-      var parsedLog = JSON.parse(content);
+  fileread.onload = function(e) {
+    var content = e.target.result;
+    var parsedLog = JSON.parse(content);
 
-      Log = [];
-      for (var i = 0; i < parsedLog.length; i++) {
-        // console.log(parsedLog[i]);
-        Log.push(parsedLog[i]);
-      }
-      // console.log(Log);
-     
-      document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
+    Log = [];
+    for (var i = 0; i < parsedLog.length; i++) {
+      // console.log(parsedLog[i]);
+      Log.push(parsedLog[i]);
+    }
+    // console.log(Log);
+    
+    document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
 
-      for (var j = 0; j < Log.length; j++) {
-        var row = document.createElement("tr");
+    for (var j = 0; j < Log.length; j++) {
+      var row = document.createElement("tr");
 
-        var cell = document.createElement("td");
-        cell.innerHTML = Log[j];
-        row.appendChild(cell);
-        document.getElementById("LogsTable").appendChild(row);
+      var cell = document.createElement("td");
+      cell.innerHTML = Log[j];
+      row.appendChild(cell);
+      document.getElementById("LogsTable").appendChild(row);
 
-        // // HAX!
-        // document.getElementById("log").innerHTML = "";
+      // // HAX!
+      // document.getElementById("log").innerHTML = "";
 
-        // document.getElementById("LogsTable").innerHTML +="<div class=\"alert alert-primary\" role=\"alert\">" + Log[j] + "</div>";
-        
-      }
+      // document.getElementById("LogsTable").innerHTML +="<div class=\"alert alert-primary\" role=\"alert\">" + Log[j] + "</div>";
+      
+    }
 
-      if (Log.length > 0) {
-        isLogEmpty = false;
-        
-        alert("Successfully loaded Log!");
-      } else {
-        isLogEmpty = true;
-        
-        alert("[Warning] No Logs imported, please check source file!");
-  
-      }
-  
-    };
-    fileread.readAsText(file_to_read);
+    if (Log.length > 0) {
+      isLogEmpty = false;
+      
+      alert("Successfully loaded '"+ Log.length +"' Logs!");
+    } else {
+      isLogEmpty = true;
+      
+      alert("[Warning] No Logs imported, please check source file!");
+
+    }
+
+  };
+  fileread.readAsText(file_to_read);
 
 
 
