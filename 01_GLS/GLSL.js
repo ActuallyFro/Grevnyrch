@@ -140,6 +140,8 @@ document.getElementById("fileInputTargets").addEventListener("change", function(
         Log.push(parsedLog[i]);
       }
       // console.log(Log);
+     
+      document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
 
       for (var j = 0; j < Log.length; j++) {
         var row = document.createElement("tr");
@@ -149,19 +151,27 @@ document.getElementById("fileInputTargets").addEventListener("change", function(
         row.appendChild(cell);
         document.getElementById("LogsTable").appendChild(row);
 
-        // HAX!
-        document.getElementById("log").innerHTML = "";
+        // // HAX!
+        // document.getElementById("log").innerHTML = "";
 
         // document.getElementById("LogsTable").innerHTML +="<div class=\"alert alert-primary\" role=\"alert\">" + Log[j] + "</div>";
         
       }
 
-
-      // alert("Successfully loaded Log!");
+      if (Log.length > 0) {
+        isLogEmpty = false;
+        
+        alert("Successfully loaded Log!");
+      } else {
+        isLogEmpty = true;
+        
+        alert("[Warning] No Logs imported, please check source file!");
+  
+      }
+  
     };
     fileread.readAsText(file_to_read);
 
-    alert("Successfully loaded Log!");
 
   });
     
@@ -280,6 +290,7 @@ function LogIt() {
 
   if (isLogEmpty){
     isLogEmpty = false;
+    document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
   } 
 
   var row = document.createElement("tr");
@@ -297,17 +308,18 @@ function LogIt() {
 }
 
 function RemoveLastLog() {
-Log.pop();
-document.getElementById("log").innerHTML = "";
-if (Log.length > 0){
-  for (var i = 0; i < Log.length; i++) {
-    document.getElementById("log").innerHTML += Log[i] + "<br>";
+  if (isLogEmpty){
+    return;
   }
 
-} else {
-  ClearLog();
-}
+  Log.pop();
+  if (Log.length > 0){
+    var table = document.getElementById('LogsTable');
+    table.removeChild(table.children[table.children.length - 1]);
 
+  } else {
+    ClearLog();
+  }
 }
 
 function ClearLedger() {
@@ -317,19 +329,30 @@ oldLedger = [];
 }
 
 function ClearLog() {
-isLogEmpty = true;
-document.getElementById("log").innerHTML = "<h2><i>{Logs are empty}</i></h2>";
-Log = [];
+  if (isLogEmpty){
+    return;
+  }
+
+  isLogEmpty = true;
+  document.getElementById("Logs").innerHTML = "<div id=\"log\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
+
+  // //all -- while leaving the table
+  // var table = document.getElementById('LogsTable');
+  // for(var i = 1; i < table.children.length; i++) {
+  //   table.removeChild(table.children[i]);
+  // }  
+
+  Log = [];
 }
 
 function UndoLedger() {
-if (oldLedger.length > 0) {
-  document.getElementById("ledger").innerHTML = oldLedger[oldLedger.length-1];
-  oldLedger.pop();  
+  if (oldLedger.length > 0) {
+    document.getElementById("ledger").innerHTML = oldLedger[oldLedger.length-1];
+    oldLedger.pop();  
 
-} else {
-  ClearLedger();
-}
+  } else {
+    ClearLedger();
+  }
 }
 
 function ClearTarget() {
