@@ -136,49 +136,53 @@ if (x.style.display === "none" && showDice) {
 }
 
 function CheckAndAddTarget(){
-var targetToCheck = document.getElementById("target").value;
+  var targetToCheck = document.getElementById("target").value;
 
-//check if passedTargetToCheck is in targetToCheck
-//iterate through targets[]
-if (targetToCheck == ""){
-  return;
-}
-
-var newTarget = true;
-for (var i = 0; i < targets.length; i++) {
-  if (targets[i][0] == targetToCheck) {
-    newTarget = false; //target exists
+  //check if passedTargetToCheck is in targetToCheck
+  //iterate through targets[]
+  if (targetToCheck == ""){
+    return;
   }
-}
 
-
-//get bracket optional value
-var bracketSelectedOption = document.getElementById("bracket").selectedIndex;
-var BannedOption = true;
-var bracketSetting = brackets[bracketSelectedOption][3];
-// for (var j = 0; j < brackets.length; j++) {
-if (bracketSetting != "Dice" && bracketSetting != "Ignore") {
-  BannedOption = false; //target exists
-}
-
-var Repeat = false;
-for (var k = 0; k < targets.length; k++) {
-  // console.log("[DEBUG] [CheckAndAddTarget()] Comparing " + targetToCheck + " to " + targets[k][0]);
-  if (targets[k][0] == targetToCheck) {
-    Repeat = true; //target exists
-    // console.log("[DEBUG] [CheckAndAddTarget()] Repeating Target... skipping!");
+  var newTarget = true;
+  for (var i = 0; i < targets.length; i++) {
+    if (targets[i][0] == targetToCheck) {
+      newTarget = false; //target exists
+    }
   }
-}
 
-if (newTarget && !BannedOption && !Repeat) {
-  var option = document.createElement("option");
-  option.text = targetToCheck;
-  document.getElementById("targets").appendChild(option);
-  
-  //add to targets[]
-  var newTarget = [targetToCheck, "TBD", ""];
-  targets.push(newTarget);
-}
+
+  //get bracket optional value
+  var bracketSelectedOption = document.getElementById("bracket").selectedIndex;
+  // var adjustedBracketNumber = bracketNumber - 1;
+
+  var BannedOption = true;
+  var bracketSetting = brackets[bracketSelectedOption][3];
+  // for (var j = 0; j < brackets.length; j++) {
+  if (bracketSetting != "Dice" && bracketSetting != "Ignore") {
+    BannedOption = false; //target exists
+  }
+
+  var Repeat = false;
+  for (var k = 0; k < targets.length; k++) {
+    // console.log("[DEBUG] [CheckAndAddTarget()] Comparing " + targetToCheck + " to " + targets[k][0]);
+    if (targets[k][0] == targetToCheck) {
+      Repeat = true; //target exists
+      // console.log("[DEBUG] [CheckAndAddTarget()] Repeating Target... skipping!");
+    }
+  }
+
+  if (newTarget && !BannedOption && !Repeat) {
+    var option = document.createElement("option");
+    option.text = targetToCheck;
+    document.getElementById("targets").appendChild(option);
+    
+    //add to targets[]
+    console.log("[DEBUG] [CheckAndAddTarget()] Adding Target: " + targetToCheck + " with category: " + brackets[bracketSelectedOption][2]);
+    // var newTarget = [targetToCheck, brackets[adjustedBracketNumber][2] , ""];
+    var newTarget = [targetToCheck, brackets[bracketSelectedOption][2] , ""];
+    targets.push(newTarget);
+  }
 
 }
 
