@@ -53,6 +53,32 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li style="padding-left:1em">
               <!-- <a class="dropdown-item" href="#">Save Target List</a> -->
+              <input type="button" class="btn btn-primary" onclick="ExportTargetArrayToJson()" value="Save Target Array">
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li style="padding-left:1em">
+              <!-- <a class="dropdown-item" href="#">Select File to Import</a> -->
+              <input type='file' class="btn btn-primary" id='fileInputTargets' value='Load Targets'></li>
+            <li style="padding-left:1em">
+              <!-- <a class="dropdown-item" href="#">Import Target List</a> -->
+              <input type="button" class="btn btn-primary" onclick="ImportJsonToTargets()" value="Load Targets"></li>
+          </ul>
+        </li>
+
+        <!-- <h2>Targets Export/Import:</h2>
+        <input type="button" class="btn btn-primary" onclick="ExportTargetArrayToJson()" value="Save Target Array">
+        
+        <br><label for="fileInputTargets">Load Saved Targets:</label>
+        <input type='file' class="btn btn-primary" id='fileInputTargets' value='Load Targets'> -->
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Logs
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li style="padding-left:1em">
+              <!-- <a class="dropdown-item" href="#">Save Target List</a> -->
               <input type="button" class="btn btn-primary" onclick="ExportLogToJson()" value="Save Log">
             </li>
             <li><hr class="dropdown-divider"></li>
@@ -64,6 +90,7 @@
               <input type="button" class="btn btn-primary" onclick="ImportJsonToLog()" value="Load Log"></li>
           </ul>
         </li>
+
         <!-- <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li> -->
@@ -189,7 +216,7 @@
 
   <hr>
 
-  <form>
+  <!-- <form>
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
@@ -204,14 +231,14 @@
       <hr>
       <div class="row">
         <div class="col-sm-12">
-          <h2>Log Export/Import:</h2>
+          <h2>Log Export/Import:</h2> -->
           <!-- <input type="button" class="btn btn-primary" onclick="ExportLogToJson()" value="Save Log"> -->
           
-          <br><label for="fileInputLog">Load Saved Log:</label>
+          <!-- <br><label for="fileInputLog">Load Saved Log:</label> -->
           <!-- <input type='file' class="btn btn-primary" id='fileInputLog' value='Load Log'> -->
           <!-- <input type="button" class="btn btn-primary" onclick="ImportJsonToLog()" value="Load Log"> -->
-        </div>
-  </form>
+        <!-- </div>
+  </form> -->
 </body>
 
 </html>
