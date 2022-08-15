@@ -147,18 +147,18 @@ function addBracket(bracketNumber) {
 }
 
 function hideShowDice(showDice=false) { // https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
-var x = document.getElementById("Dice");
-if (isShowingNumbers && showDice){
-  return;
-}
+  var x = document.getElementById("Dice");
+  if (isShowingNumbers && showDice){
+    return;
+  }
 
-if (x.style.display === "none" && showDice) {
-  x.style.display = "block";
-  isShowingNumbers = true;
-} else {
-  x.style.display = "none";
-  isShowingNumbers = false;
-}
+  if (x.style.display === "none" && showDice) {
+    x.style.display = "block";
+    isShowingNumbers = true;
+  } else {
+    x.style.display = "none";
+    isShowingNumbers = false;
+  }
 }
 
 function CheckAndAddTarget(){
@@ -274,9 +274,9 @@ function RemoveLastLog() {
 }
 
 function ClearLedger() {
-isLedgerEmpty = true;
-document.getElementById("ledger").innerHTML = "<h2><i>{Ledger is empty}</i></h2>";
-oldLedger = [];
+  isLedgerEmpty = true;
+  document.getElementById("ledger").innerHTML = "<h2><i>{Ledger is empty}</i></h2>";
+  oldLedger = [];
 }
 
 function ClearLog() {
@@ -307,11 +307,11 @@ function UndoLedger() {
 }
 
 function ClearTarget() {
-document.getElementById("target").value = "";
+  document.getElementById("target").value = "";
 }
 
 function ClearTag() {
-document.getElementById("bracket").value = "";
+  document.getElementById("bracket").value = "";
 }
 
 
@@ -395,6 +395,8 @@ function ImportJsonToLog(){
 
 }
 
+
+
 function ImportJsonToTargets(){
 // //Create Listener that will load file into targets[] 
 // document.getElementById("fileInputTargets").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
@@ -411,7 +413,7 @@ function ImportJsonToTargets(){
     for (var i = 0; i < parsedTarget.length; i++) {
       targets.push(parsedTarget[i]);
     }
-
+//GENERATION OF OPTIONS for the Target-select box [TODO] make this 'filterable:'
     for (var j = 0; j < targets.length; j++) {
       var option = document.createElement("option");
       option.text = targets[j][0];
