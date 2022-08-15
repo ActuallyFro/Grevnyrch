@@ -42,82 +42,108 @@ var targets = [
 
 var isShowingNumbers = false;
 
+function SetupTypedTargets(TargetType){
+
+  if (TargetType == "") {
+    for (var j = 0; j < targets.length; j++) {
+      var option = document.createElement("option");
+      option.text = targets[j][0];
+    
+      document.getElementById("targets").appendChild(option);
+    }
+  
+  } else {
+    for (var j = 0; j < targets.length; j++) {
+      if (targets[j][2] == TargetType) {
+        var option = document.createElement("option");
+        option.text = targets[j][0];
+      
+        document.getElementById("targets").appendChild(option);
+      }
+    }
+  
+  }
+
+
+
+}
+
+function SetupAllTargets() {
+  SetupTypedTargets("");
+  
+}
+
 //=========== 
 //Page setup:
 //=========== 
 window.onload = function() {
   document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
 
+  var optionBlank = document.createElement("option");
+  document.getElementById("bracket").appendChild(optionBlank);
 
-var optionBlank = document.createElement("option");
-document.getElementById("bracket").appendChild(optionBlank);
+  // 1. Setup Brackets
+  var seletionBracketCount = 1; //due to blank --^
+  //generate option tags from brackets array
+  for (var i = 0; i < brackets.length; i++) {
 
-// 1. Setup Brackets
-var seletionBracketCount = 1; //due to blank --^
-//generate option tags from brackets array
-for (var i = 0; i < brackets.length; i++) {
+    // Adding options to the Bracket, Tag Dropdown
+    var option = document.createElement("option");
+    option.value = brackets[i][0];
+    option.text = brackets[i][1] + ": " + brackets[i][0];
+    if (brackets[i][3] == "Disabled") {
+      option.disabled = true;
+    }
 
-  // Adding options to the Bracket, Tag Dropdown
-  var option = document.createElement("option");
-  option.value = brackets[i][0];
-  option.text = brackets[i][1] + ": " + brackets[i][0];
-  if (brackets[i][3] == "Disabled") {
-    option.disabled = true;
+    document.getElementById("bracket").appendChild(option);
+
+    if (brackets[i][2] == "Locations"){
+      document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+    
+    } else if (brackets[i][2] == "Timing"){
+      document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+    
+    } else if (brackets[i][2] == "PC or NPC Level Actions"){
+      document.getElementById("PannelButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+    }
+
+    seletionBracketCount++;
   }
 
-  document.getElementById("bracket").appendChild(option);
+  // 2. Setup Targets
+  SetupAllTargets();
 
-  if (brackets[i][2] == "Locations"){
-    document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-  
-  } else if (brackets[i][2] == "Timing"){
-    document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-  
-  } else if (brackets[i][2] == "PC or NPC Level Actions"){
-    document.getElementById("PannelButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+  // 3. Add Integers to Dice Div
+  for (var k = 0; k <= 26; k++) {
+    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addNumToLedger(" + k + ")\">" + k + "</button>";
   }
-
-  seletionBracketCount++;
-}
-
-// 2. Setup Targets
-for (var j = 0; j < targets.length; j++) {
-  var option = document.createElement("option");
-  option.text = targets[j][0];
-
-  document.getElementById("targets").appendChild(option);
-}
-
-// 3. Add Integers to Dice Div
-for (var k = 0; k <= 26; k++) {
-  document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addNumToLedger(" + k + ")\">" + k + "</button>";
-}
-document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"+\")\"> + </button>";
-document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addNumToLedger(\"-\")\"> - </button>";
-document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"+\")\"> + </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addNumToLedger(\"-\")\"> - </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";
 
     
 }
 
 function addBracket(bracketNumber) {
-var adjustedBracketNumber = bracketNumber - 1;
-if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
-  document.getElementById("bracket").selectedIndex = bracketNumber;
-  //if bracket[bracketNumber][3] == "Dice" then toggle
-  if (brackets[adjustedBracketNumber][3] == "Dice" || brackets[adjustedBracketNumber][3] == "Numbers") {
-    hideShowDice(true);
-    // console.log("[DEBUG] [addBracket()] Toggle Dice - on");
+  var adjustedBracketNumber = bracketNumber - 1;
+  if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
+
+    document.getElementById("bracket").selectedIndex = bracketNumber;
+    //TO DO: add bracket to Ledger, BUT really: filter the targets 
+
+    if (brackets[adjustedBracketNumber][3] == "Dice" || brackets[adjustedBracketNumber][3] == "Numbers") {
+      hideShowDice(true);
+      // console.log("[DEBUG] [addBracket()] Toggle Dice - on");
+    } else {
+      // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
+      hideShowDice(false);
+    }
+
   } else {
+    document.getElementById("bracket").selectedIndex = 0;
     // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
     hideShowDice(false);
   }
-
-} else {
-  document.getElementById("bracket").selectedIndex = 0;
-  // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
-  hideShowDice(false);
-}
-
 }
 
 function hideShowDice(showDice=false) { // https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
@@ -138,8 +164,6 @@ if (x.style.display === "none" && showDice) {
 function CheckAndAddTarget(){
   var targetToCheck = document.getElementById("target").value;
 
-  //check if passedTargetToCheck is in targetToCheck
-  //iterate through targets[]
   if (targetToCheck == ""){
     return;
   }
@@ -152,9 +176,7 @@ function CheckAndAddTarget(){
   }
 
 
-  //get bracket optional value
   var bracketSelectedOption = document.getElementById("bracket").selectedIndex;
-  // var adjustedBracketNumber = bracketNumber - 1;
 
   var BannedOption = true;
   var bracketSetting = brackets[bracketSelectedOption][3];
@@ -173,9 +195,9 @@ function CheckAndAddTarget(){
   }
 
   if (newTarget && !BannedOption && !Repeat) {
-    var option = document.createElement("option");
-    option.text = targetToCheck;
-    document.getElementById("targets").appendChild(option);
+    // var option = document.createElement("option");
+    // option.text = targetToCheck;
+    // document.getElementById("targets").appendChild(option);
     
     //add to targets[]
     console.log("[DEBUG] [CheckAndAddTarget()] Adding Target: " + targetToCheck + " with category: " + brackets[bracketSelectedOption][2]);
@@ -187,21 +209,22 @@ function CheckAndAddTarget(){
 }
 
 function LedgerIt() {
-var obj = document.getElementById("bracket");
-oldLedger.push(document.getElementById("ledger").innerHTML);
-var tempBracket = obj.options[obj.selectedIndex].value;
-var tempTarget = document.getElementById("target").value;
+  var obj = document.getElementById("bracket");
+  oldLedger.push(document.getElementById("ledger").innerHTML);
+  var tempBracket = obj.options[obj.selectedIndex].value;
+  var tempTarget = document.getElementById("target").value;
 
-if (isLedgerEmpty){
-  document.getElementById("ledger").innerText = tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
- isLedgerEmpty = false;
+  if (isLedgerEmpty){
+    document.getElementById("ledger").innerText = tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
+  isLedgerEmpty = false;
 
-} else {
-  document.getElementById("ledger").innerText += tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
-}
-CheckAndAddTarget();
-ClearTag();
-ClearTarget();
+  } else {
+    document.getElementById("ledger").innerText += tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
+  }
+
+  CheckAndAddTarget();
+  ClearTag();
+  ClearTarget();
 
 }
 
