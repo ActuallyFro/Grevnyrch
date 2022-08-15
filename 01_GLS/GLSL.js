@@ -96,37 +96,6 @@ document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"b
 document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addNumToLedger(\"-\")\"> - </button>";
 document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";
 
-
-//Create Listener that will load file into targets[] 
-document.getElementById("fileInputTargets").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
-    var file_to_read = document.getElementById("fileInputTargets").files[0];
-    var fileread = new FileReader();
-
-    fileread.onload = function(e) {
-      var content = e.target.result;
-      var parsedTarget = JSON.parse(content);
-      // console.log(parsedTarget);
-
-      targets = [];
-      for (var i = 0; i < parsedTarget.length; i++) {
-        targets.push(parsedTarget[i]);
-      }
-
-      for (var j = 0; j < targets.length; j++) {
-        var option = document.createElement("option");
-        option.text = targets[j][0];
-
-        document.getElementById("targets").appendChild(option);
-      }
-    };
-    fileread.readAsText(file_to_read);
-
-    // alert("Successfully loaded (" + targets.length + ") targets!");
-    
-    alert("Successfully loaded targets!");
-
-
-  });
     
 }
 
@@ -396,6 +365,41 @@ function ImportJsonToLog(){
   fileread.readAsText(file_to_read);
 
 
+
+}
+
+function ImportJsonToTargets(){
+// //Create Listener that will load file into targets[] 
+// document.getElementById("fileInputTargets").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
+
+  var file_to_read = document.getElementById("fileInputTargets").files[0];
+  var fileread = new FileReader();
+
+  fileread.onload = function(e) {
+    var content = e.target.result;
+    var parsedTarget = JSON.parse(content);
+    // console.log(parsedTarget);
+
+    targets = [];
+    for (var i = 0; i < parsedTarget.length; i++) {
+      targets.push(parsedTarget[i]);
+    }
+
+    for (var j = 0; j < targets.length; j++) {
+      var option = document.createElement("option");
+      option.text = targets[j][0];
+
+      document.getElementById("targets").appendChild(option);
+    }
+  };
+  fileread.readAsText(file_to_read);
+
+  // alert("Successfully loaded (" + targets.length + ") targets!");
+  
+  alert("Successfully loaded targets!");
+
+
+// });
 
 }
 
