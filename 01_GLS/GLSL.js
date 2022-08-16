@@ -50,7 +50,7 @@ var isShowingNumbers = false;
 // II. OnPageLoad/Init
 
 //1. Page setup:
-//=========== 
+//============== 
 window.onload = function() {
   document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
 
@@ -86,9 +86,11 @@ window.onload = function() {
   }
 
   // 2. Setup Targets
+  //-----------------
   SetupAllTargets();
 
   // 3. Add Integers to Dice Div
+  //----------------------------
   for (var k = 0; k <= 26; k++) {
     document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addNumToLedger(" + k + ")\">" + k + "</button>";
   }
@@ -96,20 +98,17 @@ window.onload = function() {
   document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addNumToLedger(\"-\")\"> - </button>";
   document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";   
 }
-//////////////////////////////////////
 
-//////////////////////////////////////
-// III. GUI Usage Functions
-//////////////////////////////////////
+//2. All Targets setup:
+//===================== 
+function SetupAllTargets() {
+  SetupTypedTargets("");
+  
+}
 
-//////////////////////////////////////
-// IV. Usage/Async I/O Functions
-//////////////////////////////////////
 
-//////////////////////////////////////
-// V. Import/Export
-//////////////////////////////////////
-
+//3. Speciifc Class of Targets setup:
+//===================================
 function SetupTypedTargets(TargetType){
 
   if (TargetType == "") {
@@ -131,18 +130,16 @@ function SetupTypedTargets(TargetType){
     }
   
   }
-
-
-
-}
-
-function SetupAllTargets() {
-  SetupTypedTargets("");
-  
 }
 
 
+//////////////////////////////////////
 
+//////////////////////////////////////
+// III. GUI Usage Functions
+
+//1. Generate Brackets:
+//===================== 
 function addBracket(bracketNumber) {
   var adjustedBracketNumber = bracketNumber - 1;
   if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
@@ -165,6 +162,55 @@ function addBracket(bracketNumber) {
   }
 }
 
+//2. Clear - Bracket
+//================== 
+function ClearBracket() {
+  document.getElementById("bracket").value = "";
+  hideShowDice(false);
+}
+
+//3. Clear - Ledger
+//================
+function ClearLedger() {
+  isLedgerEmpty = true;
+  document.getElementById("ledger").innerHTML = "<h2><i>{Ledger is empty}</i></h2>";
+  oldLedger = [];
+}
+
+//4. Clear - Log 
+//=============
+function ClearLog() {
+  if (isLogEmpty){
+    return;
+  }
+
+  isLogEmpty = true;
+  document.getElementById("Logs").innerHTML = "<div id=\"log\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
+
+  // //all -- while leaving the table
+  // var table = document.getElementById('LogsTable');
+  // for(var i = 1; i < table.children.length; i++) {
+  //   table.removeChild(table.children[i]);
+  // }  
+
+  Log = [];
+}
+
+//5. Clear - Tag
+//=============
+function ClearTag() {
+  document.getElementById("bracket").value = "";
+}
+
+//6. Clear - Target
+//================
+function ClearTarget() {
+  document.getElementById("target").value = "";
+}
+
+
+//7. Show/Hide Dice:
+//================== 
 function hideShowDice(showDice=false) { // https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
   var x = document.getElementById("Dice");
   if (isShowingNumbers && showDice){
@@ -180,6 +226,25 @@ function hideShowDice(showDice=false) { // https://www.w3schools.com/howto/howto
   }
 }
 
+//8. Undo - Ledger
+//================
+function UndoLedger() {
+  if (oldLedger.length > 0) {
+    document.getElementById("ledger").innerHTML = oldLedger[oldLedger.length-1];
+    oldLedger.pop();  
+
+  } else {
+    ClearLedger();
+  }
+}
+
+//////////////////////////////////////
+
+//////////////////////////////////////
+// IV. Usage/Async I/O Functions
+
+//1. Target - Check if Exists, Add if not
+//=======================================
 function CheckAndAddTarget(){
   var targetToCheck = document.getElementById("target").value;
 
@@ -227,6 +292,8 @@ function CheckAndAddTarget(){
 
 }
 
+//2. LedgerIt 
+//===========
 function LedgerIt() {
   var obj = document.getElementById("bracket");
   oldLedger.push(document.getElementById("ledger").innerHTML);
@@ -247,6 +314,8 @@ function LedgerIt() {
 
 }
 
+//3. LogIt 
+//===========
 function LogIt() {
   if (isLedgerEmpty){
     LedgerIt(); //Auto-ledger then log it
@@ -277,6 +346,8 @@ function LogIt() {
   ClearTarget();
 }
 
+//4. RemoveLastLog 
+//================
 function RemoveLastLog() {
   if (isLogEmpty){
     return;
@@ -291,61 +362,21 @@ function RemoveLastLog() {
     ClearLog();
   }
 }
+//////////////////////////////////////
 
-function ClearLedger() {
-  isLedgerEmpty = true;
-  document.getElementById("ledger").innerHTML = "<h2><i>{Ledger is empty}</i></h2>";
-  oldLedger = [];
-}
+//////////////////////////////////////
+// V. Import/Export
 
-function ClearLog() {
-  if (isLogEmpty){
-    return;
-  }
-
-  isLogEmpty = true;
-  document.getElementById("Logs").innerHTML = "<div id=\"log\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
-
-  // //all -- while leaving the table
-  // var table = document.getElementById('LogsTable');
-  // for(var i = 1; i < table.children.length; i++) {
-  //   table.removeChild(table.children[i]);
-  // }  
-
-  Log = [];
-}
-
-function UndoLedger() {
-  if (oldLedger.length > 0) {
-    document.getElementById("ledger").innerHTML = oldLedger[oldLedger.length-1];
-    oldLedger.pop();  
-
-  } else {
-    ClearLedger();
-  }
-}
-
-function ClearBracket() {
-  document.getElementById("bracket").value = "";
-  hideShowDice(false);
-}
-
-
-function ClearTarget() {
-  document.getElementById("target").value = "";
-}
-
-function ClearTag() {
-  document.getElementById("bracket").value = "";
-}
-
-
+//1. Export - Targets (JSON)
+//=========================
 function ExportTargetArrayToJson() {
   var text = JSON.stringify(targets);
   var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
   saveAs(blob, "GSL_Targets.json");
 }
 
+//2. Export - Logs (JSON)
+//=========================
 function ExportLogToJson() {
   var text = JSON.stringify(Log);
   var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
@@ -357,18 +388,21 @@ function ExportLogToJson() {
   saveAs(blob, "GSL_Log_"+textIso+".json");
 }
 
+// //X. Import - Targets (JSON)
+// //=========================
+// function ImportTargetArrayFromJson() {
+//   var file = document.getElementById("file").files[0];
+//   var reader = new FileReader();
+//   reader.onload = function(e) {
+//     var contents = e.target.result;
+//     var json = JSON.parse(contents);
+//     console.log(json);
+//   };
+//   reader.readAsText(file);
+// }
 
-function ImportTargetArrayFromJson() {
-  var file = document.getElementById("file").files[0];
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    var contents = e.target.result;
-    var json = JSON.parse(contents);
-    console.log(json);
-  };
-  reader.readAsText(file);
-}
-
+//3. Import - Logs (JSON)
+//=======================
 function ImportJsonToLog(){
   //Create Listener that will load file into Log[]
   var file_to_read = document.getElementById("fileInputLog").files[0];
@@ -415,13 +449,11 @@ function ImportJsonToLog(){
 
   };
   fileread.readAsText(file_to_read);
-
-
-
 }
 
 
-
+//4. Import - Targets (JSON)
+//=========================
 function ImportJsonToTargets(){
 // //Create Listener that will load file into targets[] 
 // document.getElementById("fileInputTargets").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
@@ -454,9 +486,10 @@ function ImportJsonToTargets(){
 
 
 // });
-
 }
 
+//5. Import - Targets (JSON)
+//=========================
 function saveAs(blob, filename) {
   var url = URL.createObjectURL(blob);
   var link = document.createElement('a');
@@ -467,3 +500,12 @@ function saveAs(blob, filename) {
     URL.revokeObjectURL(url);
   }, 100);
 }
+//////////////////////////////////////
+
+
+
+
+
+
+
+
