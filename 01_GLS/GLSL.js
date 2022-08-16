@@ -48,49 +48,8 @@ var isShowingNumbers = false;
 
 //////////////////////////////////////
 // II. OnPageLoad/Init
-//////////////////////////////////////
 
-//////////////////////////////////////
-// III. Usage Functions
-//////////////////////////////////////
-
-//////////////////////////////////////
-// IV. Import/Export
-//////////////////////////////////////
-
-function SetupTypedTargets(TargetType){
-
-  if (TargetType == "") {
-    for (var j = 0; j < targets.length; j++) {
-      var option = document.createElement("option");
-      option.text = targets[j][0];
-    
-      document.getElementById("targets").appendChild(option);
-    }
-  
-  } else {
-    for (var j = 0; j < targets.length; j++) {
-      if (targets[j][2] == TargetType) {
-        var option = document.createElement("option");
-        option.text = targets[j][0];
-      
-        document.getElementById("targets").appendChild(option);
-      }
-    }
-  
-  }
-
-
-
-}
-
-function SetupAllTargets() {
-  SetupTypedTargets("");
-  
-}
-
-//=========== 
-//Page setup:
+//1. Page setup:
 //=========== 
 window.onload = function() {
   document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
@@ -135,10 +94,54 @@ window.onload = function() {
   }
   document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"+\")\"> + </button>";
   document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addNumToLedger(\"-\")\"> - </button>";
-  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";
-
-    
+  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";   
 }
+//////////////////////////////////////
+
+//////////////////////////////////////
+// III. GUI Usage Functions
+//////////////////////////////////////
+
+//////////////////////////////////////
+// IV. Usage/Async I/O Functions
+//////////////////////////////////////
+
+//////////////////////////////////////
+// V. Import/Export
+//////////////////////////////////////
+
+function SetupTypedTargets(TargetType){
+
+  if (TargetType == "") {
+    for (var j = 0; j < targets.length; j++) {
+      var option = document.createElement("option");
+      option.text = targets[j][0];
+    
+      document.getElementById("targets").appendChild(option);
+    }
+  
+  } else {
+    for (var j = 0; j < targets.length; j++) {
+      if (targets[j][2] == TargetType) {
+        var option = document.createElement("option");
+        option.text = targets[j][0];
+      
+        document.getElementById("targets").appendChild(option);
+      }
+    }
+  
+  }
+
+
+
+}
+
+function SetupAllTargets() {
+  SetupTypedTargets("");
+  
+}
+
+
 
 function addBracket(bracketNumber) {
   var adjustedBracketNumber = bracketNumber - 1;
