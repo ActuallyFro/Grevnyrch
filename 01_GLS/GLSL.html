@@ -134,22 +134,25 @@
         <select id="bracket">
         </select>
         <input type="button" class="btn btn-primary" value="Clear bracket" onclick="ClearBracket()">
-      </form>
- 
+      </form><br>
 
-
-        <br>
-        <h2>2. Pick/enter a target</h2>
-    <form>
-      <label for="target">Target:</label>
+      
+      <h2>2. Pick/enter a target</h2>
+      <form>
+        <label for="target">Target:</label>
         <input type="text" list="targets" id="target" name="target" placeholder="Inner-bracket target/content"/>
-        <datalist id="targets">
-          <!-- <option>Grevnyrch</option>
-          <option>Kla'Bbbert</option> -->
-        </datalist>
+        <datalist id="targets"></datalist>
         <input type="button" class="btn btn-primary" value="Clear target" onclick="ClearTarget()">
         <br>
+      </form><br>  
 
+      <div id="ledger" style="background-color:rgba(72, 72, 255, 0.571);">
+        <h2><i>{Ledger is empty}</i></h2>
+      </div>
+
+        <h2>3. Modify Activities for target</h2>
+        <form>
+  
         <select id="operator">
         <option></option>
         <option>Act upon: →</option>
@@ -162,17 +165,12 @@
         <input type="button" class="btn btn-primary" onclick="LedgerIt()" value="Ledger It!">
         <input type="button" onclick="ClearLedger()" value="Clear Ledger">
         <input type="button" onclick="UndoLedger()" value="Undo last Ledger Entry">
-      </form>    
+      </form><br>  
 
       <!-- <button onclick="hideShowDice()">Show/Hide</button> -->
 
       <div id="Dice">
         <!-- 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ... -->
-      </div>
-
-
-      <div id="ledger" style="background-color:rgba(72, 72, 255, 0.571);">
-        <h2><i>{Ledger is empty}</i></h2>
       </div>
 
       <form>    
@@ -187,22 +185,7 @@
         </span>
       </div><br><br>
 
-      <p id="Logs">
-        <!-- <div id="log" style="background-color:rgba(178, 178, 188, 0.571);"><h2><i>{Logs are empty}</i></h2></div> -->
-  
-        <!-- <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Time</th>
-              <th scope="col">Event</th>
-            </tr>
-          </thead>
-          <tbody id="LogsTable">
-
-          </tbody>
-
-        </table> -->
-      </p>
+      <p id="Logs"></p>
       <form>
         <input type="button" onclick="RemoveLastLog()" value="Remove Last Log">
         <input type="button" onclick="ClearLog()" value="Clear Log">
@@ -211,41 +194,6 @@
     </div>
   </div>
 </div>
-
-  <!-- // https://stackoverflow.com/questions/2812770/add-centered-text-to-the-middle-of-a-horizontal-rule -->
-
-
-  <!-- <br><br><div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
-    <span style="font-size: 40px; background-color: #F3F5F6; padding: 0px 5px;">
-      Import & Export content
-    </span>
-  </div><br><br>
-
-  <hr> -->
-
-  <!-- <form>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <h2>Targets Export/Import:</h2>
-          <input type="button" class="btn btn-primary" onclick="ExportTargetArrayToJson()" value="Save Target Array">
-          
-          <br><label for="fileInputTargets">Load Saved Targets:</label>
-          <input type='file' class="btn btn-primary" id='fileInputTargets' value='Load Targets'>
-
-          </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-sm-12">
-          <h2>Log Export/Import:</h2> -->
-          <!-- <input type="button" class="btn btn-primary" onclick="ExportLogToJson()" value="Save Log"> -->
-          
-          <!-- <br><label for="fileInputLog">Load Saved Log:</label> -->
-          <!-- <input type='file' class="btn btn-primary" id='fileInputLog' value='Load Log'> -->
-          <!-- <input type="button" class="btn btn-primary" onclick="ImportJsonToLog()" value="Load Log"> -->
-        <!-- </div>
-  </form> -->
 
   <div id="randomFooterMargin" style="height: 100px;"></div>
 </body>
