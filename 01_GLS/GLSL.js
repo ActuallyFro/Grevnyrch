@@ -54,7 +54,10 @@ var isShowingNumbers = false;
 window.onload = function() {
   document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
 
-  // 1. Setup Brackets
+  // 0. Setup Bracket Buttons
+  SetupBracketDropDown();
+
+  // 1. Setup Targets
   SetupTypedTargets();
 
   // 2. Setup Targets
@@ -94,9 +97,8 @@ function SetupAllTargets() {
 
 //3. Speciifc Class of Targets setup:
 //===================================
-function SetupTypedTargets(TargetType){
-
-  document.getElementById("bracket").innerHTML = null; //reset buttons
+function SetupBracketDropDown(){
+  document.getElementById("bracket").innerHTML = null; //reset buttons -- <select id="bracket"></select>
 
   var optionBlank = document.createElement("option");
   optionBlank.value = "";
@@ -130,7 +132,9 @@ function SetupTypedTargets(TargetType){
     seletionBracketCount++;
   }
 
+}
 
+function SetupTypedTargets(TargetType){
   // if (TargetType == "") {
   //   for (var j = 0; j < targets.length; j++) {
   //     var option = document.createElement("option");
