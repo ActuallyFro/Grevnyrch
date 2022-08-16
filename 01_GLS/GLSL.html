@@ -130,13 +130,18 @@
   <div class="row">
     <div class="col-sm-12">
       <form>
-        <label for="bracket">Select your tag:</label>
+        <label for="bracket">Selected tag:</label>
         <select id="bracket">
         </select>
+        <input type="button" class="btn btn-primary" value="Clear bracket" onclick="ClearBracket()">
+      </form>
+ 
+
 
         <br>
         <h2>2. Pick/enter a target</h2>
-        <label for="target">Target:</label>
+    <form>
+      <label for="target">Target:</label>
         <input type="text" list="targets" id="target" name="target" placeholder="Inner-bracket target/content"/>
         <datalist id="targets">
           <!-- <option>Grevnyrch</option>
@@ -241,6 +246,8 @@
           <!-- <input type="button" class="btn btn-primary" onclick="ImportJsonToLog()" value="Load Log"> -->
         <!-- </div>
   </form> -->
+
+  <div id="randomFooterMargin" style="height: 100px;"></div>
 </body>
 
 </html>
