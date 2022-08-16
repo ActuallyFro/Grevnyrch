@@ -54,36 +54,8 @@ var isShowingNumbers = false;
 window.onload = function() {
   document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
 
-  var optionBlank = document.createElement("option");
-  document.getElementById("bracket").appendChild(optionBlank);
-
   // 1. Setup Brackets
-  var seletionBracketCount = 1; //due to blank --^
-  //generate option tags from brackets array
-  for (var i = 0; i < brackets.length; i++) {
-
-    // Adding options to the Bracket, Tag Dropdown
-    var option = document.createElement("option");
-    option.value = brackets[i][0];
-    option.text = brackets[i][1] + ": " + brackets[i][0];
-    if (brackets[i][3] == "Disabled") {
-      option.disabled = true;
-    }
-
-    document.getElementById("bracket").appendChild(option);
-
-    if (brackets[i][2] == "Locations"){
-      document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-    
-    } else if (brackets[i][2] == "Timing"){
-      document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-    
-    } else if (brackets[i][2] == "PC or NPC Level Actions"){
-      document.getElementById("PannelButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-    }
-
-    seletionBracketCount++;
-  }
+  SetupTypedTargets();
 
   // 2. Setup Targets
   //-----------------
@@ -106,11 +78,15 @@ window.onload = function() {
 }
 
 function Temp(){
-  alert("BRACKET was changed!");
+  var selectedBracketTag = document.getElementById("bracket").value;
+  SetupTypedTargets(selectedBracketTag);
 }
+
 //2. All Targets setup:
 //===================== 
 function SetupAllTargets() {
+
+  // var selectedBracketTag = document.getElementById("bracket").value;
   SetupTypedTargets("");
   
 }
@@ -120,25 +96,60 @@ function SetupAllTargets() {
 //===================================
 function SetupTypedTargets(TargetType){
 
-  if (TargetType == "") {
-    for (var j = 0; j < targets.length; j++) {
-      var option = document.createElement("option");
-      option.text = targets[j][0];
+  document.getElementById("bracket").innerHTML = null; //reset buttons
+
+  var optionBlank = document.createElement("option");
+  optionBlank.value = "";
+  optionBlank.text = "";
+  document.getElementById("bracket").appendChild(optionBlank);
+
+  var seletionBracketCount = 1; //due to blank --^
+  //generate option tags from brackets array
+  for (var i = 0; i < brackets.length; i++) {
+
+    // Adding options to the Bracket, Tag Dropdown
+    var option = document.createElement("option");
+    option.value = brackets[i][0];
+    option.text = brackets[i][1] + ": " + brackets[i][0];
+    if (brackets[i][3] == "Disabled") {
+      option.disabled = true;
+    }
     
-      document.getElementById("targets").appendChild(option);
+    document.getElementById("bracket").appendChild(option);
+
+    if (brackets[i][2] == "Locations"){
+      document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+    
+    } else if (brackets[i][2] == "Timing"){
+      document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+    
+    } else if (brackets[i][2] == "PC or NPC Level Actions"){
+      document.getElementById("PannelButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
     }
-  
-  } else {
-    for (var j = 0; j < targets.length; j++) {
-      if (targets[j][2] == TargetType) {
-        var option = document.createElement("option");
-        option.text = targets[j][0];
-      
-        document.getElementById("targets").appendChild(option);
-      }
-    }
-  
+
+    seletionBracketCount++;
   }
+
+
+  // if (TargetType == "") {
+  //   for (var j = 0; j < targets.length; j++) {
+  //     var option = document.createElement("option");
+  //     option.text = targets[j][0];
+    
+  //     document.getElementById("targets").appendChild(option);
+  //   }
+  
+  // } else {
+  //   for (var j = 0; j < targets.length; j++) {
+  //     if (targets[j][2] == TargetType) {
+  //       var option = document.createElement("option");
+  //       option.text = targets[j][0];
+      
+  //       document.getElementById("targets").appendChild(option);
+  //     }
+  //   }
+  
+  // }
 }
 
 
