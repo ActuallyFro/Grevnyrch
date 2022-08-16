@@ -96,9 +96,18 @@ window.onload = function() {
   }
   document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"+\")\"> + </button>";
   document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addNumToLedger(\"-\")\"> - </button>";
-  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";   
+  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";
+  
+  
+  document.getElementById("bracket").addEventListener("change", function() {
+    Temp();
+  });
+
 }
 
+function Temp(){
+  alert("BRACKET was changed!");
+}
 //2. All Targets setup:
 //===================== 
 function SetupAllTargets() {
