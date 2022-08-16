@@ -306,6 +306,12 @@ function UndoLedger() {
   }
 }
 
+function ClearBracket() {
+  document.getElementById("bracket").value = "";
+  hideShowDice(false);
+}
+
+
 function ClearTarget() {
   document.getElementById("target").value = "";
 }
