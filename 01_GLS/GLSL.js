@@ -56,21 +56,29 @@ var isShowingNumbers = false;
 window.onload = function() {
   document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
 
-  // 1. Setup Brackets
+  // 1. Setup Bracket Buttons
+  SetupBracketButtons();
+
+  // 2. Setup Bracket Drop Down
+  SetupBracketDropDown();
+  
+
+  // X. Setup Brackets
   SetupTypedTargets();
 
-  // 2. Setup Targets
+  // X. Setup Targets
   //-----------------
-  SetupAllTargets();
+  // SetupAllTargets();
 
   // 3. Add Integers to Dice Div
   //----------------------------
   for (var k = 0; k <= 26; k++) {
     document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addNumToLedger(" + k + ")\">" + k + "</button>";
   }
-  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"+\")\"> + </button>";
-  document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addNumToLedger(\"-\")\"> - </button>";
-  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";
+
+  // document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"+\")\"> + </button>";
+  // document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addNumToLedger(\"-\")\"> - </button>";
+  // document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";
   
   
   document.getElementById("bracket").addEventListener("change", function() {
@@ -80,8 +88,10 @@ window.onload = function() {
 }
 
 function Temp(){
-  var selectedBracketTag = document.getElementById("bracket").value;
-  SetupTypedTargets(selectedBracketTag);
+  //TODO: UPDATE Event Selections
+
+  //var selectedBracketTag = document.getElementById("bracket").value;
+  //SetupTypedTargets(selectedBracketTag);
 }
 
 //2. All Targets setup:
@@ -93,11 +103,24 @@ function SetupAllTargets() {
   
 }
 
+function SetupBracketButtons(){
+  var seletionBracketCount = 1; //due to blank --^
+  for (var i = 0; i < brackets.length; i++) {
+    if (brackets[i][2] == "Locations"){
+      document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+    
+    } else if (brackets[i][2] == "Timing"){
+      document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+    
+    } else if (brackets[i][2] == "PC or NPC Level Actions"){
+      document.getElementById("PannelButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+    }
 
-//3. Speciifc Class of Targets setup:
-//===================================
-function SetupTypedTargets(TargetType){
+    seletionBracketCount++;
+  }
+}
 
+function SetupBracketDropDown(){
   document.getElementById("bracket").innerHTML = null; //reset buttons
 
   var optionBlank = document.createElement("option");
@@ -105,7 +128,6 @@ function SetupTypedTargets(TargetType){
   optionBlank.text = "";
   document.getElementById("bracket").appendChild(optionBlank);
 
-  var seletionBracketCount = 1; //due to blank --^
   //generate option tags from brackets array
   for (var i = 0; i < brackets.length; i++) {
 
@@ -119,18 +141,15 @@ function SetupTypedTargets(TargetType){
     
     document.getElementById("bracket").appendChild(option);
 
-    if (brackets[i][2] == "Locations"){
-      document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-    
-    } else if (brackets[i][2] == "Timing"){
-      document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-    
-    } else if (brackets[i][2] == "PC or NPC Level Actions"){
-      document.getElementById("PannelButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-    }
-
-    seletionBracketCount++;
   }
+
+}
+
+
+//3. Speciifc Class of Targets setup:
+//===================================
+function SetupTypedTargets(TargetType){
+
 
 
   // if (TargetType == "") {
