@@ -36,7 +36,9 @@ var brackets = [
 ["⦇ ⦈", "Armor class", "PC or NPC Level Actions", "Numbers"],
 ["⟮ ⟯", "Dice Roll Success (check)", "PC or NPC Level Actions", "Dice"],
 ["⟯ ⟮", "Dice Roll Failure (check)", "PC or NPC Level Actions", "Dice"],
-["⧘ ⧙", "Damage Amount", "PC or NPC Level Actions", "Numbers"]
+["⧘ ⧙", "Damage Amount", "PC or NPC Level Actions", "Numbers"],
+["〘 〙", "Dice Roll Initiative", "PC or NPC Level Actions", "Dice"]
+
 ];
 
 var targets = [
@@ -54,10 +56,7 @@ var isShowingNumbers = false;
 window.onload = function() {
   document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
 
-  // 0. Setup Bracket Buttons
-  SetupBracketDropDown();
-
-  // 1. Setup Targets
+  // 1. Setup Brackets
   SetupTypedTargets();
 
   // 2. Setup Targets
@@ -97,8 +96,9 @@ function SetupAllTargets() {
 
 //3. Speciifc Class of Targets setup:
 //===================================
-function SetupBracketDropDown(){
-  document.getElementById("bracket").innerHTML = null; //reset buttons -- <select id="bracket"></select>
+function SetupTypedTargets(TargetType){
+
+  document.getElementById("bracket").innerHTML = null; //reset buttons
 
   var optionBlank = document.createElement("option");
   optionBlank.value = "";
@@ -120,10 +120,10 @@ function SetupBracketDropDown(){
     document.getElementById("bracket").appendChild(option);
 
     if (brackets[i][2] == "Locations"){
-      document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
     
     } else if (brackets[i][2] == "Timing"){
-      document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
     
     } else if (brackets[i][2] == "PC or NPC Level Actions"){
       document.getElementById("PannelButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
@@ -132,9 +132,7 @@ function SetupBracketDropDown(){
     seletionBracketCount++;
   }
 
-}
 
-function SetupTypedTargets(TargetType){
   // if (TargetType == "") {
   //   for (var j = 0; j < targets.length; j++) {
   //     var option = document.createElement("option");
