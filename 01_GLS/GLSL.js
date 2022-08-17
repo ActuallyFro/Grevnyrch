@@ -230,6 +230,9 @@ function addBracket(bracketNumber) {
     // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
     hideShowDice(false);
   }
+
+  var selectedBracketTag = document.getElementById("BracketDropDown").value;
+  SetupTargetsBasedOnBracketPick(selectedBracketTag);
 }
 
 //2. Clear - Bracket
