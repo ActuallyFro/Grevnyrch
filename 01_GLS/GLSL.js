@@ -61,7 +61,6 @@ window.onload = function() {
 
   // 2. Setup Bracket Drop Down
   SetupBracketDropDown();
-  
 
   // X. Setup Brackets
   // SetupTypedTargets();
@@ -100,13 +99,13 @@ function SetupBracketButtons(){
   var seletionBracketCount = 1; //due to blank --^
   for (var i = 0; i < brackets.length; i++) {
     if (brackets[i][2] == "Locations"){
-      document.getElementById("BracketButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
     
     } else if (brackets[i][2] == "Timing"){
-      document.getElementById("BracketButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
     
     } else if (brackets[i][2] == "PC or NPC Level Actions"){
-      document.getElementById("BracketButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
     }
 
     seletionBracketCount++;
