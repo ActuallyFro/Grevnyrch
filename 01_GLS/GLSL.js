@@ -155,45 +155,49 @@ function SetupAllTargets() {
 //3. Speciifc Class of Targets setup:
 //===================================
 function SetupTargetsBasedOnBracketPick(SelectedBracket){
-  console.log("Selected Bracket: '" + SelectedBracket + "'");
+  // console.log("Selected Bracket: '" + SelectedBracket + "'");
   document.getElementById("targets").innerHTML = null; //reset targets
 
-
-
   if (SelectedBracket == "") {
-    console.log("Generating ALL targets (no type selected)");
+    // console.log("Generating ALL targets (no type selected)");
     for (var j = 0; j < targets.length; j++) {
       var option = document.createElement("option");
       option.text = targets[j][0];
-      console.log("Adding Target: '" + targets[j][0] + "'");
+      // console.log("Adding Target: '" + targets[j][0] + "'");
       document.getElementById("targets").appendChild(option);
     }
   
   } else {
     var SelectedBracketWords = ""
 
+
     //find match in brackets, save into SelectedBracketWords
-    console.log("Searching vs. Brackets: " + brackets.length);
+    // console.log("Searching vs. Brackets: " + brackets.length);
     for (var i = 0; i < brackets.length; i++) {
       var foundTargetBracket = brackets[i][0];
       // console.log("This(" + foundTargetBracket + ") vs. That(" + SelectedBracket + ")")
       if (brackets[i][0] == SelectedBracket) {
-        console.log("Found Bracket: " + foundTargetBracket);
+        // console.log("Found Bracket: " + foundTargetBracket);
         SelectedBracketWords = brackets[i][2];
         break;
       }
     }
 
-    console.log("Generating targets for: '" + SelectedBracket + "' (" + SelectedBracketWords + ")");
+    //Brackets[i][2] need to be compared to targets[j][1]
+    // console.log("Generating targets for: '" + SelectedBracketWords + "' (" + SelectedBracket + ")");
+    var foundTargets = 0;
     for (var j = 0; j < targets.length; j++) {
-      if (targets[j][2] == SelectedBracketWords) {
+      if (targets[j][1] == SelectedBracketWords) {
         var option = document.createElement("option");
         option.text = targets[j][0];
       
-        console.log("Adding Target: '" + targets[j][0] + "'");
+        // console.log("Adding Target: '" + targets[j][0] + "'");
         document.getElementById("targets").appendChild(option);
+
+        foundTargets++;
       }
     }
+    console.log("Found " + foundTargets + " targets, based on Bracket selection");
   
   }
 }
