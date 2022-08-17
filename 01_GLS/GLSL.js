@@ -81,7 +81,7 @@ window.onload = function() {
   // document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"=\")\"> = </button>";
   
   
-  document.getElementById("bracket").addEventListener("change", function() {
+  document.getElementById("BracketDropDown").addEventListener("change", function() {
     Temp();
   });
 
@@ -90,7 +90,7 @@ window.onload = function() {
 function Temp(){
   //TODO: UPDATE Event Selections
 
-  //var selectedBracketTag = document.getElementById("bracket").value;
+  //var selectedBracketTag = document.getElementById("BracketDropDown").value;
   //SetupTypedTargets(selectedBracketTag);
 }
 
@@ -98,7 +98,7 @@ function Temp(){
 //===================== 
 function SetupAllTargets() {
 
-  // var selectedBracketTag = document.getElementById("bracket").value;
+  // var selectedBracketTag = document.getElementById("BracketDropDown").value;
   SetupTypedTargets("");
   
 }
@@ -107,13 +107,13 @@ function SetupBracketButtons(){
   var seletionBracketCount = 1; //due to blank --^
   for (var i = 0; i < brackets.length; i++) {
     if (brackets[i][2] == "Locations"){
-      document.getElementById("PannelButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtonsLocations").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
     
     } else if (brackets[i][2] == "Timing"){
-      document.getElementById("PannelButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtonsTiming").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
     
     } else if (brackets[i][2] == "PC or NPC Level Actions"){
-      document.getElementById("PannelButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtonsN-PCActions").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
     }
 
     seletionBracketCount++;
@@ -121,12 +121,12 @@ function SetupBracketButtons(){
 }
 
 function SetupBracketDropDown(){
-  document.getElementById("bracket").innerHTML = null; //reset buttons
+  document.getElementById("BracketDropDown").innerHTML = null; //reset buttons
 
   var optionBlank = document.createElement("option");
   optionBlank.value = "";
   optionBlank.text = "";
-  document.getElementById("bracket").appendChild(optionBlank);
+  document.getElementById("BracketDropDown").appendChild(optionBlank);
 
   //generate option tags from brackets array
   for (var i = 0; i < brackets.length; i++) {
@@ -139,7 +139,7 @@ function SetupBracketDropDown(){
       option.disabled = true;
     }
     
-    document.getElementById("bracket").appendChild(option);
+    document.getElementById("BracketDropDown").appendChild(option);
 
   }
 
@@ -185,7 +185,7 @@ function addBracket(bracketNumber) {
   var adjustedBracketNumber = bracketNumber - 1;
   if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
 
-    document.getElementById("bracket").selectedIndex = bracketNumber;
+    document.getElementById("BracketDropDown").selectedIndex = bracketNumber;
     //TO DO: add bracket to Ledger, BUT really: filter the targets 
 
     if (brackets[adjustedBracketNumber][3] == "Dice" || brackets[adjustedBracketNumber][3] == "Numbers") {
@@ -197,7 +197,7 @@ function addBracket(bracketNumber) {
     }
 
   } else {
-    document.getElementById("bracket").selectedIndex = 0;
+    document.getElementById("BracketDropDown").selectedIndex = 0;
     // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
     hideShowDice(false);
   }
@@ -206,7 +206,7 @@ function addBracket(bracketNumber) {
 //2. Clear - Bracket
 //================== 
 function ClearBracket() {
-  document.getElementById("bracket").value = "";
+  document.getElementById("BracketDropDown").value = "";
   hideShowDice(false);
 }
 
@@ -240,7 +240,7 @@ function ClearLog() {
 //5. Clear - Tag
 //=============
 function ClearTag() {
-  document.getElementById("bracket").value = "";
+  document.getElementById("BracketDropDown").value = "";
 }
 
 //6. Clear - Target
@@ -301,7 +301,7 @@ function CheckAndAddTarget(){
   }
 
 
-  var bracketSelectedOption = document.getElementById("bracket").selectedIndex;
+  var bracketSelectedOption = document.getElementById("BracketDropDown").selectedIndex;
 
   var BannedOption = true;
   var bracketSetting = brackets[bracketSelectedOption][3];
@@ -336,7 +336,7 @@ function CheckAndAddTarget(){
 //2. LedgerIt 
 //===========
 function LedgerIt() {
-  var obj = document.getElementById("bracket");
+  var obj = document.getElementById("BracketDropDown");
   oldLedger.push(document.getElementById("ledger").innerHTML);
   var tempBracket = obj.options[obj.selectedIndex].value;
   var tempTarget = document.getElementById("target").value;
