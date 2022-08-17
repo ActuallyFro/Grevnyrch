@@ -141,11 +141,16 @@
         <br>
       </form><br>  
 
-      <div id="ledger" style="background-color:rgba(72, 72, 255, 0.571);">
+      <!-- <div id="ledger" style="background-color:rgba(72, 72, 255, 0.571);">
         <h2><i>{Ledger is empty}</i></h2>
+      </div> -->
+
+      <div class="form-group">
+        <input type="text" class="form-control" id="ledger" aria-describedby="ledgerSmTxt" placeholder="{Ledger is empty}">
+        <small id="ledgerSmTxt" class="form-text text-muted">Subledger will object within last bracket in the ledger</small>
       </div>
 
-        <h2>3. Modify Activities for target</h2>
+      <h2>3. Modify Activities for target</h2>
         <form>
   
         <select id="operator">
@@ -157,9 +162,10 @@
         <br>
         <br>
 
+        <input type="button" class="btn btn-warning" onclick="SUBLedgerIt()" value="SUBLedger It!">
         <input type="button" class="btn btn-primary" onclick="LedgerIt()" value="Ledger It!">
-        <input type="button" onclick="ClearLedger()" value="Clear Ledger">
-        <input type="button" onclick="UndoLedger()" value="Undo last Ledger Entry">
+        <input type="button" type="button" class="btn btn-light" onclick="UndoLedger()" value="Undo last Ledger Entry">
+        <input type="button" type="button" class="btn btn-secondary" onclick="ClearLedger()" value="Clear Ledger">
       </form><br>  
 
       <!-- <button onclick="hideShowDice()">Show/Hide</button> -->

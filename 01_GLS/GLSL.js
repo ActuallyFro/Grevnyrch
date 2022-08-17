@@ -249,7 +249,8 @@ function ClearBracket() {
 //================
 function ClearLedger() {
   isLedgerEmpty = true;
-  document.getElementById("ledger").innerHTML = "<h2><i>{Ledger is empty}</i></h2>";
+  // document.getElementById("ledger").innerHTML = "<h2><i>{Ledger is empty}</i></h2>";
+  document.getElementById("ledger").innerText = "";
   oldLedger = [];
 }
 
@@ -306,7 +307,7 @@ function hideShowDice(showDice=false) { // https://www.w3schools.com/howto/howto
 //================
 function UndoLedger() {
   if (oldLedger.length > 0) {
-    document.getElementById("ledger").innerHTML = oldLedger[oldLedger.length-1];
+    document.getElementById("ledger").innerText = oldLedger[oldLedger.length-1];
     oldLedger.pop();  
 
   } else {
@@ -372,13 +373,13 @@ function CheckAndAddTarget(){
 //===========
 function LedgerIt() {
   var obj = document.getElementById("BracketDropDown");
-  oldLedger.push(document.getElementById("ledger").innerHTML);
+  oldLedger.push(document.getElementById("ledger").text);
   var tempBracket = obj.options[obj.selectedIndex].value;
   var tempTarget = document.getElementById("target").value;
 
   if (isLedgerEmpty){
     document.getElementById("ledger").innerText = tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
-  isLedgerEmpty = false;
+    isLedgerEmpty = false;
 
   } else {
     document.getElementById("ledger").innerText += tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
