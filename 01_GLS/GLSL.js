@@ -62,9 +62,6 @@ window.onload = function() {
   // 2. Setup Bracket Drop Down
   SetupBracketDropDown();
 
-  // X. Setup Brackets
-  // SetupTypedTargets();
-
   // 3. Setup Targets
   //-----------------
   SetupAllTargets();
@@ -81,17 +78,19 @@ window.onload = function() {
   
   
   document.getElementById("BracketDropDown").addEventListener("change", function() {
-    Temp();
+    var selectedBracketTag = document.getElementById("BracketDropDown").value;
+    SetupTargetsBasedOnBracketPick(selectedBracketTag);
+    // Temp();
   });
 
 }
 
-function Temp(){
+// function Temp(){
   //TODO: UPDATE Event Selections
 
   //var selectedBracketTag = document.getElementById("BracketDropDown").value;
-  //SetupTypedTargets(selectedBracketTag);
-}
+  //SetupTargetsBasedOnBracketPick(selectedBracketTag);
+// }
 
 // 1. Bracket Buttons setup:
 //========================== 
@@ -149,15 +148,20 @@ function SetupBracketDropDown(){
 //===================== 
 function SetupAllTargets() {
   
-  SetupTypedTargets("");
+  SetupTargetsBasedOnBracketPick("");
   
 }
 
 //3. Speciifc Class of Targets setup:
 //===================================
-function SetupTypedTargets(TargetType){
+function SetupTargetsBasedOnBracketPick(SelectedBracket){
+  console.log("Selected Bracket: '" + SelectedBracket + "'");
+  document.getElementById("targets").innerHTML = null; //reset targets
 
-  if (TargetType == "") {
+
+
+  if (SelectedBracket == "") {
+    console.log("Generating ALL targets (no type selected)");
     for (var j = 0; j < targets.length; j++) {
       var option = document.createElement("option");
       option.text = targets[j][0];
@@ -166,11 +170,27 @@ function SetupTypedTargets(TargetType){
     }
   
   } else {
+    var SelectedBracketWords = ""
+
+    //find match in brackets, save into SelectedBracketWords
+    console.log("Searching vs. Brackets: " + brackets.length);
+    for (var i = 0; i < brackets.length; i++) {
+      var foundTargetBracket = brackets[i][0];
+      // console.log("This(" + foundTargetBracket + ") vs. That(" + SelectedBracket + ")")
+      if (brackets[i][0] == SelectedBracket) {
+        console.log("Found Bracket: " + foundTargetBracket);
+        SelectedBracketWords = brackets[i][2];
+        break;
+      }
+    }
+
+    console.log("Generating targets for: '" + SelectedBracket + "' (" + SelectedBracketWords + ")");
     for (var j = 0; j < targets.length; j++) {
-      if (targets[j][2] == TargetType) {
+      if (targets[j][2] == SelectedBracketWords) {
         var option = document.createElement("option");
         option.text = targets[j][0];
       
+        console.log("Adding Target: '" + targets[j][0] + "'");
         document.getElementById("targets").appendChild(option);
       }
     }
