@@ -215,7 +215,6 @@ function addBracket(bracketNumber) {
   if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
 
     document.getElementById("BracketDropDown").selectedIndex = bracketNumber;
-    //TO DO: add bracket to Ledger, BUT really: filter the targets 
 
     if (brackets[adjustedBracketNumber][3] == "Dice" || brackets[adjustedBracketNumber][3] == "Numbers") {
       hideShowDice(true);
@@ -543,7 +542,7 @@ function ImportJsonToTargets(){
     for (var i = 0; i < parsedTarget.length; i++) {
       targets.push(parsedTarget[i]);
     }
-//GENERATION OF OPTIONS for the Target-select box [TODO] make this 'filterable:'
+
     for (var j = 0; j < targets.length; j++) {
       var option = document.createElement("option");
       option.text = targets[j][0];
