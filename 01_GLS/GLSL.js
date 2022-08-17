@@ -64,11 +64,11 @@ window.onload = function() {
   
 
   // X. Setup Brackets
-  SetupTypedTargets();
+  // SetupTypedTargets();
 
-  // X. Setup Targets
+  // 3. Setup Targets
   //-----------------
-  // SetupAllTargets();
+  SetupAllTargets();
 
   // 3. Add Integers to Dice Div
   //----------------------------
@@ -94,15 +94,8 @@ function Temp(){
   //SetupTypedTargets(selectedBracketTag);
 }
 
-//2. All Targets setup:
-//===================== 
-function SetupAllTargets() {
-
-  // var selectedBracketTag = document.getElementById("BracketDropDown").value;
-  SetupTypedTargets("");
-  
-}
-
+// 1. Bracket Buttons setup:
+//========================== 
 function SetupBracketButtons(){
   var seletionBracketCount = 1; //due to blank --^
   for (var i = 0; i < brackets.length; i++) {
@@ -120,6 +113,8 @@ function SetupBracketButtons(){
   }
 }
 
+// 2. Bracket Drop Down setup:
+//============================ 
 function SetupBracketDropDown(){
   document.getElementById("BracketDropDown").innerHTML = null; //reset buttons
 
@@ -146,31 +141,40 @@ function SetupBracketDropDown(){
 }
 
 
+// var selectedBracketTag = document.getElementById("BracketDropDown").value; //This call is an example where the current, selected bracket is used to filter the targets.
+
+
+//2. All Targets setup:
+//===================== 
+function SetupAllTargets() {
+  
+  SetupTypedTargets("");
+  
+}
+
 //3. Speciifc Class of Targets setup:
 //===================================
 function SetupTypedTargets(TargetType){
 
-
-
-  // if (TargetType == "") {
-  //   for (var j = 0; j < targets.length; j++) {
-  //     var option = document.createElement("option");
-  //     option.text = targets[j][0];
-    
-  //     document.getElementById("targets").appendChild(option);
-  //   }
+  if (TargetType == "") {
+    for (var j = 0; j < targets.length; j++) {
+      var option = document.createElement("option");
+      option.text = targets[j][0];
+      console.log("Adding Target: '" + targets[j][0] + "'");
+      document.getElementById("targets").appendChild(option);
+    }
   
-  // } else {
-  //   for (var j = 0; j < targets.length; j++) {
-  //     if (targets[j][2] == TargetType) {
-  //       var option = document.createElement("option");
-  //       option.text = targets[j][0];
+  } else {
+    for (var j = 0; j < targets.length; j++) {
+      if (targets[j][2] == TargetType) {
+        var option = document.createElement("option");
+        option.text = targets[j][0];
       
-  //       document.getElementById("targets").appendChild(option);
-  //     }
-  //   }
+        document.getElementById("targets").appendChild(option);
+      }
+    }
   
-  // }
+  }
 }
 
 
