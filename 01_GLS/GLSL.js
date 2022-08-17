@@ -192,9 +192,13 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
         option.text = targets[j][0];
       
         // console.log("Adding Target: '" + targets[j][0] + "'");
-        document.getElementById("targets").appendChild(option);
 
-        foundTargets++;
+        //if target string does NOT contain ';;', append
+        if (!targets[j][0].includes(";;")) {
+          document.getElementById("targets").appendChild(option);
+          foundTargets++;
+        }
+
       }
     }
     console.log("Found " + foundTargets + " targets, based on Bracket selection");
