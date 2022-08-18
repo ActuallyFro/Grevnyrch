@@ -189,17 +189,18 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
   if (SelectedBracket == "") {
     // console.log("Generating ALL targets (no type selected)");
     for (var j = 0; j < targets.length; j++) {
-      var option = document.createElement("option");
-      option.text = targets[j][0];
-      // console.log("Adding Target: '" + targets[j][0] + "'");
-      document.getElementById("targets").appendChild(option);
+      if (!targets[j][0].includes(";;")) {
+        var option = document.createElement("option");
+        option.text = targets[j][0];
+        // console.log("Adding Target: '" + targets[j][0] + "'");
+        document.getElementById("targets").appendChild(option);
 
-      //ensure string "targets[j][0]" has escaped ' characters
-      var safeStr = targets[j][0].replace(/'/g, "\\'");
-      // console.log("safeStr: '" + safeStr + "'");
-      
-      document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addTarget('"+safeStr+ "')\">" + targets[j][0] + "</button>";
-
+        //ensure string "targets[j][0]" has escaped ' characters
+        var safeStr = targets[j][0].replace(/'/g, "\\'");
+        // console.log("safeStr: '" + safeStr + "'");
+        
+        document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addTarget('"+safeStr+ "')\">" + targets[j][0] + "</button>";
+      }
     }
   
   } else {
