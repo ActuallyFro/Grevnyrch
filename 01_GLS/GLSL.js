@@ -249,7 +249,7 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
 // III. GUI Usage Functions
 
 //1. Generate Brackets:
-//===================== 
+//=====================
 function addBracket(bracketNumber) {
   var adjustedBracketNumber = bracketNumber - 1;
   if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
