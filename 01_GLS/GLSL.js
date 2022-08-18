@@ -18,27 +18,30 @@ var brackets = [
 ["〖 〗", "City", "Locations", ""],
 ["《 》", "District", "Locations", ""],
 ["〈 〉", "Place/Building", "Locations", ""],
-
 ["", "=== Timing Brackets ===", "GUI - Selection Title", "Disabled"],
 ["⟅ ⟆", "Round", "Timing", "Numbers"],
 ["⧼ ⧽", "Time/Duration", "Timing", "Ignore"],
-
 ["", "=== N/PC Brackets ===", "GUI - Selection Title", "Disabled"],
 ["[ ]", "PC or NPC", "PC or NPC Level Actions", ""],
 ["] [", "Hostile NPC/encounter (Single)", "PC or NPC Level Actions", ""],
 ["⟦ ⟧", "Grouping of PCs/NPC", "PC or NPC Level Actions", ""],
 ["⟧ ⟦", "Grouping of Hostile NPCs/encounter", "PC or NPC Level Actions", ""],
-["( )", "Action", "PC or NPC Level Actions", "FilterAction"],
-["< >", "Movement", "PC or NPC Level Actions", "Ignore"],
-["⸢ ⸣", "Right hand", "PC or NPC Level Actions", "Ignore"],
-["⸤ ⸥", "Left hand", "PC or NPC Level Actions", "Ignore"],
-["⸢ ⸥", "Both hands/two handed", "PC or NPC Level Actions", "Ignore"],
-["⦇ ⦈", "Armor class", "PC or NPC Level Actions", "Numbers"],
-["⟮ ⟯", "Dice Roll Success (check)", "PC or NPC Level Actions", "Dice"],
-["⟯ ⟮", "Dice Roll Failure (check)", "PC or NPC Level Actions", "Dice"],
-["⧘ ⧙", "Damage Amount", "PC or NPC Level Actions", "Numbers"],
-["〘 〙", "Dice Roll Initiative", "PC or NPC Level Actions", "Dice"]
-
+["", "=== Event/Action Brackets ===", "GUI - Selection Title", "Disabled"],
+["⌊ ⌋", "Event/Encounter - Floor", "Event or Encounter", "Ignore"],
+["⌈ ⌉", "Event/Encounter - Ceiling", "Event or Encounter", "Ignore"],
+["( )", "Action", "Event or Encounter", "FilterAction"],
+["< >", "Movement", "Event or Encounter", "Ignore"],
+["", "=== Object Brackets ===", "GUI - Selection Title", "Disabled"],
+["{ }", "Item", "Object", "Ignore"],
+["⸢ ⸣", "Right hand", "Object", "Ignore"],
+["⸤ ⸥", "Left hand", "Object", "Ignore"],
+["⸢ ⸥", "Both hands/two handed", "Object", "Ignore"],
+["⦇ ⦈", "Armor class", "Object", "Numbers"],
+["", "=== Result Brackets ===", "GUI - Selection Title", "Disabled"],
+["⟮ ⟯", "Dice Roll Success (check)", "Results", "Dice"],
+["⟯ ⟮", "Dice Roll Failure (check)", "Results", "Dice"],
+["⧘ ⧙", "Damage Amount", "Results", "Numbers"],
+["〘 〙", "Dice Roll Initiative", "Results", "Dice"]
 ];
 
 var targets = [
@@ -110,6 +113,8 @@ function SetupBracketButtons(){
     seletionBracketCount++;
   }
 
+  console.log("SetupBracketButtons() -- created " + seletionBracketCount + " buttons");
+
   document.getElementById("BracketButtons").innerHTML += "<input type=\"button\" class=\"btn btn-danger\" value=\"Clear bracket\" onclick=\"ClearBracket()\"></input>"
 }
 
@@ -157,6 +162,9 @@ function SetupAllTargets() {
 function SetupTargetsBasedOnBracketPick(SelectedBracket){
   // console.log("Selected Bracket: '" + SelectedBracket + "'");
   document.getElementById("targets").innerHTML = null; //reset targets
+  document.getElementById("TargetButtons").innerHTML = null; //reset buttons
+
+// //ALSO: generate Target Buttons for 'TargetButtons' <div>
 
   if (SelectedBracket == "") {
     // console.log("Generating ALL targets (no type selected)");
@@ -165,9 +173,13 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
       option.text = targets[j][0];
       // console.log("Adding Target: '" + targets[j][0] + "'");
       document.getElementById("targets").appendChild(option);
+
+      document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addTarget(\"" + targets[j][0] + "\")\">" + targets[j][0] + "</button>";
+
     }
   
   } else {
+    
     var SelectedBracketWords = ""
 
 
@@ -196,6 +208,10 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
         //if target string does NOT contain ';;', append
         if (!targets[j][0].includes(";;")) {
           document.getElementById("targets").appendChild(option);
+
+          document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addTarget(\"" + targets[j][0] + "\")\">" + targets[j][0] + "</button>";
+
+
           foundTargets++;
         }
 
@@ -427,6 +443,12 @@ function LogIt() {
   ClearLedger();
   ClearTag();
   ClearTarget();
+}
+
+function addTarget(PassedTarget){
+  //alert showing PassedTarget
+  console.log("[DEBUG] [addTarget()] Adding Target: " + PassedTarget);
+  // alert(PassedTarget);  
 }
 
 //4. RemoveLastLog 
