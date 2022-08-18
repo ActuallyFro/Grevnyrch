@@ -133,7 +133,7 @@ function SetupBracketButtons(){
     seletionBracketCount++;
   }
 
-  console.log("SetupBracketButtons() -- created " + seletionBracketCount + " buttons");
+  //console.log("SetupBracketButtons() -- created " + seletionBracketCount + " buttons");
 
   document.getElementById("BracketButtons").innerHTML += "<input type=\"button\" class=\"btn btn-danger\" value=\"Clear bracket\" onclick=\"ClearBracket()\"></input>"
 }
@@ -237,7 +237,7 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
 
       }
     }
-    console.log("Found " + foundTargets + " targets, based on Bracket selection");
+    //console.log("Found " + foundTargets + " targets, based on Bracket selection");
   
   }
 }
@@ -254,7 +254,8 @@ function addBracket(bracketNumber) {
   var adjustedBracketNumber = bracketNumber - 1;
   if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
 
-    document.getElementById("BracketDropDown").selectedIndex = bracketNumber;
+    //console.log("[DEBUG] [addBracket()] Changing selected index to: " + bracketNumber);
+    document.getElementById("BracketDropDown").selectedIndex = bracketNumber; 
 
     if (brackets[adjustedBracketNumber][3] == "Dice" || brackets[adjustedBracketNumber][3] == "Numbers") {
       hideShowDice(true);
@@ -426,8 +427,8 @@ function LedgerIt() {
   }
 
   CheckAndAddTarget();
-  ClearTag();
-  ClearTarget();
+  // ClearTag();
+  // ClearTarget();
 
     //document.getElementById("ledger").value += selectedBracketTag;
 
@@ -443,7 +444,7 @@ function LogIt() {
   if (isLogEmpty){
     isLogEmpty = false;
     document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
-    console.log("[DEBUG] [LogIt()] Logs table created");
+    //console.log("[DEBUG] [LogIt()] Logs table created");
   } 
 
   var obj = document.getElementById("ledger");
