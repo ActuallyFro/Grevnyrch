@@ -105,13 +105,6 @@ window.onload = function() {
 
 }
 
-// function Temp(){
-  //TODO: UPDATE Event Selections
-
-  //var selectedBracketTag = document.getElementById("BracketDropDown").value;
-  //SetupTargetsBasedOnBracketPick(selectedBracketTag);
-// }
-
 // 1. Bracket Buttons setup:
 //========================== 
 function SetupBracketButtons(){
@@ -177,16 +170,10 @@ function SetupBracketDropDown(){
 
 }
 
-
-// var selectedBracketTag = document.getElementById("BracketDropDown").value; //This call is an example where the current, selected bracket is used to filter the targets.
-
-
 //2. All Targets setup:
 //===================== 
-function SetupAllTargets() {
-  
+function SetupAllTargets() { 
   SetupTargetsBasedOnBracketPick("");
-  
 }
 
 //3. Speciifc Class of Targets setup:
@@ -195,8 +182,6 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
   // console.log("Selected Bracket: '" + SelectedBracket + "'");
   document.getElementById("targets").innerHTML = null; //reset targets
   document.getElementById("TargetButtons").innerHTML = null; //reset buttons
-
-// //ALSO: generate Target Buttons for 'TargetButtons' <div>
 
   if (SelectedBracket == "") {
     // console.log("Generating ALL targets (no type selected)");
@@ -207,7 +192,6 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
         // console.log("Adding Target: '" + targets[j][0] + "'");
         document.getElementById("targets").appendChild(option);
 
-        //ensure string "targets[j][0]" has escaped ' characters
         var safeStr = targets[j][0].replace(/'/g, "\\'");
         // console.log("safeStr: '" + safeStr + "'");
         
@@ -216,12 +200,8 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
     }
   
   } else {
-    
     var SelectedBracketWords = ""
 
-
-    //find match in brackets, save into SelectedBracketWords
-    // console.log("Searching vs. Brackets: " + brackets.length);
     for (var i = 0; i < brackets.length; i++) {
       var foundTargetBracket = brackets[i][0];
       // console.log("This(" + foundTargetBracket + ") vs. That(" + SelectedBracket + ")")
@@ -232,35 +212,25 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
       }
     }
 
-    //Brackets[i][2] need to be compared to targets[j][1]
-    // console.log("Generating targets for: '" + SelectedBracketWords + "' (" + SelectedBracket + ")");
     var foundTargets = 0;
     for (var j = 0; j < targets.length; j++) {
       if (targets[j][1] == SelectedBracketWords) {
         var option = document.createElement("option");
         option.text = targets[j][0];
       
-        // console.log("Adding Target: '" + targets[j][0] + "'");
-
-        //if target string does NOT contain ';;', append
-        if (!targets[j][0].includes(";;")) {
+        if (!targets[j][0].includes(";;")) { //;; denotes the 'full name';;'paraphrased name'
           document.getElementById("targets").appendChild(option);
 
-        //ensure string "targets[j][0]" has escaped ' characters
-        var safeStr = targets[j][0].replace(/'/g, "\\'");
-        // console.log("safeStr: '" + safeStr + "'");
-        
-        document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
-
-
+          var safeStr = targets[j][0].replace(/'/g, "\\'");
+          
+          document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
 
           foundTargets++;
         }
 
       }
     }
-    //console.log("Found " + foundTargets + " targets, based on Bracket selection");
-  
+    //console.log("Found " + foundTargets + " targets, based on Bracket selection");  
   }
 }
 
@@ -296,8 +266,6 @@ function addBracket(bracketNumber) {
   var selectedBracketTag = document.getElementById("BracketDropDown").value;
   SetupTargetsBasedOnBracketPick(selectedBracketTag);
 
-  // Add button to Ledger Text Input:
-  //document.getElementById("ledger").value += selectedBracketTag;
   LedgerIt();
 }
 
@@ -312,7 +280,6 @@ function ClearBracket() {
 //================
 function ClearLedger() {
   isLedgerEmpty = true;
-  // document.getElementById("ledger").innerHTML = "<h2><i>{Ledger is empty}</i></h2>";
   document.getElementById("ledger").value = "";
   oldLedger = [];
 }
@@ -326,12 +293,6 @@ function ClearLog() {
 
   isLogEmpty = true;
   document.getElementById("Logs").innerHTML = "<div id=\"log\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
-
-  // //all -- while leaving the table
-  // var table = document.getElementById('LogsTable');
-  // for(var i = 1; i < table.children.length; i++) {
-  //   table.removeChild(table.children[i]);
-  // }  
 
   Log = [];
 }
@@ -347,7 +308,6 @@ function ClearTag() {
 function ClearTarget() {
   document.getElementById("target").value = "";
 }
-
 
 //7. Show/Hide Dice:
 //================== 
@@ -399,7 +359,6 @@ function CheckAndAddTarget(){
     }
   }
 
-
   var bracketSelectedOption = document.getElementById("BracketDropDown").selectedIndex;
 
   var BannedOption = true;
@@ -449,11 +408,6 @@ function LedgerIt() {
   }
 
   CheckAndAddTarget();
-  // ClearTag();
-  // ClearTarget();
-
-    //document.getElementById("ledger").value += selectedBracketTag;
-
 }
 
 //3. LogIt 
@@ -512,16 +466,6 @@ function addStringInLedgerBracket(PassedString){
   var tempLedgerLastChar = obj.value.slice(-1,obj.value.length);
   obj.value = tempLedger + PassedString + tempLedgerLastChar;
 }
-
-// function addTarget(PassedTarget){
-//   //alert showing PassedTarget
-//   // console.log("[DEBUG] [addTarget()] Adding Target: " + PassedTarget);
-
-//   addStringInLedgerBracket(PassedTarget);
-
-//   // alert(PassedTarget);  
-// }
-
 //////////////////////////////////////
 
 //////////////////////////////////////
@@ -547,19 +491,6 @@ function ExportLogToJson() {
 
   saveAs(blob, "GSL_Log_"+textIso+".json");
 }
-
-// //X. Import - Targets (JSON)
-// //=========================
-// function ImportTargetArrayFromJson() {
-//   var file = document.getElementById("file").files[0];
-//   var reader = new FileReader();
-//   reader.onload = function(e) {
-//     var contents = e.target.result;
-//     var json = JSON.parse(contents);
-//     console.log(json);
-//   };
-//   reader.readAsText(file);
-// }
 
 //3. Import - Logs (JSON)
 //=======================
@@ -587,13 +518,7 @@ function ImportJsonToLog(){
       var cell = document.createElement("td");
       cell.innerHTML = Log[j];
       row.appendChild(cell);
-      document.getElementById("LogsTable").appendChild(row);
-
-      // // HAX!
-      // document.getElementById("log").innerHTML = "";
-
-      // document.getElementById("LogsTable").innerHTML +="<div class=\"alert alert-primary\" role=\"alert\">" + Log[j] + "</div>";
-      
+      document.getElementById("LogsTable").appendChild(row);      
     }
 
     if (Log.length > 0) {
@@ -615,8 +540,7 @@ function ImportJsonToLog(){
 //4. Import - Targets (JSON)
 //=========================
 function ImportJsonToTargets(){
-// //Create Listener that will load file into targets[] 
-// document.getElementById("fileInputTargets").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
+  // document.getElementById("fileInputTargets").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
 
   var file_to_read = document.getElementById("fileInputTargets").files[0];
   var fileread = new FileReader();
