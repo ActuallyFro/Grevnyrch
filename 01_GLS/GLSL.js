@@ -2,6 +2,18 @@
 /* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script> */
 /* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script> --> */
 
+/*
+
+Table of Contents
+=================
+I. Vars and Lookups
+II. OnPageLoad/Init
+III. GUI Usage Functions
+IV. Usage/Async I/O Functions
+V. Import/Export
+
+*/
+
 //////////////////////////////////////
 // I. Vars and Lookups
 //////////////////////////////////////
@@ -77,7 +89,7 @@ window.onload = function() {
   // 3. Add Integers to Dice Div
   //----------------------------
   for (var k = 0; k <= 26; k++) {
-    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addNumToLedger(" + k + ")\">" + k + "</button>";
+    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addStringInLedgerBracket(" + k + ")\">" + k + "</button>";
   }
 
   // document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStrToLedger(\"+\")\"> + </button>";
@@ -199,7 +211,7 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
         var safeStr = targets[j][0].replace(/'/g, "\\'");
         // console.log("safeStr: '" + safeStr + "'");
         
-        document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addTarget('"+safeStr+ "')\">" + targets[j][0] + "</button>";
+        document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
       }
     }
   
@@ -238,7 +250,7 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
         var safeStr = targets[j][0].replace(/'/g, "\\'");
         // console.log("safeStr: '" + safeStr + "'");
         
-        document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addTarget('"+safeStr+ "')\">" + targets[j][0] + "</button>";
+        document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
 
 
 
@@ -476,19 +488,6 @@ function LogIt() {
   ClearTarget();
 }
 
-function addTarget(PassedTarget){
-  //alert showing PassedTarget
-  // console.log("[DEBUG] [addTarget()] Adding Target: " + PassedTarget);
-
-  var obj = document.getElementById("ledger");
-
-  var tempLedger = obj.value.slice(0,obj.value.length-1);
-  var tempLedgerLastChar = obj.value.slice(-1,obj.value.length);
-  obj.value = tempLedger + PassedTarget + tempLedgerLastChar;
-
-  // alert(PassedTarget);  
-}
-
 //4. RemoveLastLog 
 //================
 function RemoveLastLog() {
@@ -505,6 +504,24 @@ function RemoveLastLog() {
     ClearLog();
   }
 }
+
+function addStringInLedgerBracket(PassedString){
+  var obj = document.getElementById("ledger");
+
+  var tempLedger = obj.value.slice(0,obj.value.length-1);
+  var tempLedgerLastChar = obj.value.slice(-1,obj.value.length);
+  obj.value = tempLedger + PassedString + tempLedgerLastChar;
+}
+
+// function addTarget(PassedTarget){
+//   //alert showing PassedTarget
+//   // console.log("[DEBUG] [addTarget()] Adding Target: " + PassedTarget);
+
+//   addStringInLedgerBracket(PassedTarget);
+
+//   // alert(PassedTarget);  
+// }
+
 //////////////////////////////////////
 
 //////////////////////////////////////
