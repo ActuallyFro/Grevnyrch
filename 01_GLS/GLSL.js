@@ -194,7 +194,10 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
       // console.log("Adding Target: '" + targets[j][0] + "'");
       document.getElementById("targets").appendChild(option);
 
-      document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addTarget(\"" + targets[j][0] + "\")\">" + targets[j][0] + "</button>";
+      //ensure string "targets[j][0]" has escaped ' characters
+      var safeStr = targets[j][0].replace(/'/g, "\\'");
+
+      document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addTarget('"+safeStr+ "')\">" + targets[j][0] + "</button>";
 
     }
   
