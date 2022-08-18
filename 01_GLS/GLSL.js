@@ -236,6 +236,10 @@ function addBracket(bracketNumber) {
 
   var selectedBracketTag = document.getElementById("BracketDropDown").value;
   SetupTargetsBasedOnBracketPick(selectedBracketTag);
+
+  // Add button to Ledger Text Input:
+  //document.getElementById("ledger").value += selectedBracketTag;
+  LedgerIt();
 }
 
 //2. Clear - Bracket
@@ -250,7 +254,7 @@ function ClearBracket() {
 function ClearLedger() {
   isLedgerEmpty = true;
   // document.getElementById("ledger").innerHTML = "<h2><i>{Ledger is empty}</i></h2>";
-  document.getElementById("ledger").innerText = "";
+  document.getElementById("ledger").value = "";
   oldLedger = [];
 }
 
@@ -307,7 +311,7 @@ function hideShowDice(showDice=false) { // https://www.w3schools.com/howto/howto
 //================
 function UndoLedger() {
   if (oldLedger.length > 0) {
-    document.getElementById("ledger").innerText = oldLedger[oldLedger.length-1];
+    document.getElementById("ledger").value = oldLedger[oldLedger.length-1];
     oldLedger.pop();  
 
   } else {
@@ -373,21 +377,23 @@ function CheckAndAddTarget(){
 //===========
 function LedgerIt() {
   var obj = document.getElementById("BracketDropDown");
-  oldLedger.push(document.getElementById("ledger").text);
+  oldLedger.push(document.getElementById("ledger").value);
   var tempBracket = obj.options[obj.selectedIndex].value;
   var tempTarget = document.getElementById("target").value;
 
   if (isLedgerEmpty){
-    document.getElementById("ledger").innerText = tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
+    document.getElementById("ledger").value = tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
     isLedgerEmpty = false;
 
   } else {
-    document.getElementById("ledger").innerText += tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
+    document.getElementById("ledger").value += tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
   }
 
   CheckAndAddTarget();
   ClearTag();
   ClearTarget();
+
+    //document.getElementById("ledger").value += selectedBracketTag;
 
 }
 
@@ -405,7 +411,7 @@ function LogIt() {
   } 
 
   var obj = document.getElementById("ledger");
-  var currentLedger = document.getElementById("ledger").innerHTML;
+  var currentLedger = document.getElementById("ledger").value;
   Log.push(currentLedger);
 
 
