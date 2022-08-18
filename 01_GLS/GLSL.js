@@ -114,7 +114,16 @@ function SetupBracketButtons(){
     } else if (brackets[i][2] == "PC or NPC Level Actions"){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
 
-    //TO DO: Event or Encounter, Object, Results
+    } else if (brackets[i][2] == "Event or Encounter"){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+
+          
+    } else if (brackets[i][2] == "Object"){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-warning\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+
+          
+    } else if (brackets[i][2] == "Results"){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
 
     } else if (brackets[i][2] != "GUI - Selection Title"){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-light\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
