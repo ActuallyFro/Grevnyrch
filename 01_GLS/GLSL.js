@@ -18,25 +18,30 @@ var brackets = [
 ["〖 〗", "City", "Locations", ""],
 ["《 》", "District", "Locations", ""],
 ["〈 〉", "Place/Building", "Locations", ""],
+
 ["", "=== Timing Brackets ===", "GUI - Selection Title", "Disabled"],
 ["⟅ ⟆", "Round", "Timing", "Numbers"],
 ["⧼ ⧽", "Time/Duration", "Timing", "Ignore"],
+
 ["", "=== N/PC Brackets ===", "GUI - Selection Title", "Disabled"],
 ["[ ]", "PC or NPC", "PC or NPC Level Actions", ""],
 ["] [", "Hostile NPC/encounter (Single)", "PC or NPC Level Actions", ""],
 ["⟦ ⟧", "Grouping of PCs/NPC", "PC or NPC Level Actions", ""],
 ["⟧ ⟦", "Grouping of Hostile NPCs/encounter", "PC or NPC Level Actions", ""],
+
 ["", "=== Event/Action Brackets ===", "GUI - Selection Title", "Disabled"],
 ["⌊ ⌋", "Event/Encounter - Floor", "Event or Encounter", "Ignore"],
 ["⌈ ⌉", "Event/Encounter - Ceiling", "Event or Encounter", "Ignore"],
 ["( )", "Action", "Event or Encounter", "FilterAction"],
 ["< >", "Movement", "Event or Encounter", "Ignore"],
+
 ["", "=== Object Brackets ===", "GUI - Selection Title", "Disabled"],
 ["{ }", "Item", "Object", "Ignore"],
 ["⸢ ⸣", "Right hand", "Object", "Ignore"],
 ["⸤ ⸥", "Left hand", "Object", "Ignore"],
 ["⸢ ⸥", "Both hands/two handed", "Object", "Ignore"],
 ["⦇ ⦈", "Armor class", "Object", "Numbers"],
+
 ["", "=== Result Brackets ===", "GUI - Selection Title", "Disabled"],
 ["⟮ ⟯", "Dice Roll Success (check)", "Results", "Dice"],
 ["⟯ ⟮", "Dice Roll Failure (check)", "Results", "Dice"],
@@ -108,6 +113,12 @@ function SetupBracketButtons(){
     
     } else if (brackets[i][2] == "PC or NPC Level Actions"){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+
+    //TO DO: Event or Encounter, Object, Results
+
+    } else if (brackets[i][2] != "GUI - Selection Title"){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-light\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+
     }
 
     seletionBracketCount++;
