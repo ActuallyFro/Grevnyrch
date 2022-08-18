@@ -196,7 +196,8 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
 
       //ensure string "targets[j][0]" has escaped ' characters
       var safeStr = targets[j][0].replace(/'/g, "\\'");
-
+      // console.log("safeStr: '" + safeStr + "'");
+      
       document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addTarget('"+safeStr+ "')\">" + targets[j][0] + "</button>";
 
     }
@@ -232,7 +233,12 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
         if (!targets[j][0].includes(";;")) {
           document.getElementById("targets").appendChild(option);
 
-          document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addTarget(\"" + targets[j][0] + "\")\">" + targets[j][0] + "</button>";
+        //ensure string "targets[j][0]" has escaped ' characters
+        var safeStr = targets[j][0].replace(/'/g, "\\'");
+        // console.log("safeStr: '" + safeStr + "'");
+        
+        document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addTarget('"+safeStr+ "')\">" + targets[j][0] + "</button>";
+
 
 
           foundTargets++;
@@ -471,7 +477,14 @@ function LogIt() {
 
 function addTarget(PassedTarget){
   //alert showing PassedTarget
-  console.log("[DEBUG] [addTarget()] Adding Target: " + PassedTarget);
+  // console.log("[DEBUG] [addTarget()] Adding Target: " + PassedTarget);
+
+  var obj = document.getElementById("ledger");
+
+  var tempLedger = obj.value.slice(0,obj.value.length-1);
+  var tempLedgerLastChar = obj.value.slice(-1,obj.value.length);
+  obj.value = tempLedger + PassedTarget + tempLedgerLastChar;
+
   // alert(PassedTarget);  
 }
 
