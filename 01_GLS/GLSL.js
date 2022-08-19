@@ -96,6 +96,13 @@ window.onload = function() {
   document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addStringInLedgerBracket('-')\"> - </button>";
   document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('=')\"> = </button>";
   
+  document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-info\" onclick=\"addStringInLedgerBracket('→')\"> → </button>";
+  document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-info\" onclick=\"addStringInLedgerBracket(';;')\"> ;; </button>";
+  // <div class="col-sm-12" id="ActivityButtons"></div>
+  // <option>Act upon: →</option>
+  // <option>Add to symbol table: ;;</option>
+
+
   
   document.getElementById("BracketDropDown").addEventListener("change", function() {
     var selectedBracketTag = document.getElementById("BracketDropDown").value;
