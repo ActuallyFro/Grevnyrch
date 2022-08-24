@@ -46,6 +46,7 @@ var brackets = [
 ["⌈ ⌉", "Event/Encounter - Ceiling", "Event or Encounter", "Ignore"],
 ["( )", "Action", "Event or Encounter", "FilterAction"],
 ["< >", "Movement", "Event or Encounter", "Ignore"],
+["(( ))", "Comment", "General Comment", ""],
 
 ["", "=== Object Brackets ===", "GUI - Selection Title", "Disabled"],
 ["{ }", "Item", "Object", "Ignore"],
