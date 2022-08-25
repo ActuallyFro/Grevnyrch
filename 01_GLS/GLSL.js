@@ -69,6 +69,10 @@ var targets = [
 
 var isShowingNumbers = false;
 
+var LastBracketSize = 0;
+var LastBracketWidth = 0; //SHOULD be (Size-1)/2 -- but I cannot say 100% ALWAYS will be...
+var isInnerBracket = false;
+
 //////////////////////////////////////
 // II. OnPageLoad/Init
 
@@ -408,20 +412,21 @@ function LedgerIt() {
   var tempBracket = obj.options[obj.selectedIndex].value;
   var tempTarget = document.getElementById("target").value;
 
-  var adjustedBracketLength = (tempBracket.length - 1)/2;
+  LastBracketSize = tempBracket.length;
+  LastBracketWidth = (LastBracketSize - 1)/2;
 
-  if (adjustedBracketLength < 1){
-    console.log("[ERROR] Provided bracket is formmatted WRONG! (len: " + tempBracket.length + ")");
+  if (LastBracketWidth < 1){
+    console.log("[ERROR] Provided bracket is formmatted WRONG! (len: " + LastBracketSize + ")");
     return;
   }
-  // console.log("[DEBUG] Current bracket len: '" + tempBracket.length + "', adjusted: '"+adjustedBracketLength+"'");
+  // console.log("[DEBUG] Current bracket len: '" + LastBracketSize + "', adjusted: '"+LastBracketWidth+"'");
 
   if (isLedgerEmpty){
-    document.getElementById("ledger").value = tempBracket.slice(0,adjustedBracketLength) + tempTarget + tempBracket.slice(-adjustedBracketLength, tempBracket.length);
+    document.getElementById("ledger").value = tempBracket.slice(0,LastBracketWidth) + tempTarget + tempBracket.slice(-LastBracketWidth, LastBracketSize);
     isLedgerEmpty = false;
 
   } else {
-    document.getElementById("ledger").value += tempBracket.slice(0,adjustedBracketLength) + tempTarget + tempBracket.slice(-adjustedBracketLength, tempBracket.length);
+    document.getElementById("ledger").value += tempBracket.slice(0,LastBracketWidth) + tempTarget + tempBracket.slice(-LastBracketWidth, LastBracketSize);
   }
 
   CheckAndAddTarget();
