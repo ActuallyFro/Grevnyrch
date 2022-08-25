@@ -414,7 +414,7 @@ function LedgerIt() {
     console.log("[ERROR] Provided bracket is formmatted WRONG! (len: " + tempBracket.length + ")");
     return;
   }
-  console.log("[DEBUG] Current bracket len: '" + tempBracket.length + "', adjusted: '"+adjustedBracketLength+"'");
+  // console.log("[DEBUG] Current bracket len: '" + tempBracket.length + "', adjusted: '"+adjustedBracketLength+"'");
 
   if (isLedgerEmpty){
     document.getElementById("ledger").value = tempBracket.slice(0,adjustedBracketLength) + tempTarget + tempBracket.slice(-adjustedBracketLength, tempBracket.length);
