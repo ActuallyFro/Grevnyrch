@@ -214,7 +214,7 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
       var foundTargetBracket = brackets[i][0];
       // console.log("This(" + foundTargetBracket + ") vs. That(" + SelectedBracket + ")")
       if (brackets[i][0] == SelectedBracket) {
-        // console.log("Found Bracket: " + foundTargetBracket);
+        //console.log("Found Bracket: " + foundTargetBracket);
         SelectedBracketWords = brackets[i][2];
         break;
       }
@@ -271,8 +271,9 @@ function addBracket(bracketNumber) {
     hideShowDice(false);
   }
 
+  //Passes the string for brackets
   var selectedBracketTag = document.getElementById("BracketDropDown").value;
-  SetupTargetsBasedOnBracketPick(selectedBracketTag);
+  SetupTargetsBasedOnBracketPick(selectedBracketTag); //Adds buttons for targets, filtered on brackets[i][2]
 
   LedgerIt();
 }
@@ -407,12 +408,20 @@ function LedgerIt() {
   var tempBracket = obj.options[obj.selectedIndex].value;
   var tempTarget = document.getElementById("target").value;
 
+  var adjustedBracketLength = (tempBracket.length - 1)/2;
+
+  if (adjustedBracketLength < 1){
+    console.log("[ERROR] Provided bracket is formmatted WRONG! (len: " + tempBracket.length + ")");
+    return;
+  }
+  console.log("[DEBUG] Current bracket len: '" + tempBracket.length + "', adjusted: '"+adjustedBracketLength+"'");
+
   if (isLedgerEmpty){
-    document.getElementById("ledger").value = tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
+    document.getElementById("ledger").value = tempBracket.slice(0,adjustedBracketLength) + tempTarget + tempBracket.slice(-adjustedBracketLength, tempBracket.length);
     isLedgerEmpty = false;
 
   } else {
-    document.getElementById("ledger").value += tempBracket.slice(0,1) + tempTarget + tempBracket.slice(-1,tempBracket.length);
+    document.getElementById("ledger").value += tempBracket.slice(0,adjustedBracketLength) + tempTarget + tempBracket.slice(-adjustedBracketLength, tempBracket.length);
   }
 
   CheckAndAddTarget();
