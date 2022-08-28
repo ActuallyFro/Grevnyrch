@@ -297,6 +297,14 @@ function LocalStorageGetKeys(debug=false){
   return totalKeys;
 }
 
+//5. localstorage - Save Logs
+//=======================
+function LocalStorageLogsSave(debug=false){
+  if (debug){
+    console.log("[DEBUG][LocalStorageLogsSave] Saving Logs to localstorage...");    
+  }
+}
+
 //////////////////////////////////////
 
 //////////////////////////////////////
