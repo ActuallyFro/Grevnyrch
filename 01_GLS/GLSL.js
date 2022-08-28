@@ -554,18 +554,31 @@ function addStringInLedgerBracket(PassedString){
 //////////////////////////////////////
 // V. Import/Export
 
-//1. Export - Targets (JSON)
+//1. Prep Targets as JSON String
+//=========================
+function TargetArrayStringifyAsJSON(){
+  return JSON.stringify(targets);
+}
+
+//2. Prep Logs as JSON String
+//=========================
+function LogsStringifyAsJSON(){
+  return JSON.stringify(Log);
+}
+
+
+//3. Export - Targets (JSON)
 //=========================
 function ExportTargetArrayToJson() {
-  var text = JSON.stringify(targets);
+  var text = TargetArrayStringifyAsJSON();
   var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
   saveAs(blob, "GSL_Targets.json");
 }
 
-//2. Export - Logs (JSON)
+//4. Export - Logs (JSON)
 //=========================
 function ExportLogToJson() {
-  var text = JSON.stringify(Log);
+  var text = LogsStringifyAsJSON();
   var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
 
   var date = new Date();
@@ -575,7 +588,7 @@ function ExportLogToJson() {
   saveAs(blob, "GSL_Log_"+textIso+".json");
 }
 
-//3. Import - Logs (JSON)
+//5. Import - Logs (JSON)
 //=======================
 function ImportJsonToLog(){
   //(a) Take provided file (and ONLY one file, if multiple files passed), (b) load content into Log[] array, (c) load into <table>, (d) then check if valid.
@@ -621,7 +634,7 @@ function ImportJsonToLog(){
 }
 
 
-//4. Import - Targets (JSON)
+//6. Import - Targets (JSON)
 //=========================
 function ImportJsonToTargets(){
   // document.getElementById("fileInputTargets").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
@@ -656,7 +669,7 @@ function ImportJsonToTargets(){
 // });
 }
 
-//5. Import - Targets (JSON)
+//7. Import - Targets (JSON)
 //=========================
 function saveAs(blob, filename) {
   var url = URL.createObjectURL(blob);
