@@ -47,6 +47,7 @@ var brackets = [
 ["〖 〗", "City", "Locations", ""],
 ["《 》", "District", "Locations", ""],
 ["〈 〉", "Place/Building", "Locations", ""],
+["⦓ ⦔", "Inner Place/Building (e.g., Room)", "Locations", ""],
 
 ["", "=== Timing Brackets ===", "GUI - Selection Title", "Disabled"],
 ["⟅ ⟆", "Round", "Timing", "Numbers"],
@@ -676,9 +677,17 @@ function LocalStorageGetKeys(debug=false){
 //10. localstorage - Save Logs
 //=======================
 function LocalStorageLogsSave(debug=false){
+  var newLogsStr = LogsStringifyAsJSON();
+
   if (debug){
     console.log("[DEBUG][LocalStorageLogsSave] Saving Logs to localstorage...");    
+    console.log("[DEBUG][LocalStorageLogsSave]");
+    console.log("[DEBUG][LocalStorageLogsSave] NewString: " + newLogsStr);
+    console.log("[DEBUG][LocalStorageLogsSave]");
   }
+
+  //TODO: SAVE this string as key 'GLSL-Logs' to localstorage
+
 }
 //////////////////////////////////////
 
