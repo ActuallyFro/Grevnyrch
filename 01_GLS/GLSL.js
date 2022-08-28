@@ -16,7 +16,6 @@ V. Import/Export
 
 //////////////////////////////////////
 // I. Vars and Lookups
-//////////////////////////////////////
 
 // Global var to store the propsed ledger entry, as array of strings
 var isLedgerEmpty = true;
@@ -72,6 +71,7 @@ var isShowingNumbers = false;
 var LastBracketSize = 0;
 var LastBracketWidth = 0; //SHOULD be (Size-1)/2 -- but I cannot say 100% ALWAYS will be...
 var isInnerBracket = false;
+//////////////////////////////////////
 
 //////////////////////////////////////
 // LocalStorage Plan:
