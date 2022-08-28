@@ -115,6 +115,11 @@ brackets. Alt-key combinations work for most Unicode, but an ASCII-only
 | String: Full name or symbol
 | None
 
+| ⦓ ⦔
+| Inner Place/Building (e.g., Room)
+| String: Full name or symbol
+| None
+
 |===
 
 
