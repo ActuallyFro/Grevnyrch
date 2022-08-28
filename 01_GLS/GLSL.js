@@ -520,6 +520,9 @@ function LogIt() {
   ClearLedger();
   ClearTag();
   ClearTarget();
+
+  // //Save logs out to localstorage (due to Log.push(currentLedger))
+  LocalStorageLogsSave(true);
 }
 
 //4. RemoveLastLog 
