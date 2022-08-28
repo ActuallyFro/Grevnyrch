@@ -535,7 +535,7 @@ function ExportLogToJson() {
 //3. Import - Logs (JSON)
 //=======================
 function ImportJsonToLog(){
-  //Create Listener that will load file into Log[]
+  //(a) Take provided file (and ONLY one file, if multiple files passed), (b) load content into Log[] array, (c) load into <table>, (d) then check if valid.
   var file_to_read = document.getElementById("fileInputLog").files[0];
   var fileread = new FileReader();
 
@@ -543,36 +543,37 @@ function ImportJsonToLog(){
     var content = e.target.result;
     var parsedLog = JSON.parse(content);
 
+    //(b) - Load content into Log[]
     Log = [];
     for (var i = 0; i < parsedLog.length; i++) {
-      // console.log(parsedLog[i]);
       Log.push(parsedLog[i]);
     }
-    // console.log(Log);
     
+    //(c) - load Log[] entries into <table>
     document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
-
     for (var j = 0; j < Log.length; j++) {
       var row = document.createElement("tr");
-
       var cell = document.createElement("td");
+
       cell.innerHTML = Log[j];
       row.appendChild(cell);
+
       document.getElementById("LogsTable").appendChild(row);      
     }
 
+    //(d) - Check if load was valid/successful
     if (Log.length > 0) {
       isLogEmpty = false;
-      
       alert("Successfully loaded '"+ Log.length +"' Logs!");
-    } else {
-      isLogEmpty = true;
-      
-      alert("[Warning] No Logs imported, please check source file!");
 
+    } else {
+      isLogEmpty = true;      
+      alert("[Warning] No Logs imported, please check source file!");
     }
 
   };
+
+  //(a) 
   fileread.readAsText(file_to_read);
 }
 
