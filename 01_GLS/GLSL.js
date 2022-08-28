@@ -94,6 +94,17 @@ var isInnerBracket = false;
 //1. Page setup:
 //============== 
 window.onload = function() {
+  //BAD: LocalStorageClear(true);
+
+  //0. Determine if LocalStorage's Log[] is empty: (a) if not -- load, else -- print empty:
+  var totalLSKeys = LocalStorageGetKeys(); //LocalStorageGetKeys(true)
+  if (totalLSKeys>0){
+    console.log("[DEBUG] Found '" + totalLSKeys +"' total, localstorage keys!");
+
+  } else {
+    console.log("[DEBUG] There are NO keys (i.e., no stored data!)");
+  }
+
   document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
 
   // 1. Setup Bracket Buttons
@@ -261,6 +272,31 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
   }
 }
 
+
+//3. localstorage - Clear
+//=======================
+function LocalStorageClear(debug=false){
+  localStorage.clear();  
+  if (debug){
+    console.log("[DEBUG][LocalStorageClear] Cleared all user/page created keys!");
+  }
+}
+
+//4. localstorage - Get Total Keys
+//=======================
+function LocalStorageGetKeys(debug=false){
+  var totalKeys=0;
+  for(var key in window.localStorage){
+    if(window.localStorage.hasOwnProperty(key)){ //aka: NOT inherited; otherwise ALL defaults counted (e.g., length, clear, get, remove, set, etc.)
+      totalKeys++;
+      if (debug){
+        console.log("[DEBUG][LocalStorageGetKeys] Found key: '" + key + "'");
+        console.log( key + " = " + ((window.localStorage[key].length * 16)/(8 * 1024)).toFixed(2) + ' KB' );
+      }  
+    }
+  }
+  return totalKeys;
+}
 
 //////////////////////////////////////
 
