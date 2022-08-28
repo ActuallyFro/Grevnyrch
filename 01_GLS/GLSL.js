@@ -101,7 +101,7 @@ window.onload = function() {
   //BAD: LocalStorageClear(true);
 
   //0. Determine if LocalStorage's Log[] is empty: (a) if not -- load, else -- print empty:
-  var totalLSKeys = LocalStorageGetKeys(); //LocalStorageGetKeys(true)
+  var totalLSKeys = LocalStorageGetKeys(true); //LocalStorageGetKeys(true)
   if (totalLSKeys>0){
     console.log("[DEBUG] Found '" + totalLSKeys +"' total, localstorage keys!");
 
@@ -669,8 +669,19 @@ function LocalStorageGetKeys(debug=false){
         console.log("[DEBUG][LocalStorageGetKeys] Found key: '" + key + "'");
         console.log( key + " = " + ((window.localStorage[key].length * 16)/(8 * 1024)).toFixed(2) + ' KB' );
       }  
+      if (key === "GLSL-Logs"){
+        if (debug){
+          console.log("[DEBUG][LocalStorageGetKeys] Loading Logs saved in 'GLSL-Logs'!");
+        }
+
+      } else if (key === "GLSL-Targets"){
+        if (debug){
+          console.log("[DEBUG][LocalStorageGetKeys] Loading Targets saved in 'GLSL-Targets'!");
+        }
+      }
     }
   }
+
   return totalKeys;
 }
 
@@ -686,7 +697,17 @@ function LocalStorageLogsSave(debug=false){
     console.log("[DEBUG][LocalStorageLogsSave]");
   }
 
-  //TODO: SAVE this string as key 'GLSL-Logs' to localstorage
+  // var oldStr = localStorage.getItem('GLSL-Logs');
+  // var newStr = "";
+
+  // if (oldStr === null){
+  //   console.log("[WARNING] nothing is stored in 'GLSL-Logs'!");
+  //   newStr = document.getElementById("ExtString").value;
+  // } else {
+  //   newStr = oldStr + "<br>" + document.getElementById("ExtString").value;
+  // }
+  // console.log("[DEBUGGING] New String: '" + newStr + "'");
+  localStorage.setItem('GLSL-Logs', newLogsStr);
 
 }
 //////////////////////////////////////
