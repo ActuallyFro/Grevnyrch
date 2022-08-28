@@ -74,6 +74,24 @@ var LastBracketWidth = 0; //SHOULD be (Size-1)/2 -- but I cannot say 100% ALWAYS
 var isInnerBracket = false;
 
 //////////////////////////////////////
+// LocalStorage Plan:
+// ------------------
+// 1. brackets -- N/A, since these are static/look-ups
+// 2. targets -- yes (curretly are exported too)  {#2}
+//   a. Needs a reset option {#a}
+//   b. LocalStorage then needs to be added {#b}
+// 3. ledger -- no (these are dynamically built, treated as draft, when an entry is considered valid -- it moves to a log)
+// 4. logs -- yes (curretly are exported too) {#1}
+//   a. LocalStorage needs to be added to reset {#a}
+//
+// Other LocalStorage issues
+// -------------------------
+// i. Showing total storage percent in navigation menu
+//
+//////////////////////////////////////
+
+
+//////////////////////////////////////
 // II. OnPageLoad/Init
 
 //1. Page setup:
