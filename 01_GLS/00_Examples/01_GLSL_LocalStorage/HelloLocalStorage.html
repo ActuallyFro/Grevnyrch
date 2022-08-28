@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <script>
+      var localStorageSpaceUsed;
+      var localStorageSpaceRemaining;
+      var localStoragePercentUsed;
+      var isFirstPost = true;
+
+      function CheckStorage(){ //https://coderwall.com/p/4rsq1w/check-your-html5-local-storage-usage
+        var data = '';
+
+        console.log('Current local storage: ');
+
+        for(var key in window.localStorage){
+          if(window.localStorage.hasOwnProperty(key)){
+            data += window.localStorage[key];
+            console.log( key + " = " + ((window.localStorage[key].length * 16)/(8 * 1024)).toFixed(2) + ' KB' );
+          }
+        }
+
+        console.log(data ? '\n' + 'Total space used: ' + ((data.length * 16)/(8 * 1024)).toFixed(2) + ' KB' : 'Empty (0 KB)');
+        console.log(data ? 'Approx. space remaining: ' + (5120 - ((data.length * 16)/(8 * 1024)).toFixed(2)) + ' KB' : '5 MB');
+
+        localStorageSpaceUsed = ((data.length * 16)/(8 * 1024)).toFixed(2).toString();
+        localStorageSpaceRemaining = (5120 - ((data.length * 16)/(8 * 1024)).toFixed(2)).toString();
+        localStoragePercentUsed = localStorageSpaceUsed/localStorageSpaceRemaining;
+        if (localStoragePercentUsed < 0.01){
+          localStoragePercentUsed = 0.0
+        } else {
+          localStoragePercentUsed=(localStoragePercentUsed * 100).toFixed(2);
+        }
+      }
+
+      function PrintStorage(){
+        document.getElementById("StorageStatesBlock").innerHTML = "Space used: " + localStorageSpaceUsed + " KB; Space remaining: " + localStorageSpaceRemaining +" KB (" + localStoragePercentUsed + "%)";
+      }
+
+      window.onload = function() {
+        document.getElementById("NoStorage").innerHTML = "<i>{empty}</i>";
+        document.getElementById("LocalStorageBlock").innerHTML = "<i>{empty}</i>";
+
+
+        CheckStorage();
+        PrintStorage();
+
+        if (localStorage.DataBlock.length !== 0){
+          myLoad();
+        }
+      }
+
+      function myLoad(){
+        console.log("[DEBUG] Loading 'DataBlock' into 'LocalStorageBlock'");
+        document.getElementById("LocalStorageBlock").innerHTML = localStorage.getItem('DataBlock');
+
+        // the strings CAN be JSON -- but a quick import/export would be needed!
+        // ...JSON.parse(<data>)...
+      }
+
+      function myStore(){
+        var oldStr = localStorage.getItem('DataBlock');
+        var newStr = "";
+        if (oldStr === null){
+          console.log("[WARNING] nothing is stored in 'DataBlock'!");
+          newStr = document.getElementById("ExtString").value;
+        } else {
+          newStr = oldStr + "<br>" + document.getElementById("ExtString").value;
+        }
+        console.log("[DEBUGGING] New String: '" + newStr + "'");
+        localStorage.setItem('DataBlock', newStr);
+      }
+
+      function myClear(){
+        localStorage.removeItem('DataBlock');
+
+        CheckStorage();
+        PrintStorage();
+
+        myLoad();
+
+        document.getElementById("NoStorage").innerHTML = "<i>{empty}</i>";
+        document.getElementById("LocalStorageBlock").innerHTML = "<i>{empty}</i>";
+
+      }
+
+      function AddAndStore(){
+        console.log("[DEBUG] Adding to NoStorage: " + document.getElementById("ExtString").value);
+        if (isFirstPost){
+          document.getElementById("NoStorage").innerHTML = document.getElementById("ExtString").value + "<br>";
+          isFirstPost = false;
+
+        } else {
+          document.getElementById("NoStorage").innerHTML += document.getElementById("ExtString").value + "<br>";
+        }
+        myStore();
+        myLoad();
+
+        CheckStorage();
+        PrintStorage();
+      }
+
+    </script>
+  </head>
+
+  <body>
+
+    <h1>Hello Local Storage!</h1>
+    <hr>  
+
+    <h2>Enter Some Text: </h2>
+    <form>
+      <label for="ExtString">Example string to add:</label><br>
+      <input type="text" id="ExtString" name="ExtString"><br>
+    </form>
+    <button onclick="AddAndStore()">Save this string!</button>
+
+    <h2>NO Storage</h2>
+    <p id="NoStorage"></p>
+
+    <br><br>
+
+    <h2>Local Storage</h2>
+    <p id="LocalStorageBlock"></p>
+
+    <h2>Storage Stats</h2>
+    <p id="StorageStatesBlock"></p>
+
+    <br>
+    <button onclick="myClear()">Reset Storage!</button>
+
+  </body>
+</html> 
+
