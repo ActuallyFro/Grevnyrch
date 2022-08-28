@@ -2,17 +2,32 @@
 /* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script> */
 /* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script> --> */
 
-/*
+//////////////////////////////////////
+// Table of Contents
+// =================
+// I. Vars and Lookups
+// II. OnPageLoad/Init
+// III. GUI Usage Functions
+// IV. Usage/Async I/O Functions
+// V. Import/Export
+//////////////////////////////////////
 
-Table of Contents
-=================
-I. Vars and Lookups
-II. OnPageLoad/Init
-III. GUI Usage Functions
-IV. Usage/Async I/O Functions
-V. Import/Export
-
-*/
+//////////////////////////////////////
+// LocalStorage Plan:
+// ------------------
+// 1. brackets -- N/A, since these are static/look-ups
+// 2. targets -- yes (curretly are exported too)  {#2}
+//   a. Needs a reset option {#a}
+//   b. LocalStorage then needs to be added {#b}
+// 3. ledger -- no (these are dynamically built, treated as draft, when an entry is considered valid -- it moves to a log)
+// 4. logs -- yes (curretly are exported too) {#1}
+//   a. LocalStorage needs to be added to reset {#a}
+//
+// Other LocalStorage issues
+// -------------------------
+// i. Showing total storage percent in navigation menu
+//
+//////////////////////////////////////
 
 //////////////////////////////////////
 // I. Vars and Lookups
@@ -72,24 +87,6 @@ var LastBracketSize = 0;
 var LastBracketWidth = 0; //SHOULD be (Size-1)/2 -- but I cannot say 100% ALWAYS will be...
 var isInnerBracket = false;
 //////////////////////////////////////
-
-//////////////////////////////////////
-// LocalStorage Plan:
-// ------------------
-// 1. brackets -- N/A, since these are static/look-ups
-// 2. targets -- yes (curretly are exported too)  {#2}
-//   a. Needs a reset option {#a}
-//   b. LocalStorage then needs to be added {#b}
-// 3. ledger -- no (these are dynamically built, treated as draft, when an entry is considered valid -- it moves to a log)
-// 4. logs -- yes (curretly are exported too) {#1}
-//   a. LocalStorage needs to be added to reset {#a}
-//
-// Other LocalStorage issues
-// -------------------------
-// i. Showing total storage percent in navigation menu
-//
-//////////////////////////////////////
-
 
 //////////////////////////////////////
 // II. OnPageLoad/Init
