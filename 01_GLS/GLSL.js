@@ -15,7 +15,9 @@
 //////////////////////////////////////
 // LocalStorage Plan:
 // ------------------
-// 0. Add in hooks to check for existing content, and load as appropriate... {#0}
+// 0. Add in hooks to check for existing content, and load as appropriate... {#0} |< DONE >|
+//   a. load Logs <import like LOG file import/load> {#a}
+//   b. load targets <import like TARGET file import/load> {#b}
 // 1. brackets -- N/A, since these are static/look-ups
 // 2. targets -- yes (curretly are exported too)  {#2}
 //   a. Needs a reset option {#a}
