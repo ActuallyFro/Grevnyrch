@@ -271,40 +271,6 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
   }
 }
 
-
-//3. localstorage - Clear
-//=======================
-function LocalStorageClear(debug=false){
-  localStorage.clear();  
-  if (debug){
-    console.log("[DEBUG][LocalStorageClear] Cleared all user/page created keys!");
-  }
-}
-
-//4. localstorage - Get Total Keys
-//=======================
-function LocalStorageGetKeys(debug=false){
-  var totalKeys=0;
-  for(var key in window.localStorage){
-    if(window.localStorage.hasOwnProperty(key)){ //aka: NOT inherited; otherwise ALL defaults counted (e.g., length, clear, get, remove, set, etc.)
-      totalKeys++;
-      if (debug){
-        console.log("[DEBUG][LocalStorageGetKeys] Found key: '" + key + "'");
-        console.log( key + " = " + ((window.localStorage[key].length * 16)/(8 * 1024)).toFixed(2) + ' KB' );
-      }  
-    }
-  }
-  return totalKeys;
-}
-
-//5. localstorage - Save Logs
-//=======================
-function LocalStorageLogsSave(debug=false){
-  if (debug){
-    console.log("[DEBUG][LocalStorageLogsSave] Saving Logs to localstorage...");    
-  }
-}
-
 //////////////////////////////////////
 
 //////////////////////////////////////
@@ -680,6 +646,39 @@ function saveAs(blob, filename) {
   setTimeout(function() {
     URL.revokeObjectURL(url);
   }, 100);
+}
+
+//8. localstorage - Clear
+//=======================
+function LocalStorageClear(debug=false){
+  localStorage.clear();  
+  if (debug){
+    console.log("[DEBUG][LocalStorageClear] Cleared all user/page created keys!");
+  }
+}
+
+//9. localstorage - Get Total Keys
+//=======================
+function LocalStorageGetKeys(debug=false){
+  var totalKeys=0;
+  for(var key in window.localStorage){
+    if(window.localStorage.hasOwnProperty(key)){ //aka: NOT inherited; otherwise ALL defaults counted (e.g., length, clear, get, remove, set, etc.)
+      totalKeys++;
+      if (debug){
+        console.log("[DEBUG][LocalStorageGetKeys] Found key: '" + key + "'");
+        console.log( key + " = " + ((window.localStorage[key].length * 16)/(8 * 1024)).toFixed(2) + ' KB' );
+      }  
+    }
+  }
+  return totalKeys;
+}
+
+//10. localstorage - Save Logs
+//=======================
+function LocalStorageLogsSave(debug=false){
+  if (debug){
+    console.log("[DEBUG][LocalStorageLogsSave] Saving Logs to localstorage...");    
+  }
 }
 //////////////////////////////////////
 
