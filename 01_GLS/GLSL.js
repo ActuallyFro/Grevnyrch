@@ -19,10 +19,10 @@
 // 1. brackets -- N/A, since these are static/look-ups
 // 2. targets -- yes (curretly are exported too)  {#2}
 //   a. Needs a reset option {#a}
-//   b. LocalStorage then needs to be added {#b}
+//   b. LocalStorage then needs to be added {#b} <WHEN a NEW target is added -- export list>
 // 3. ledger -- no (these are dynamically built, treated as draft, when an entry is considered valid -- it moves to a log)
 // 4. logs -- yes (curretly are exported too) {#1}
-//   a. LocalStorage needs to be added to reset {#a}
+//   a. LocalStorage needs to be added to reset {#a}  <WHEN a NEW log is added -- export list>
 //
 // Other LocalStorage issues
 // -------------------------
