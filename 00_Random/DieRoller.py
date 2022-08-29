@@ -1,3 +1,6 @@
+# !/bin/python3
+# DieRoller.py v1.2.0
+
 from itertools import count
 import random
 import os
@@ -11,16 +14,17 @@ def clear():
 
 def PrintDieSelection(DiceAmount):
     print("\nSelect a die to roll:")
-    print("0. Enter total dice to roll")
-    print("1. d4")
-    print("2. d6")
-    print("3. d8")
-    print("4. d10")
-    print("5. d12")
-    print("6. d20")
+    print("\t0. Enter total dice to roll")
+    print("\t1. d4")
+    print("\t2. d6")
+    print("\t3. d8")
+    print("\t4. d10")
+    print("\t5. d12")
+    print("\t6. d20")
     print("\n")
     # q for quit
-    print("q. Quit")
+    print("\tq. Quit")
+    print("\n")
     print("Current dice amount:", DiceAmount)
 
     return
@@ -91,10 +95,16 @@ def main():
             counter = 0
 
         else:
+            dice_sum = 0
             for i in range(total_dice):
                 counter += 1
                 die_roll = random.randint(1, upper_limit)
                 print("\n[", counter ,"] You rolled a ⦗", die_roll, "⦘")
+                dice_sum += die_roll
+
+            print("\n\tTotal dice sum:", dice_sum)
+            average = dice_sum / total_dice
+            print("\n\tAverage:", average)
 
             user_input = input("\n\tEnter to roll again; any # returns to main menu...")
 
