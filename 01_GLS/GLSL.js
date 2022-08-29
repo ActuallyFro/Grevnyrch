@@ -109,8 +109,6 @@ window.onload = function() {
     console.log("[DEBUG] There are NO keys (i.e., no stored data!)");
   }
 
-  document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
-
   // 1. Setup Bracket Buttons
   SetupBracketButtons();
 
@@ -555,12 +553,29 @@ function ExportLogToJson() {
   saveAs(blob, "GSL_Log_"+textIso+".json");
 }
 
+/////////////////////////////////
+
 function LoadArrayIntoLog(PassedArray){ //Passed JSON Parsed from String
   Log = [];
   for (var i = 0; i < PassedArray.length; i++) {
     Log.push(PassedArray[i]);
   }
 }
+
+function LoadLogArrayIntoTable(){
+  document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
+  for (var j = 0; j < Log.length; j++) {
+    var row = document.createElement("tr");
+    var cell = document.createElement("td");
+
+    cell.innerHTML = Log[j];
+    row.appendChild(cell);
+
+    document.getElementById("LogsTable").appendChild(row);      
+  }
+}
+
+//////////////////////////////////////
 
 //5. Import - Logs (JSON)
 //=======================
@@ -577,16 +592,7 @@ function ImportJsonToLog(){
     LoadArrayIntoLog(parsedLog);
 
     //(c) - load Log[] entries into <table>
-    document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
-    for (var j = 0; j < Log.length; j++) {
-      var row = document.createElement("tr");
-      var cell = document.createElement("td");
-
-      cell.innerHTML = Log[j];
-      row.appendChild(cell);
-
-      document.getElementById("LogsTable").appendChild(row);      
-    }
+    LoadLogArrayIntoTable();
 
     //(d) - Check if load was valid/successful
     if (Log.length > 0) {
@@ -666,6 +672,9 @@ function LocalStorageClear(debug=false){
 //=======================
 function LocalStorageLoadMainKeys(debug=false){
   var totalKeys=0;
+
+  var loadedLogs = false;
+
   for(var key in window.localStorage){
     if(window.localStorage.hasOwnProperty(key)){ //aka: NOT inherited; otherwise ALL defaults counted (e.g., length, clear, get, remove, set, etc.)
       totalKeys++;
@@ -682,6 +691,17 @@ function LocalStorageLoadMainKeys(debug=false){
         var storedlogs = localStorage.getItem('GLSL-Logs');
         var parsedLog = JSON.parse(storedlogs);
         LoadArrayIntoLog(parsedLog);
+        if (debug){
+          console.log("[DEBUG][LocalStorageLoadMainKeys] Loaded string <" + storedlogs + ">");
+          console.log("[DEBUG][LocalStorageLoadMainKeys] Parsed string <" + parsedLog + ">");
+          console.log("[DEBUG][LocalStorageLoadMainKeys] Loaded '" + Log.length + "' Logs");
+        }
+
+        //(c) - load Log[] entries into <table>
+        LoadLogArrayIntoTable();
+
+        loadedLogs = true;
+        isLogEmpty = false;
 
       } else if (key === "GLSL-Targets"){
         if (debug){
@@ -689,6 +709,10 @@ function LocalStorageLoadMainKeys(debug=false){
         }
       }
     }
+  }
+
+  if (!loadedLogs){
+    document.getElementById("Logs").innerHTML = "<div id=\"logStatus\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
   }
 
   return totalKeys;
