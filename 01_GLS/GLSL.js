@@ -101,7 +101,7 @@ window.onload = function() {
   //BAD: LocalStorageClear(true);
 
   //0. Determine if LocalStorage's Log[] is empty: (a) if not -- load, else -- print empty:
-  var totalLSKeys = LocalStorageGetKeys(true); //LocalStorageGetKeys(true)
+  var totalLSKeys = LocalStorageLoadMainKeys(true); //LocalStorageLoadMainKeys(true)
   if (totalLSKeys>0){
     console.log("[DEBUG] Found '" + totalLSKeys +"' total, localstorage keys!");
 
@@ -555,6 +555,13 @@ function ExportLogToJson() {
   saveAs(blob, "GSL_Log_"+textIso+".json");
 }
 
+function LoadArrayIntoLog(PassedArray){ //Passed JSON Parsed from String
+  Log = [];
+  for (var i = 0; i < PassedArray.length; i++) {
+    Log.push(PassedArray[i]);
+  }
+}
+
 //5. Import - Logs (JSON)
 //=======================
 function ImportJsonToLog(){
@@ -567,11 +574,8 @@ function ImportJsonToLog(){
     var parsedLog = JSON.parse(content);
 
     //(b) - Load content into Log[]
-    Log = [];
-    for (var i = 0; i < parsedLog.length; i++) {
-      Log.push(parsedLog[i]);
-    }
-    
+    LoadArrayIntoLog(parsedLog);
+
     //(c) - load Log[] entries into <table>
     document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
     for (var j = 0; j < Log.length; j++) {
@@ -660,23 +664,28 @@ function LocalStorageClear(debug=false){
 
 //9. localstorage - Get Total Keys
 //=======================
-function LocalStorageGetKeys(debug=false){
+function LocalStorageLoadMainKeys(debug=false){
   var totalKeys=0;
   for(var key in window.localStorage){
     if(window.localStorage.hasOwnProperty(key)){ //aka: NOT inherited; otherwise ALL defaults counted (e.g., length, clear, get, remove, set, etc.)
       totalKeys++;
       if (debug){
-        console.log("[DEBUG][LocalStorageGetKeys] Found key: '" + key + "'");
+        console.log("[DEBUG][LocalStorageLoadMainKeys] Found key: '" + key + "'");
         console.log( key + " = " + ((window.localStorage[key].length * 16)/(8 * 1024)).toFixed(2) + ' KB' );
       }  
       if (key === "GLSL-Logs"){
         if (debug){
-          console.log("[DEBUG][LocalStorageGetKeys] Loading Logs saved in 'GLSL-Logs'!");
+          console.log("[DEBUG][LocalStorageLoadMainKeys] Loading Logs saved in 'GLSL-Logs'!");
         }
+        
+        //Load content into Log[]
+        var storedlogs = localStorage.getItem('GLSL-Logs');
+        var parsedLog = JSON.parse(storedlogs);
+        LoadArrayIntoLog(parsedLog);
 
       } else if (key === "GLSL-Targets"){
         if (debug){
-          console.log("[DEBUG][LocalStorageGetKeys] Loading Targets saved in 'GLSL-Targets'!");
+          console.log("[DEBUG][LocalStorageLoadMainKeys] Loading Targets saved in 'GLSL-Targets'!");
         }
       }
     }
