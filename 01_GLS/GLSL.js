@@ -344,7 +344,19 @@ function ClearTag() {
 //================
 function ClearTarget() {
   document.getElementById("target").value = "";
+
+  ClearTargetArray();
 }
+
+function ClearTargetArray() {
+  if (targets.length === 0) {
+    return;
+  }
+
+  targets = [];
+  LocalStorageClearTargetsOnly();
+}
+
 
 //7. Show/Hide Dice:
 //================== 
@@ -424,6 +436,8 @@ function CheckAndAddTarget(){
     // var newTarget = [targetToCheck, brackets[adjustedBracketNumber][2] , ""];
     var newTarget = [targetToCheck, brackets[bracketSelectedOption][2] , ""];
     targets.push(newTarget);
+
+    LocalStorageTargetsSave();
   }
 
 }
@@ -672,7 +686,14 @@ function LocalStorageClear(debug=false){
 function LocalStorageClearLogsOnly(debug=false){
   localStorage.removeItem('GLSL-Logs');
   if (debug){
-    console.log("[DEBUG][LocalStorageClear] Cleared all user/page created keys!");
+    console.log("[DEBUG][LocalStorageClear] Cleared all user/page created keys - for Logs!");
+  }
+}
+
+function LocalStorageClearTargetsOnly(debug=false){
+  localStorage.removeItem('GLSL-Targets');
+  if (debug){
+    console.log("[DEBUG][LocalStorageClear] Cleared all user/page created keys - for Targets!");
   }
 }
 
