@@ -647,7 +647,7 @@ function ImportJsonToTargets(){
 // });
 }
 
-//7. Import - Targets (JSON)
+//7. Export - SaveAs (creates download blob with a given filename)
 //=========================
 function saveAs(blob, filename) {
   var url = URL.createObjectURL(blob);
@@ -715,6 +715,9 @@ function LocalStorageLoadMainKeys(debug=false){
         if (debug){
           console.log("[DEBUG][LocalStorageLoadMainKeys] Loading Targets saved in 'GLSL-Targets'!");
         }
+
+        //Load content into Targets[]
+
       }
     }
   }
