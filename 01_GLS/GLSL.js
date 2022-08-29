@@ -697,15 +697,18 @@ function LocalStorageLogsSave(debug=false){
     console.log("[DEBUG][LocalStorageLogsSave]");
   }
 
-  // var oldStr = localStorage.getItem('GLSL-Logs');
-  // var newStr = "";
-
-  // if (oldStr === null){
-  //   console.log("[WARNING] nothing is stored in 'GLSL-Logs'!");
+  // var oldLogJSONStr = localStorage.getItem('GLSL-Logs');
+  // //Reading oldLogJSONStr -- matters for appending to oldLogJSONStr
+  // if (oldLogJSONStr === null){
+  //   if (debug){
+  //     console.log("[WARNING] nothing is stored in 'GLSL-Logs'!");
+  //   }
   //   newStr = document.getElementById("ExtString").value;
+  //
   // } else {
   //   newStr = oldStr + "<br>" + document.getElementById("ExtString").value;
   // }
+
   // console.log("[DEBUGGING] New String: '" + newStr + "'");
   localStorage.setItem('GLSL-Logs', newLogsStr);
 
