@@ -515,6 +515,9 @@ function RemoveLastLog() {
     var table = document.getElementById('LogsTable');
     table.removeChild(table.children[table.children.length - 1]);
 
+    //Save logs out to localstorage (due to Log.pop())
+    LocalStorageLogsSave(true);
+
   } else {
     ClearLog();
   }
