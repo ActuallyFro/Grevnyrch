@@ -9,8 +9,9 @@ def clear():
    else:
     _ = os.system('clear')
 
-def PrintDieSelection():
+def PrintDieSelection(DiceAmount):
     print("\nSelect a die to roll:")
+    print("0. Enter total dice to roll")
     print("1. d4")
     print("2. d6")
     print("3. d8")
@@ -20,6 +21,7 @@ def PrintDieSelection():
     print("\n")
     # q for quit
     print("q. Quit")
+    print("Current dice amount:", DiceAmount)
 
     return
 
@@ -32,8 +34,10 @@ def AskForDiePick():
     
     if userInput == "q":
         return -99
-
-    if die_selection == 1:
+        
+    if die_selection == 0:
+        return 100
+    elif die_selection == 1:
         return 4
     elif die_selection == 2:
         return 6
@@ -50,31 +54,49 @@ def AskForDiePick():
 
     return -1
 
+def AskForDiceToRoll():
+    total_dice = 1
+    userInput =input("\nEnter total dice to roll: ")
+
+    if userInput.isdigit():
+        total_dice = int(userInput)
+    
+    print("\nSetting total dice to:", total_dice)
+
+    return total_dice
+
 def main():
     
     die_picked = False
     isUserDone = False
     upper_limit = 0
     counter = 0
+    total_dice = 1
 
     while not isUserDone:
         if not die_picked:
             clear()
-            PrintDieSelection()
+            PrintDieSelection(total_dice)
             upper_limit = AskForDiePick()
             if upper_limit <= 0:
                 if upper_limit == -99:
                     isUserDone = True
                 continue
+            elif upper_limit == 100:
+                clear()
+                total_dice=AskForDiceToRoll()
+                continue
+
             die_picked = True
             counter = 0
 
         else:
-            die_roll = random.randint(1, upper_limit)
-            counter += 1
-            print("\n[", counter ,"] You rolled a ⦗", die_roll, "⦘")
+            for i in range(total_dice):
+                counter += 1
+                die_roll = random.randint(1, upper_limit)
+                print("\n[", counter ,"] You rolled a ⦗", die_roll, "⦘")
 
-            user_input = input("\n\tRoll again? (y/n): ")
+            user_input = input("\n\tEnter to roll again; any # returns to main menu...")
 
             if user_input == "n":
                 isUserDone = True
