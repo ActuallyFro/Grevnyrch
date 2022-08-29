@@ -437,7 +437,7 @@ function CheckAndAddTarget(){
     var newTarget = [targetToCheck, brackets[bracketSelectedOption][2] , ""];
     targets.push(newTarget);
 
-    LocalStorageTargetsSave();
+    LocalStorageTargetsSave(true);
   }
 
 }
