@@ -499,8 +499,7 @@ function LogIt() {
   ClearTag();
   ClearTarget();
 
-  // //Save logs out to localstorage (due to Log.push(currentLedger))
-  LocalStorageLogsSave(true);
+  LocalStorageLogsSave();
 }
 
 //4. RemoveLastLog 
@@ -613,6 +612,8 @@ function ImportJsonToLog(){
     if (Log.length > 0) {
       isLogEmpty = false;
       alert("Successfully loaded '"+ Log.length +"' Logs!");
+
+      LocalStorageLogsSave();
 
     } else {
       isLogEmpty = true;      
