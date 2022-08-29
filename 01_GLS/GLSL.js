@@ -344,8 +344,6 @@ function ClearTag() {
 //================
 function ClearTarget() {
   document.getElementById("target").value = "";
-
-  ClearTargetArray();
 }
 
 function ClearTargetArray() {
