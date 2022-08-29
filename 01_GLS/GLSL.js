@@ -331,6 +331,7 @@ function ClearLog() {
   document.getElementById("Logs").innerHTML = "<div id=\"log\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
 
   Log = [];
+  LocalStorageClearLogsOnly();
 }
 
 //5. Clear - Tag
@@ -663,6 +664,13 @@ function saveAs(blob, filename) {
 //=======================
 function LocalStorageClear(debug=false){
   localStorage.clear();  
+  if (debug){
+    console.log("[DEBUG][LocalStorageClear] Cleared all user/page created keys!");
+  }
+}
+
+function LocalStorageClearLogsOnly(debug=false){
+  localStorage.removeItem('GLSL-Logs');
   if (debug){
     console.log("[DEBUG][LocalStorageClear] Cleared all user/page created keys!");
   }
