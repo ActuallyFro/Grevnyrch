@@ -742,6 +742,21 @@ function LocalStorageLogsSave(debug=false){
   localStorage.setItem('GLSL-Logs', newLogsStr);
 
 }
+
+//10. localstorage - Save Targets
+//=======================
+function LocalStorageTargetsSave(debug=false){
+  var newTargetStr = TargetArrayStringifyAsJSON();
+
+  if (debug){
+    console.log("[DEBUG][LocalStorageTargetsSave] Saving Targets to localstorage...");    
+    console.log("[DEBUG][LocalStorageTargetsSave] NewString: " + newTargetStr);
+  }
+
+  localStorage.setItem('GLSL-Targets', newTargetStr);
+
+}
+
 //////////////////////////////////////
 
 
