@@ -101,13 +101,14 @@ window.onload = function() {
   //BAD: LocalStorageClear(true);
 
   //0. Determine if LocalStorage's Log[] is empty: (a) if not -- load, else -- print empty:
-  var totalLSKeys = LocalStorageLoadMainKeys(true); //LocalStorageLoadMainKeys(true)
-  if (totalLSKeys>0){
-    console.log("[DEBUG] Found '" + totalLSKeys +"' total, localstorage keys!");
-
-  } else {
-    console.log("[DEBUG] There are NO keys (i.e., no stored data!)");
-  }
+  var totalLSKeys = LocalStorageLoadMainKeys(); //LocalStorageLoadMainKeys(true)
+  // if (true) {
+  //   if (totalLSKeys>0){
+  //     console.log("[DEBUG] Found '" + totalLSKeys +"' total, localstorage keys!");
+  //   } else {
+  //     console.log("[DEBUG] There are NO keys (i.e., no stored data!)");
+  //   }
+  // }
 
   // 1. Setup Bracket Buttons
   SetupBracketButtons();
@@ -435,7 +436,7 @@ function CheckAndAddTarget(){
     var newTarget = [targetToCheck, brackets[bracketSelectedOption][2] , ""];
     targets.push(newTarget);
 
-    LocalStorageTargetsSave(true);
+    LocalStorageTargetsSave(); //(true)
   }
 
 }
