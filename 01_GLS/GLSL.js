@@ -116,10 +116,6 @@ window.onload = function() {
   // 2. Setup Bracket Drop Down
   SetupBracketDropDown();
 
-  // 3. Setup Targets
-  //-----------------
-  SetupAllTargets();
-
   // 3. Add Integers to Dice Div
   //----------------------------
   for (var k = 0; k <= 9; k++) {
@@ -209,7 +205,8 @@ function SetupBracketDropDown(){
 
 //2. All Targets setup:
 //===================== 
-function SetupAllTargets() { 
+function SetupAllTargets() {
+  //TO DO -- determine localstorage load, then run this.
   SetupTargetsBasedOnBracketPick("");
 }
 
@@ -221,21 +218,8 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
   document.getElementById("TargetButtons").innerHTML = null; //reset buttons
 
   if (SelectedBracket == "") {
-    // console.log("Generating ALL targets (no type selected)");
-    for (var j = 0; j < targets.length; j++) {
-      if (!targets[j][0].includes(";;")) {
-        var option = document.createElement("option");
-        option.text = targets[j][0];
-        // console.log("Adding Target: '" + targets[j][0] + "'");
-        document.getElementById("targets").appendChild(option);
+    LoadAllTargetsAsOptions();
 
-        var safeStr = targets[j][0].replace(/'/g, "\\'");
-        // console.log("safeStr: '" + safeStr + "'");
-        
-        document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
-      }
-    }
-  
   } else {
     var SelectedBracketWords = ""
 
@@ -598,17 +582,37 @@ function LoadArrayIntoTargets(PassedArray){ //Passed JSON Parsed from String
 
 }
 
-function LoadAllTargetsAsOptions(debug=false){
+function LoadAllTargetsAsOptions(debug=false){ //this vs. SetupTargetsBasedOnB
   for (var j = 0; j < targets.length; j++) {
+ 
+    /////////////
+    //TODO:
+    if (!targets[j][0].includes(";;")) {
+      //Break into two parts, run through loop twice
+      //scan  targets[] for each part
+      //if found, skip, else add to options   
+
+      //for other case, just one loop
+    }
+    /////////////
+
+
     var option = document.createElement("option");
     option.text = targets[j][0];
 
+    var safeStr = targets[j][0].replace(/'/g, "\\'");
+
     if (debug){
       console.log("[DEBUG] [LoadAllTargetsAsOptions()] '"+targets[j][0]+"'");
+      console.log("safeStr: '" + safeStr + "'");
     }
 
     document.getElementById("targets").appendChild(option);
-  }  
+    document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
+  } 
+
+
+
 }
 
 
@@ -749,13 +753,17 @@ function LocalStorageLoadMainKeys(debug=false){
         isLogEmpty = false;
 
       } else if (key === "GLSL-Targets"){
+        debug = true; //BAD -- REMOVE!
         if (debug){
           console.log("[DEBUG][LocalStorageLoadMainKeys] Loading Targets saved in 'GLSL-Targets'!");
         }
 
-        //Load content into Targets[]
-        
+        var loadedStorage = localStorage.getItem('GLSL-Targets');
+        var parsedTarget = JSON.parse(loadedStorage);
+        LoadArrayIntoTargets(parsedTarget);
+        LoadAllTargetsAsOptions(true);
 
+        SetupAllTargets();
       }
     }
   }
