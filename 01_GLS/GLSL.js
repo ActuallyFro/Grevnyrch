@@ -590,6 +590,28 @@ function LoadLogArrayIntoTable(){
   }
 }
 
+function LoadArrayIntoTargets(PassedArray){ //Passed JSON Parsed from String
+  targets = [];
+  for (var i = 0; i < PassedArray.length; i++) {
+    targets.push(PassedArray[i]);
+  }
+
+}
+
+function LoadAllTargetsAsOptions(debug=false){
+  for (var j = 0; j < targets.length; j++) {
+    var option = document.createElement("option");
+    option.text = targets[j][0];
+
+    if (debug){
+      console.log("[DEBUG] [LoadAllTargetsAsOptions()] '"+targets[j][0]+"'");
+    }
+
+    document.getElementById("targets").appendChild(option);
+  }  
+}
+
+
 //////////////////////////////////////
 
 //5. Import - Logs (JSON)
@@ -641,23 +663,15 @@ function ImportJsonToTargets(){
     var parsedTarget = JSON.parse(content);
     // console.log(parsedTarget);
 
-    targets = [];
-    for (var i = 0; i < parsedTarget.length; i++) {
-      targets.push(parsedTarget[i]);
-    }
+    LoadArrayIntoTargets(parsedTarget);
 
-    for (var j = 0; j < targets.length; j++) {
-      var option = document.createElement("option");
-      option.text = targets[j][0];
-
-      document.getElementById("targets").appendChild(option);
-    }
-  };
+    LoadAllTargetsAsOptions(true);
+    alert("Successfully loaded (" + targets.length + ") targets!");
+  
+    // alert("Successfully loaded targets!");
+    };
   fileread.readAsText(file_to_read);
 
-  // alert("Successfully loaded (" + targets.length + ") targets!");
-  
-  alert("Successfully loaded targets!");
 
 
 // });
@@ -740,6 +754,7 @@ function LocalStorageLoadMainKeys(debug=false){
         }
 
         //Load content into Targets[]
+        
 
       }
     }
