@@ -218,7 +218,7 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
   document.getElementById("TargetButtons").innerHTML = null; //reset buttons
 
   if (SelectedBracket == "") {
-    LoadAllTargetsAsOptions();
+    LoadAllTargetsAsOptions(true);
 
   } else {
     var SelectedBracketWords = ""
@@ -587,7 +587,8 @@ function LoadAllTargetsAsOptions(debug=false){ //this vs. SetupTargetsBasedOnB
  
     /////////////
     //TODO:
-    if (!targets[j][0].includes(";;")) {
+    if (targets[j][0].includes(";;")) {
+      console.log("[DEBUG] [LoadAllTargetsAsOptions()] Target '"+targets[j][0]+"' includes ';;' !");
       //Break into two parts, run through loop twice
       //scan  targets[] for each part
       //if found, skip, else add to options   
