@@ -509,8 +509,8 @@ function RemoveLastLog() {
 function addStringInLedgerBracket(PassedString){
   var obj = document.getElementById("ledger");
 
-  var tempLedger = obj.value.slice(0,obj.value.length-1);
-  var tempLedgerLastChar = obj.value.slice(-1,obj.value.length);
+  var tempLedger = obj.value.slice(0,obj.value.length-LastBracketWidth);
+  var tempLedgerLastChar = obj.value.slice(-LastBracketWidth,obj.value.length);
   obj.value = tempLedger + PassedString + tempLedgerLastChar;
 }
 //////////////////////////////////////
@@ -584,32 +584,46 @@ function LoadArrayIntoTargets(PassedArray){ //Passed JSON Parsed from String
 
 function LoadAllTargetsAsOptions(debug=false){ //this vs. SetupTargetsBasedOnB
   for (var j = 0; j < targets.length; j++) {
- 
+    var hasTwoTargets = false;
+    var currentTarget = targets[j][0];
+    var secondaryTarget = "";
     /////////////
     //TODO:
-    if (targets[j][0].includes(";;")) {
-      console.log("[DEBUG] [LoadAllTargetsAsOptions()] Target '"+targets[j][0]+"' includes ';;' !");
-      //Break into two parts, run through loop twice
-      //scan  targets[] for each part
-      //if found, skip, else add to options   
+    if (currentTarget.includes(";;")) {
+      if (debug) {
+        console.log("[DEBUG] [LoadAllTargetsAsOptions()] Target '"+targets[j][0]+"' includes ';;' !");
+      }
 
-      //for other case, just one loop
+      currentTarget = currentTarget.split(";;")[0];
+      secondaryTarget = targets[j][0].split(";;")[1];
+      hasTwoTargets = true;
     }
     /////////////
+    var isDone = true;
+    do {
+      var option = document.createElement("option");
+      option.text = currentTarget;
+  
+      var safeStr = targets[j][0].replace(/'/g, "\\'");
+  
+      if (debug){
+        console.log("[DEBUG] [LoadAllTargetsAsOptions()] '"+targets[j][0]+"'");
+        console.log("safeStr: '" + safeStr + "'");
+      }
+  
+      document.getElementById("targets").appendChild(option);
+      document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
 
+      if (hasTwoTargets){
+        currentTarget = secondaryTarget;
+        hasTwoTargets = false;
+      } else {
+        isDone = false;
+      }
 
-    var option = document.createElement("option");
-    option.text = targets[j][0];
+    } while (isDone);
 
-    var safeStr = targets[j][0].replace(/'/g, "\\'");
-
-    if (debug){
-      console.log("[DEBUG] [LoadAllTargetsAsOptions()] '"+targets[j][0]+"'");
-      console.log("safeStr: '" + safeStr + "'");
-    }
-
-    document.getElementById("targets").appendChild(option);
-    document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
+    /////////////
   } 
 
 
