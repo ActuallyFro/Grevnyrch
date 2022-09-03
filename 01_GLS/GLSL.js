@@ -533,6 +533,12 @@ function addStringInLedgerBracket(PassedString){
   var tempLedger = obj.value.slice(0,obj.value.length-LastBracketWidth);
   var tempLedgerLastChar = obj.value.slice(-LastBracketWidth,obj.value.length);
   obj.value = tempLedger + PassedString + tempLedgerLastChar;
+
+  //if ;;, then toggle the inner-bracket
+  if (PassedString == ";;"){
+    ToggleEnableInnerbracket();
+  }
+
 }
 
 function ToggleDisableInnerbracket(){
