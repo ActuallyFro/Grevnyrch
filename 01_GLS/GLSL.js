@@ -518,11 +518,14 @@ function addStringInLedgerBracket(PassedString){
 }
 
 function ToggleDisableInnerbracket(){
-  console.log("[DEBUG] [ToggleDisableInnerbracket()]");   
+  console.log("[DEBUG] [ToggleDisableInnerbracket()]");
+  document.getElementById("toggleInnerbracket").checked = false;
+  
 }
 
 function ToggleEnableInnerbracket(){
   console.log("[DEBUG] [ToggleEnableInnerbracket()]");
+  document.getElementById("toggleInnerbracket").checked = true;
 }
 
 //////////////////////////////////////
@@ -684,28 +687,21 @@ function ImportJsonToLog(){
 //6. Import - Targets (JSON)
 //=========================
 function ImportJsonToTargets(){
-  // document.getElementById("fileInputTargets").addEventListener("change", function() { //https://qawithexperts.com/article/javascript/read-json-file-with-javascript/380
-
   var file_to_read = document.getElementById("fileInputTargets").files[0];
   var fileread = new FileReader();
 
   fileread.onload = function(e) {
     var content = e.target.result;
     var parsedTarget = JSON.parse(content);
-    // console.log(parsedTarget);
 
     LoadArrayIntoTargets(parsedTarget);
 
     LoadAllTargetsAsOptions(true);
     alert("Successfully loaded (" + targets.length + ") targets!");
   
-    // alert("Successfully loaded targets!");
-    };
+  };
+
   fileread.readAsText(file_to_read);
-
-
-
-// });
 }
 
 //7. Export - SaveAs (creates download blob with a given filename)
