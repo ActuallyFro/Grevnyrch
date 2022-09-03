@@ -142,7 +142,7 @@ window.onload = function() {
 //========================== 
 function SetupBracketButtons(){
   var seletionBracketCount = 1; //due to blank --^
-  for (var i = 0; i < brackets.length; i++) {
+  for (var i = 0; i < brackets.length; i++) { //use btn-outline-* for more variants
     if (brackets[i][2] == "Locations"){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
     
@@ -164,7 +164,7 @@ function SetupBracketButtons(){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
 
     } else if (brackets[i][2] != "GUI - Selection Title"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-light\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-info\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
 
     }
 
