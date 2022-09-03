@@ -86,6 +86,7 @@ var targets = [
 ];
 
 var isShowingNumbers = false;
+var isInnerBracketToggled = false;
 
 var LastBracketSize = 0;
 var LastBracketWidth = 0; //SHOULD be (Size-1)/2 -- but I cannot say 100% ALWAYS will be...
@@ -132,17 +133,28 @@ window.onload = function() {
   
   SetupWatcherUserPicksBracketDropDown();
 
+  //watch for toggle input changes
+  SetupWatcherUserTogglesInnerBracket(); 
+
+  ToggleDisableInnerbracket();
 }
 
 function SetupWatcherUserPicksBracketDropDown(){
   document.getElementById("BracketDropDown").addEventListener("change", function() {
-    var selectedBracketTag = document.getElementById("BracketDropDown").value;
+    var selectedBracketTag = document.getElementById("BracketDropDown").checked;
+    //document.getElementById("toggleInnerbracket").checked
     SetupTargetsBasedOnBracketPick(selectedBracketTag);
   });
   
 }
 
-
+function SetupWatcherUserTogglesInnerBracket(){
+  document.getElementById("toggleInnerbracket").addEventListener("change", function() {
+    var isInnerBracket = document.getElementById("toggleInnerbracket").checked;
+    isInnerBracketToggled = isInnerBracket;
+    //console.log("[DEBUG] User toggled InnerBracket to: " + isInnerBracket);
+  });
+}
 
 // 1. Bracket Buttons setup:
 //========================== 
@@ -524,14 +536,16 @@ function addStringInLedgerBracket(PassedString){
 }
 
 function ToggleDisableInnerbracket(){
-  console.log("[DEBUG] [ToggleDisableInnerbracket()]");
+  //console.log("[DEBUG] [ToggleDisableInnerbracket()]");
   document.getElementById("toggleInnerbracket").checked = false;
+  isInnerBracketToggled = false;
   
 }
 
 function ToggleEnableInnerbracket(){
-  console.log("[DEBUG] [ToggleEnableInnerbracket()]");
+  //console.log("[DEBUG] [ToggleEnableInnerbracket()]");
   document.getElementById("toggleInnerbracket").checked = true;
+  isInnerBracketToggled = true;
 }
 
 //////////////////////////////////////
