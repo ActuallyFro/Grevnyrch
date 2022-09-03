@@ -485,6 +485,9 @@ function LogIt() {
   ClearTarget();
 
   LocalStorageLogsSave();
+
+  //Any time LogIt() is called -- reset the inner-bracket toggles
+  ToggleDisableInnerbracket();
 }
 
 //4. RemoveLastLog 
