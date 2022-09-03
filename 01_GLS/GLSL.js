@@ -513,6 +513,15 @@ function addStringInLedgerBracket(PassedString){
   var tempLedgerLastChar = obj.value.slice(-LastBracketWidth,obj.value.length);
   obj.value = tempLedger + PassedString + tempLedgerLastChar;
 }
+
+function ToggleDisableInnerbracket(){
+  console.log("[DEBUG] [ToggleDisableInnerbracket()]");   
+}
+
+function ToggleEnableInnerbracket(){
+  console.log("[DEBUG] [ToggleEnableInnerbracket()]");
+}
+
 //////////////////////////////////////
 
 //////////////////////////////////////
