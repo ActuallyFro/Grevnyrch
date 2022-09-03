@@ -34,7 +34,14 @@
   -webkit-transition: .4s;
   transition: .4s;
 }
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
 
+.slider.round:before {
+  border-radius: 50%;
+}
 input:checked + .slider {
   background-color: #2196F3;
 }
