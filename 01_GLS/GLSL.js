@@ -173,7 +173,7 @@ function SetupBracketButtons(){
 
   //console.log("SetupBracketButtons() -- created " + seletionBracketCount + " buttons");
 
-  document.getElementById("BracketButtons").innerHTML += "<input type=\"button\" class=\"btn btn-danger\" value=\"Clear bracket\" onclick=\"ClearBracket()\"></input>"
+  // document.getElementById("BracketButtons").innerHTML += "<input type=\"button\" class=\"btn btn-danger\" value=\"Clear bracket\" onclick=\"ClearBracket()\"></input>"
 }
 
 // 2. Bracket Drop Down setup:
