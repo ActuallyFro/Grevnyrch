@@ -130,13 +130,19 @@ window.onload = function() {
   document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-info\" onclick=\"addStringInLedgerBracket(';;')\"> ;; </button>";
   // <div class="col-sm-12" id="ActivityButtons"></div>
   
+  SetupWatcherUserPicksBracketDropDown();
+
+}
+
+function SetupWatcherUserPicksBracketDropDown(){
   document.getElementById("BracketDropDown").addEventListener("change", function() {
     var selectedBracketTag = document.getElementById("BracketDropDown").value;
     SetupTargetsBasedOnBracketPick(selectedBracketTag);
-    // Temp();
   });
-
+  
 }
+
+
 
 // 1. Bracket Buttons setup:
 //========================== 
