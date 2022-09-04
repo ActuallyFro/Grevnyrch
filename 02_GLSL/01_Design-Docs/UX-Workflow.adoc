@@ -1,0 +1,38 @@
+=
+
+== Reference
+* See: https://www.planttext.com/
+* 
+
+== Grevnyrch Logging Standard Logger - User Workflow
+[plantuml, target=diagram-classes, format=png]
+....
+@startuml
+Title GLSL User Workflow
+State "User Joins Site" as  UserJoins
+State "Select Drop Down or Button" as SelectDropDownOrButton
+State "Bracket Button" as BracketButton
+State "Drop Down Bracket" as DropDownBracket 
+State "addBracket()" as addBracket
+
+[*] -down-> UserJoins
+
+' note left of UserJoins : Single line note
+' note right of SelectDropDownOrButton
+'    Notes can also 
+'    take up multiple
+'    lines like this
+'end note
+
+'UserJoins -right-> SelectDropDownOrButton
+UserJoins -down-> SelectDropDownOrButton
+SelectDropDownOrButton -down-> DropDownBracket
+SelectDropDownOrButton -down-> BracketButton
+BracketButton -> addBracket
+' DropDownBracket -left-> Sleeping
+'addBracket -up-> SelectDropDownOrButton
+
+DropDownBracket -down-> [*]
+addBracket -down> [*]
+@enduml
+....
