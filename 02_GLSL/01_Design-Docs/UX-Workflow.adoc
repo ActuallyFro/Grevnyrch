@@ -45,7 +45,7 @@ State "Ledger Editing Loop" as LedgerLoop {
   PressesLedgerItButton -down-> LedgerIt
   
   addBracket --> SetupTargetsBasedOnBracketPick
-  SetupTargetsBasedOnBracketPick --> UserSpecifiesTargetAndInnerBracketInfo
+  SetupTargetsBasedOnBracketPick --> LedgerIt
 
 }
 
