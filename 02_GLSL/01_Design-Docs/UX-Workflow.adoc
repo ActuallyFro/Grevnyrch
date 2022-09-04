@@ -33,12 +33,17 @@ SelectDropDownOrButton -down-> DropDownBracket
 SelectDropDownOrButton -down-> BracketButton
 BracketButton -> addBracket
 ' DropDownBracket -left-> Sleeping
-'addBracket -up-> SelectDropDownOrButton
 
-TargetIsInputted -> BracketButton
-TargetIsInputted -> DropDownBracket
+TargetIsInputted -[dashed]> BracketButton
+TargetIsInputted -[dashed]> DropDownBracket
 
-DropDownBracket -down-> [*]
-addBracket -down> [*]
+DropDownBracket -> PressesLedgerItButton
+
+PressesLedgerItButton -down-> LedgerIt
+
+LedgerIt -down-> [*]
+
+addBracket -> SetupTargetsBasedOnBracketPick
+SetupTargetsBasedOnBracketPick -down> [*]
 @enduml
 ....
