@@ -295,6 +295,14 @@ function addBracket(bracketNumber) {
       hideShowDice(false);
     }
 
+    // Actions for: ()
+    
+    // Numbers and Letters for: <>
+
+    // N/PC's for: ⸢  ⸣ || ⸤  ⸥ || ⸢  ⸥
+
+    // Numbers for: ⦇⦈
+
   } else {
     document.getElementById("BracketDropDown").selectedIndex = 0;
     // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
