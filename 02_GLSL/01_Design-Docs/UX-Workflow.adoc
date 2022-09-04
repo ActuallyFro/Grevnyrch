@@ -20,11 +20,13 @@ State "User Specifies Target & Inner-bracket Info" as UserSpecifiesTargetAndInne
 State "Ledger Editing Loop" as LedgerLoop {
   UserJoins -down-> SelectDropDownOrButton
   UserJoins -down-> TargetIsInputted
+  UserJoins -down-> EnableInnerBracketIsToggled
 
   State "Select Drop Down or Button" as SelectDropDownOrButton
-  State "Bracket Button" as BracketButton
+  State "Bracket Button Pressed" as BracketButton
   State "Drop Down Bracket" as DropDownBracket 
   State "addBracket()" as addBracket
+  State "'Ledger It!' Button Pressed" as PressesLedgerItButton
   
   State "User Inputs Target" as TargetIsInputted
   
@@ -35,8 +37,8 @@ State "Ledger Editing Loop" as LedgerLoop {
   SelectDropDownOrButton -down-> BracketButton
   BracketButton --> addBracket
 
-  TargetIsInputted -[dashed]> BracketButton
-  TargetIsInputted -[dashed]> DropDownBracket
+  TargetIsInputted -[dashed]> addBracket
+  TargetIsInputted -[dashed]> LedgerIt
 
   DropDownBracket --> PressesLedgerItButton
 
@@ -44,6 +46,13 @@ State "Ledger Editing Loop" as LedgerLoop {
   
   addBracket --> SetupTargetsBasedOnBracketPick
   SetupTargetsBasedOnBracketPick --> UserSpecifiesTargetAndInnerBracketInfo
+
+}
+
+State "User Menu Input" as UserMenuInput {
+
+  UserJoins -> TargetMenu
+  UserJoins -> LogMenu
 
 }
 
