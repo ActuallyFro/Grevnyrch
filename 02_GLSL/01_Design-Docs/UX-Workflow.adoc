@@ -1,8 +1,8 @@
 =
 
-== Reference
+== References
 * See: https://www.planttext.com/
-* 
+* Main reference: https://plantuml.com/state-diagram
 
 == Grevnyrch Logging Standard Logger - User Workflow
 [plantuml, target=diagram-classes, format=png]
