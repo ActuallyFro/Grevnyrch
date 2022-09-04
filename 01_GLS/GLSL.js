@@ -60,17 +60,17 @@ var brackets = [
 ["⟧ ⟦", "Grouping of Hostile NPCs/encounter", "PC or NPC Level Actions", ""],
 
 ["", "=== Event/Action Brackets ===", "GUI - Selection Title", "Disabled"],
-["⌊ ⌋", "Event/Encounter - Floor", "Event or Encounter", "Ignore"],
-["⌈ ⌉", "Event/Encounter - Ceiling", "Event or Encounter", "Ignore"],
+["⌊   ⌋", "Event/Encounter - Floor", "Event or Encounter", "Ignore"],
+["⌈   ⌉", "Event/Encounter - Ceiling", "Event or Encounter", "Ignore"],
 ["( )", "Action", "Event or Encounter", "FilterAction"],
 ["< >", "Movement", "Event or Encounter", "Ignore"],
 ["(( ))", "Comment", "General Comment", ""],
 
 ["", "=== Object Brackets ===", "GUI - Selection Title", "Disabled"],
 ["{ }", "Item", "Object", "Ignore"],
-["⸢ ⸣", "Right hand", "Object", "Ignore"],
-["⸤ ⸥", "Left hand", "Object", "Ignore"],
-["⸢ ⸥", "Both hands/two handed", "Object", "Ignore"],
+["⸢   ⸣", "Right hand", "Object", "Ignore"],
+["⸤   ⸥", "Left hand", "Object", "Ignore"],
+["⸢   ⸥", "Both hands/two handed", "Object", "Ignore"],
 ["⦇ ⦈", "Armor class", "Object", "Numbers"],
 
 ["", "=== Result Brackets ===", "GUI - Selection Title", "Disabled"],
@@ -446,10 +446,12 @@ function CheckAndAddTarget(){
 //2. LedgerIt 
 //===========
 function LedgerIt() {
+  //I. back, to allow a "rewind" of the ledger
+  oldLedger.push(document.getElementById("ledger").value); //This is used for "Undo" Ledger Entry
+
+  //II. Lookup Bracket, based on Bracket selection , set new size/width
   var obj = document.getElementById("BracketDropDown");
-  oldLedger.push(document.getElementById("ledger").value);
   var tempBracket = obj.options[obj.selectedIndex].value;
-  var tempTarget = document.getElementById("target").value;
 
   LastBracketSize = tempBracket.length;
   LastBracketWidth = (LastBracketSize - 1)/2;
@@ -458,17 +460,25 @@ function LedgerIt() {
     console.log("[ERROR] Provided bracket is formmatted WRONG! (len: " + LastBracketSize + ")");
     return;
   }
-  // console.log("[DEBUG] Current bracket len: '" + LastBracketSize + "', adjusted: '"+LastBracketWidth+"'");
 
-  if (isLedgerEmpty){
-    document.getElementById("ledger").value = tempBracket.slice(0,LastBracketWidth) + tempTarget + tempBracket.slice(-LastBracketWidth, LastBracketSize);
-    isLedgerEmpty = false;
+  //III. determine target from provided input field
+  var tempTarget = document.getElementById("target").value;
 
-  } else {
-    document.getElementById("ledger").value += tempBracket.slice(0,LastBracketWidth) + tempTarget + tempBracket.slice(-LastBracketWidth, LastBracketSize);
+  // IV. Add to Ledger
+  if (isLedgerEmpty || !isInnerBracketToggled){
+    document.getElementById("ledger").value += tempBracket.slice(0,LastBracketWidth);
+    addStringInLedgerBracket(tempTarget);
+    document.getElementById("ledger").value += tempBracket.slice(-LastBracketWidth, LastBracketSize);
+
+    if(isLedgerEmpty){
+      isLedgerEmpty = false;
+    }
+
+    CheckAndAddTarget();
+
+  } else { //isInnerBracketToggled
+    addStringInLedgerBracket(tempTarget);
   }
-
-  CheckAndAddTarget();
 }
 
 //3. LogIt 
@@ -533,6 +543,8 @@ function addStringInLedgerBracket(PassedString){
   var tempLedger = obj.value.slice(0,obj.value.length-LastBracketWidth);
   var tempLedgerLastChar = obj.value.slice(-LastBracketWidth,obj.value.length);
   obj.value = tempLedger + PassedString + tempLedgerLastChar;
+
+  console.log("[DEBUG] [addStringInLedgerBracket()] Ledger: '" + obj.value + "'");
 
   //if ;;, then toggle the inner-bracket
   if (PassedString == ";;"){
