@@ -15,6 +15,8 @@ State "Bracket Button" as BracketButton
 State "Drop Down Bracket" as DropDownBracket 
 State "addBracket()" as addBracket
 
+State "User Inputs Target" as TargetIsInputted
+
 [*] -down-> UserJoins
 
 ' note left of UserJoins : Single line note
@@ -26,11 +28,15 @@ State "addBracket()" as addBracket
 
 'UserJoins -right-> SelectDropDownOrButton
 UserJoins -down-> SelectDropDownOrButton
+UserJoins -left-> TargetIsInputted
 SelectDropDownOrButton -down-> DropDownBracket
 SelectDropDownOrButton -down-> BracketButton
 BracketButton -> addBracket
 ' DropDownBracket -left-> Sleeping
 'addBracket -up-> SelectDropDownOrButton
+
+TargetIsInputted -> BracketButton
+TargetIsInputted -> DropDownBracket
 
 DropDownBracket -down-> [*]
 addBracket -down> [*]
