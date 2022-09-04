@@ -9,16 +9,52 @@
 ....
 @startuml
 Title GLSL User Workflow
-State "User Joins Site" as  UserJoins
-State "Select Drop Down or Button" as SelectDropDownOrButton
-State "Bracket Button" as BracketButton
-State "Drop Down Bracket" as DropDownBracket 
-State "addBracket()" as addBracket
 
-State "User Inputs Target" as TargetIsInputted
+State "User Joins Site" as  UserJoins
+State "User Specifies Target & Inner-bracket Info" as UserSpecifiesTargetAndInnerBracketInfo
+
 
 [*] -down-> UserJoins
 
+
+State "Ledger Editing Loop" as LedgerLoop {
+  UserJoins -down-> SelectDropDownOrButton
+  UserJoins -down-> TargetIsInputted
+
+  State "Select Drop Down or Button" as SelectDropDownOrButton
+  State "Bracket Button" as BracketButton
+  State "Drop Down Bracket" as DropDownBracket 
+  State "addBracket()" as addBracket
+  
+  State "User Inputs Target" as TargetIsInputted
+  
+  
+
+
+  SelectDropDownOrButton -down-> DropDownBracket
+  SelectDropDownOrButton -down-> BracketButton
+  BracketButton --> addBracket
+
+  TargetIsInputted -[dashed]> BracketButton
+  TargetIsInputted -[dashed]> DropDownBracket
+
+  DropDownBracket --> PressesLedgerItButton
+
+  PressesLedgerItButton -down-> LedgerIt
+  
+  addBracket --> SetupTargetsBasedOnBracketPick
+  SetupTargetsBasedOnBracketPick --> UserSpecifiesTargetAndInnerBracketInfo
+
+}
+
+
+LedgerIt -down-> [*]
+
+UserSpecifiesTargetAndInnerBracketInfo -down> [*]
+@enduml
+
+
+' =======================================
 ' note left of UserJoins : Single line note
 ' note right of SelectDropDownOrButton
 '    Notes can also 
@@ -27,23 +63,4 @@ State "User Inputs Target" as TargetIsInputted
 'end note
 
 'UserJoins -right-> SelectDropDownOrButton
-UserJoins -down-> SelectDropDownOrButton
-UserJoins -left-> TargetIsInputted
-SelectDropDownOrButton -down-> DropDownBracket
-SelectDropDownOrButton -down-> BracketButton
-BracketButton -> addBracket
-' DropDownBracket -left-> Sleeping
-
-TargetIsInputted -[dashed]> BracketButton
-TargetIsInputted -[dashed]> DropDownBracket
-
-DropDownBracket -> PressesLedgerItButton
-
-PressesLedgerItButton -down-> LedgerIt
-
-LedgerIt -down-> [*]
-
-addBracket -> SetupTargetsBasedOnBracketPick
-SetupTargetsBasedOnBracketPick -down> [*]
-@enduml
 ....
