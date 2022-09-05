@@ -110,14 +110,8 @@ window.onload = function() {
 
   // 3. Add Integers to Dice Div
   //----------------------------
-  for (var k = 0; k <= 9; k++) {
-    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addStringInLedgerBracket(" + k + ")\">" + k + "</button>";
-  }
-
-  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('+')\"> + </button>";
-  document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addStringInLedgerBracket('-')\"> - </button>";
-  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('=')\"> = </button>";
-  
+  SetupInnerBracketShortcutsDice();
+ 
   document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-info\" onclick=\"addStringInLedgerBracket('→')\"> → </button>";
   document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-info\" onclick=\"addStringInLedgerBracket(';;')\"> ;; </button>";
 
@@ -125,6 +119,17 @@ window.onload = function() {
   SetupWatcherUserTogglesInnerBracket(); 
 
   ToggleDisableInnerbracket();
+}
+
+function SetupInnerBracketShortcutsDice(){
+  for (var k = 0; k <= 9; k++) {
+    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addStringInLedgerBracket(" + k + ")\">" + k + "</button>";
+  }
+
+  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('+')\"> + </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addStringInLedgerBracket('-')\"> - </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('=')\"> = </button>";
+ 
 }
 
 function SetupWatcherUserPicksBracketDropDown(debug=false){
