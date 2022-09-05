@@ -108,28 +108,37 @@ window.onload = function() {
   SetupBracketButtons();
   SetupBracketDropDown();
 
-  // 3. Add Integers to Dice Div
+  // 3. Add shortcut buttons to Shortcut Divs
   //----------------------------
   SetupInnerBracketShortcutsDice();
- 
-  document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-info\" onclick=\"addStringInLedgerBracket('→')\"> → </button>";
-  document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-info\" onclick=\"addStringInLedgerBracket(';;')\"> ;; </button>";
+  SetupInnerBracketShortcutsActionActivities();
+  SetupInnerBracketShortcutsNandPCs();
 
+  //4. Setup Event Listeners/Watchers
   SetupWatcherUserPicksBracketDropDown();
   SetupWatcherUserTogglesInnerBracket(); 
 
+  //5. Setup default states
   ToggleDisableInnerbracket();
 }
 
 function SetupInnerBracketShortcutsDice(){
   for (var k = 0; k <= 9; k++) {
-    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addStringInLedgerBracket(" + k + ")\">" + k + "</button>";
+    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addStringInLedgerBracket(" + k + ")\">" + k + "</button>";
   }
 
   document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('+')\"> + </button>";
   document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addStringInLedgerBracket('-')\"> - </button>";
   document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('=')\"> = </button>";
  
+}
+
+function SetupInnerBracketShortcutsActionActivities (){
+  document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-success\" onclick=\"addStringInLedgerBracket('→')\"> → </button>";
+}
+
+function SetupInnerBracketShortcutsNandPCs (){
+  document.getElementById("NandPCButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-primary\" onclick=\"addStringInLedgerBracket(';;')\"> ;; </button>";
 }
 
 function SetupWatcherUserPicksBracketDropDown(debug=false){
