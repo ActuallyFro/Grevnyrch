@@ -513,7 +513,8 @@ function LogIt() {
   var row = document.createElement("tr");
 
   var cell = document.createElement("td");
-  cell.innerHTML = currentLedger;
+  safeCurrentStr = currentLedger.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  cell.innerHTML = safeCurrentStr;
   row.appendChild(cell);
   document.getElementById("LogsTable").appendChild(row);
 
