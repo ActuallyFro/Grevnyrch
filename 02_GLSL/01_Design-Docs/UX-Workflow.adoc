@@ -47,6 +47,22 @@ State "Ledger Editing Loop" as LedgerLoop {
   addBracket --> SetupTargetsBasedOnBracketPick
   SetupTargetsBasedOnBracketPick --> LedgerIt
 
+  LedgerIt: 1. Push Back current Ledger
+  LedgerIt: 2. Get Current Bracket
+  LedgerIt: 3. Determine Bracket Size + Width
+  LedgerIt: 4. Determine Target
+  
+  state LedgerIt {
+    state addTo <<choice>>
+    
+    state "5. Determine Bracket Config" as DetermineBracketConfigs
+    DetermineBracketConfigs --> addTo
+    addTo --> MinorId : [isLedgerEmpty || !isInnerBracketToggled]
+    addTo --> MajorId : [else]  
+    'addTo --> MinorId : [isLedgerEmpty || !isInnerBracketToggled]
+    'addTo --> MajorId : [else]  
+  }
+
 }
 
 State "User Menu Input" as UserMenuInput {
@@ -55,7 +71,6 @@ State "User Menu Input" as UserMenuInput {
   UserJoins -> LogMenu
 
 }
-
 
 LedgerIt -down-> [*]
 
