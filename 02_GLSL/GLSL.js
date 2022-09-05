@@ -309,9 +309,8 @@ function addBracket(bracketNumber) {
     hideShowDice(false);
   }
 
-  //Passes the string for brackets
   var selectedBracketTag = document.getElementById("BracketDropDown").value;
-  SetupTargetsBasedOnBracketPick(selectedBracketTag); //Adds buttons for targets, filtered on brackets[i][2]
+  SetupTargetsBasedOnBracketPick(selectedBracketTag); //Determine bracket, to dynamically add targets buttons (brackets[i][2])
 
   LedgerIt();
 }
@@ -474,9 +473,13 @@ function LedgerIt() {
 
   // IV. Add to Ledger
   if (isLedgerEmpty || !isInnerBracketToggled){
-    document.getElementById("ledger").value += tempBracket.slice(0,LastBracketWidth);
+    var LeftSideBracket = tempBracket.slice(0,LastBracketWidth);
+    var RightSideBracket = tempBracket.slice(-LastBracketWidth, LastBracketSize);
+    
+    console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
+    document.getElementById("ledger").value += LeftSideBracket;
+    document.getElementById("ledger").value += RightSideBracket;
     addStringInLedgerBracket(tempTarget);
-    document.getElementById("ledger").value += tempBracket.slice(-LastBracketWidth, LastBracketSize);
 
     if(isLedgerEmpty){
       isLedgerEmpty = false;
