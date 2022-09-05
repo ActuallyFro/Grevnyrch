@@ -101,20 +101,11 @@ var isInnerBracket = false;
 window.onload = function() {
   //BAD: LocalStorageClear(true);
 
-  //0. Determine if LocalStorage's Log[] is empty: (a) if not -- load, else -- print empty:
+  //1. Determine if LocalStorage's Log[] is empty: (a) if not -- load, else -- print empty:
   var totalLSKeys = LocalStorageLoadMainKeys(); //LocalStorageLoadMainKeys(true)
-  // if (true) {
-  //   if (totalLSKeys>0){
-  //     console.log("[DEBUG] Found '" + totalLSKeys +"' total, localstorage keys!");
-  //   } else {
-  //     console.log("[DEBUG] There are NO keys (i.e., no stored data!)");
-  //   }
-  // }
 
-  // 1. Setup Bracket Buttons
+  //2. Setup Page Elements
   SetupBracketButtons();
-
-  // 2. Setup Bracket Drop Down
   SetupBracketDropDown();
 
   // 3. Add Integers to Dice Div
