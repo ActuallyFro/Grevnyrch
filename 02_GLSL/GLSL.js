@@ -129,30 +129,32 @@ window.onload = function() {
   
   document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-info\" onclick=\"addStringInLedgerBracket('→')\"> → </button>";
   document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-info\" onclick=\"addStringInLedgerBracket(';;')\"> ;; </button>";
-  // <div class="col-sm-12" id="ActivityButtons"></div>
-  
-  SetupWatcherUserPicksBracketDropDown();
 
-  //watch for toggle input changes
+  SetupWatcherUserPicksBracketDropDown();
   SetupWatcherUserTogglesInnerBracket(); 
 
   ToggleDisableInnerbracket();
 }
 
-function SetupWatcherUserPicksBracketDropDown(){
+function SetupWatcherUserPicksBracketDropDown(debug=false){
   document.getElementById("BracketDropDown").addEventListener("change", function() {
-    var selectedBracketTag = document.getElementById("BracketDropDown").checked;
-    //document.getElementById("toggleInnerbracket").checked
+    var selectedBracketTag = document.getElementById("BracketDropDown").value;
+    if (debug){
+      console.log("[DEBUG] User selected dropdown:" + selectedBracketTag);  
+    }
+
     SetupTargetsBasedOnBracketPick(selectedBracketTag);
   });
   
 }
 
-function SetupWatcherUserTogglesInnerBracket(){
+function SetupWatcherUserTogglesInnerBracket(debug=false){
   document.getElementById("toggleInnerbracket").addEventListener("change", function() {
     var isInnerBracket = document.getElementById("toggleInnerbracket").checked;
     isInnerBracketToggled = isInnerBracket;
-    //console.log("[DEBUG] User toggled InnerBracket to: " + isInnerBracket);
+    if (debug){
+      console.log("[DEBUG] User toggled InnerBracket to: " + isInnerBracket);
+    }
   });
 }
 
