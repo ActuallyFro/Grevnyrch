@@ -499,11 +499,17 @@ function LedgerIt() {
     // ONLY update bracket sizes if not inner-bracket toggled!
     LastBracketSize = CurrentBracketSize;
     LastBracketWidth = CurrentBracketWidth;
-
+    LastBracket = currentBracket;
 
   } else { //isInnerBracketToggled
+    if (LastBracket == currentBracket){
+      console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + tempTarget);
+      addStringInLedgerBracket(tempTarget);
+    } else {
+      console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
+      addStringInLedgerBracket(LeftSideBracket+tempTarget+RightSideBracket);
+    }
 
-    addStringInLedgerBracket(LeftSideBracket+tempTarget+RightSideBracket);
   }
 }
 
