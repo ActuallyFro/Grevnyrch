@@ -467,21 +467,22 @@ function LedgerIt() {
   var obj = document.getElementById("BracketDropDown");
   var tempBracket = obj.options[obj.selectedIndex].value;
 
-  LastBracketSize = tempBracket.length;
-  LastBracketWidth = (LastBracketSize - 1)/2;
+  CurrentBracketSize = tempBracket.length;
+  CurrentBracketWidth = (CurrentBracketSize - 1)/2;
 
   if (LastBracketWidth < 1){
-    console.log("[ERROR] Provided bracket is formmatted WRONG! (len: " + LastBracketSize + ")");
-    return;
+    console.log("[ERROR] Provided bracket is formmatted WRONG! (len: " + CurrentBracketSize + ")");
+    //return;
   }
 
   //III. determine target from provided input field
   var tempTarget = document.getElementById("target").value;
 
   // IV. Add to Ledger
+  var LeftSideBracket = tempBracket.slice(0,CurrentBracketWidth);
+  var RightSideBracket = tempBracket.slice(-CurrentBracketWidth, CurrentBracketSize);
+
   if (isLedgerEmpty || !isInnerBracketToggled){
-    var LeftSideBracket = tempBracket.slice(0,LastBracketWidth);
-    var RightSideBracket = tempBracket.slice(-LastBracketWidth, LastBracketSize);
     
     console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
     document.getElementById("ledger").value += LeftSideBracket;
@@ -494,8 +495,13 @@ function LedgerIt() {
 
     CheckAndAddTarget();
 
+    // ONLY update bracket sizes if not inner-bracket toggled!
+    LastBracketSize = CurrentBracketSize;
+    LastBracketWidth = CurrentBracketWidth;
+
+
   } else { //isInnerBracketToggled
-    addStringInLedgerBracket(tempTarget);
+    addStringInLedgerBracket(LeftSideBracket+tempTarget+RightSideBracket);
   }
 }
 
@@ -564,6 +570,8 @@ function addStringInLedgerBracket(PassedString){
   obj.value = tempLedger + PassedString + tempLedgerLastChar;
 
   console.log("[DEBUG] [addStringInLedgerBracket()] Ledger: '" + obj.value + "'");
+
+  //Any impacts of "isInnerBracketToggled" == true ?
 
   //if ;;, then toggle the inner-bracket
   if (PassedString == ";;"){
