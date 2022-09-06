@@ -90,6 +90,7 @@ var isInnerBracketToggled = false;
 
 var LastBracketSize = 0;
 var LastBracketWidth = 0; //SHOULD be (Size-1)/2 -- but I cannot say 100% ALWAYS will be...
+var LastBracket ="";
 var isInnerBracket = false;
 //////////////////////////////////////
 
@@ -465,9 +466,9 @@ function LedgerIt() {
 
   //II. Lookup Bracket, based on Bracket selection , set new size/width
   var obj = document.getElementById("BracketDropDown");
-  var tempBracket = obj.options[obj.selectedIndex].value;
+  var currentBracket = obj.options[obj.selectedIndex].value;
 
-  CurrentBracketSize = tempBracket.length;
+  CurrentBracketSize = currentBracket.length;
   CurrentBracketWidth = (CurrentBracketSize - 1)/2;
 
   if (LastBracketWidth < 1){
@@ -479,8 +480,8 @@ function LedgerIt() {
   var tempTarget = document.getElementById("target").value;
 
   // IV. Add to Ledger
-  var LeftSideBracket = tempBracket.slice(0,CurrentBracketWidth);
-  var RightSideBracket = tempBracket.slice(-CurrentBracketWidth, CurrentBracketSize);
+  var LeftSideBracket = currentBracket.slice(0,CurrentBracketWidth);
+  var RightSideBracket = currentBracket.slice(-CurrentBracketWidth, CurrentBracketSize);
 
   if (isLedgerEmpty || !isInnerBracketToggled){
     
@@ -501,6 +502,7 @@ function LedgerIt() {
 
 
   } else { //isInnerBracketToggled
+
     addStringInLedgerBracket(LeftSideBracket+tempTarget+RightSideBracket);
   }
 }
