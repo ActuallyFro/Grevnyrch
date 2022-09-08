@@ -286,12 +286,13 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
 //////////////////////////////////////
 // III. GUI Usage Functions
 
-//1. Generate Brackets:
-//=====================
-function addBracket(bracketNumber) {
+//0. Update Target Activities
+//===========================
+function UpdateTargetActivities(bracketNumber) {
   var adjustedBracketNumber = bracketNumber - 1;
-  if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
 
+  if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
+    //console.log("UpdateTargetActivities() -- running");
     //console.log("[DEBUG] [addBracket()] Changing selected index to: " + bracketNumber);
     document.getElementById("BracketDropDown").selectedIndex = bracketNumber; 
 
@@ -310,15 +311,28 @@ function addBracket(bracketNumber) {
     // N/PC's for: ⸢  ⸣ || ⸤  ⸥ || ⸢  ⸥
 
     // Numbers for: ⦇⦈
-
   } else {
-    document.getElementById("BracketDropDown").selectedIndex = 0;
-    // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
     hideShowDice(false);
   }
 
-  var selectedBracketTag = document.getElementById("BracketDropDown").value;
-  SetupTargetsBasedOnBracketPick(selectedBracketTag); //Determine bracket, to dynamically add targets buttons (brackets[i][2])
+
+
+}
+
+//1. Generate Brackets:
+//=====================
+function addBracket(bracketNumber) {
+  var adjustedBracketNumber = bracketNumber - 1;
+  if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
+    UpdateTargetActivities(bracketNumber);
+
+    var selectedBracketTag = document.getElementById("BracketDropDown").value;
+    SetupTargetsBasedOnBracketPick(selectedBracketTag); //Determine bracket, to dynamically add targets buttons (brackets[i][2])
+
+  } else {
+    document.getElementById("BracketDropDown").selectedIndex = 0;
+  }
+
 
   LedgerIt();
 }
