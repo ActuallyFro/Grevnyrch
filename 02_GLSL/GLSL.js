@@ -121,6 +121,7 @@ window.onload = function() {
 
   //5. Setup default states
   ToggleDisableInnerbracket();
+  hideShowDice(false);
 }
 
 function SetupInnerBracketShortcutsDice(){
@@ -150,6 +151,29 @@ function SetupWatcherUserPicksBracketDropDown(debug=false){
     }
 
     SetupTargetsBasedOnBracketPick(selectedBracketTag);
+
+    //Attempting to pass bracket number into UpdateTargetActivities()...
+    var bracketNumber=0;
+    for (var i = 0; i < brackets.length; i++) {
+      var foundTargetBracket = brackets[i][0];
+      if (brackets[i][0] == selectedBracketTag) {
+        bracketNumber = i;
+        console.log("[DEBUG] Bracket Number: " + bracketNumber);
+        break;
+      }
+    }
+
+    var adjustedBracketNumber = bracketNumber - 1;
+    if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
+      UpdateTargetActivities(bracketNumber);
+
+    }
+
+    
+    //  else {
+    //   document.getElementById("BracketDropDown").selectedIndex = 0;
+    // }
+      
   });
   
 }
