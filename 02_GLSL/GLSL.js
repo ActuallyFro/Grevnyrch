@@ -518,11 +518,6 @@ function LedgerIt() {
     console.log("[ERROR] Provided bracket is formmatted WRONG! (len: " + CurrentBracketSize + ")");
     //return;
   }
-
-  if (!hasBracketBuildingStarted){
-    hasBracketBuildingStarted = true;
-  }
-
   //III. determine target from provided input field
   var tempTarget = document.getElementById("target").value;
 
@@ -558,6 +553,11 @@ function LedgerIt() {
     }
 
   }
+
+  if (!hasBracketBuildingStarted){
+    hasBracketBuildingStarted = true;
+  }
+
 }
 
 //3. LogIt 
