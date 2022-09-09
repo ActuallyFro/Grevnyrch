@@ -158,7 +158,9 @@ function SetupWatcherUserPicksBracketDropDown(debug=false){
       var foundTargetBracket = brackets[i][0];
       if (brackets[i][0] == selectedBracketTag) {
         bracketNumber = i;
-        console.log("[DEBUG] Bracket Number: " + bracketNumber);
+        if (debug){
+          console.log("[DEBUG] Bracket Number: " + bracketNumber);
+        }
         break;
       }
     }
