@@ -270,7 +270,7 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
   document.getElementById("TargetButtons").innerHTML = null; //reset buttons
 
   if (SelectedBracket == "") {
-    LoadAllTargetsAsOptions(true);
+    LoadAllTargetsAsOptions(); //(true)
 
   } else {
     var SelectedBracketWords = ""
@@ -809,7 +809,7 @@ function ImportJsonToTargets(){
 
     LoadArrayIntoTargets(parsedTarget);
 
-    LoadAllTargetsAsOptions(true);
+    LoadAllTargetsAsOptions(); //(true)
     alert("Successfully loaded (" + targets.length + ") targets!");
   
   };
@@ -897,7 +897,7 @@ function LocalStorageLoadMainKeys(debug=false){
         var loadedStorage = localStorage.getItem('GLSL-Targets');
         var parsedTarget = JSON.parse(loadedStorage);
         LoadArrayIntoTargets(parsedTarget);
-        LoadAllTargetsAsOptions(true);
+        LoadAllTargetsAsOptions(); //(true)
 
         SetupAllTargets();
       }
