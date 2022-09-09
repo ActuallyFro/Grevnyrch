@@ -143,6 +143,7 @@ function SetupInnerBracketShortcutsNandPCs (){
   document.getElementById("NandPCButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-primary\" onclick=\"addStringInLedgerBracket(';;')\"> ;; </button>";
 }
 
+//BUG: target as the selction goes to an index of "n-1"; so if item #4 is selected, it will be 3...
 function SetupWatcherUserPicksBracketDropDown(debug=false){
   document.getElementById("BracketDropDown").addEventListener("change", function() {
     var selectedBracketTag = document.getElementById("BracketDropDown").value;
@@ -176,6 +177,9 @@ function SetupWatcherUserPicksBracketDropDown(debug=false){
     //   document.getElementById("BracketDropDown").selectedIndex = 0;
     // }
       
+    LedgerIt();
+    // ToggleEnableInnerbracket(); //--more logic is needed for deconflicting target buttons...
+
   });
   
 }
