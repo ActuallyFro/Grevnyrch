@@ -85,6 +85,8 @@ var targets = [
 ["Kla'Bbbert", "Locations", "KB"]
 ];
 
+var hasBracketBuildingStarted = false;
+
 var isShowingNumbers = false;
 var isInnerBracketToggled = false;
 
@@ -122,6 +124,7 @@ window.onload = function() {
   //5. Setup default states
   ToggleDisableInnerbracket();
   hideShowDice(false);
+  hasBracketBuildingStarted = false;
 }
 
 function SetupInnerBracketShortcutsDice(){
@@ -324,7 +327,7 @@ function UpdateTargetActivities(bracketNumber) {
   if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
     //console.log("UpdateTargetActivities() -- running");
     //console.log("[DEBUG] [addBracket()] Changing selected index to: " + bracketNumber);
-    document.getElementById("BracketDropDown").selectedIndex = bracketNumber; 
+    document.getElementById("BracketDropDown").selectedIndex = bracketNumber+1; //DONT LIKE THIS! 
 
     if (brackets[adjustedBracketNumber][3] == "Dice" || brackets[adjustedBracketNumber][3] == "Numbers") {
       hideShowDice(true);
@@ -335,24 +338,20 @@ function UpdateTargetActivities(bracketNumber) {
     }
 
     // Actions for: ()
-    
     // Numbers and Letters for: <>
-
     // N/PC's for: ⸢  ⸣ || ⸤  ⸥ || ⸢  ⸥
-
     // Numbers for: ⦇⦈
+
   } else {
     hideShowDice(false);
   }
-
-
 
 }
 
 //1. Generate Brackets:
 //=====================
 function addBracket(bracketNumber) {
-  var adjustedBracketNumber = bracketNumber - 1;
+  var adjustedBracketNumber = bracketNumber - 1; //0 is the first option/default/blank selection
   if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
     UpdateTargetActivities(bracketNumber);
 
@@ -520,6 +519,10 @@ function LedgerIt() {
     //return;
   }
 
+  if (!hasBracketBuildingStarted){
+    hasBracketBuildingStarted = true;
+  }
+
   //III. determine target from provided input field
   var tempTarget = document.getElementById("target").value;
 
@@ -593,6 +596,8 @@ function LogIt() {
 
   //Any time LogIt() is called -- reset the inner-bracket toggles
   ToggleDisableInnerbracket();
+
+  hasBracketBuildingStarted = false;
 }
 
 //4. RemoveLastLog 
