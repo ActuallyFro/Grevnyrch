@@ -36,7 +36,7 @@ City Districts
 
 Tools
 =====
-1. [GLS Logger](https://actuallyfro.github.io/Grevnyrch/01_GLS/GLSL.html)
+1. [GLS Logger](https://actuallyfro.github.io/Grevnyrch/02_GLSL/GLSL.html)
 2. [Initiative.sh](https://initiative.sh/)
 3. [Treasure - Donjon](https://donjon.bin.sh/5e/random/#type=treasure;cr=0;loot_type=Individual%20Treasure?refer_by=scabard.com)
 4. [Fantasy Names Generator](https://www.fantasynamegenerators.com/shop-names.php)
