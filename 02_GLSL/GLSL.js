@@ -199,7 +199,7 @@ function SetupWatcherUserTogglesInnerBracket(debug=false){
 
 // 1. Bracket Buttons setup:
 //========================== 
-function SetupBracketButtons(){
+function SetupBracketButtons(debug=false){
   for (var i = 0; i < brackets.length; i++) { //use btn-outline-* for more variants
     if (brackets[i][2] == "Locations"){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
@@ -226,9 +226,9 @@ function SetupBracketButtons(){
     }
   }
 
-  //console.log("SetupBracketButtons() -- created " + i+1 + " buttons");
-
-  // document.getElementById("BracketButtons").innerHTML += "<input type=\"button\" class=\"btn btn-danger\" value=\"Clear bracket\" onclick=\"ClearBracket()\"></input>"
+  if (debug){
+    console.log("[DEBUG] Bracket Buttons Setup -- created " + brackets.length - 1 + " buttons");
+  }
 }
 
 // 2. Bracket Drop Down setup:
