@@ -202,25 +202,25 @@ function SetupWatcherUserTogglesInnerBracket(debug=false){
 function SetupBracketButtons(debug=false){
   for (var i = 0; i < brackets.length; i++) { //use btn-outline-* for more variants
     if (brackets[i][2] == "Locations"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
     
     } else if (brackets[i][2] == "Timing"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
     
     } else if (brackets[i][2] == "PC or NPC Level Actions"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
 
     } else if (brackets[i][2] == "Event or Encounter"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
           
     } else if (brackets[i][2] == "Object"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-warning\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-warning\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
 
     } else if (brackets[i][2] == "Results"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
 
     } else if (brackets[i][2] != "GUI - Selection Title" && brackets[i][2] != ""){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-info\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-info\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
     }
   }
 
@@ -238,6 +238,7 @@ function SetupBracketDropDown(){
     var option = document.createElement("option");
 
     option.value = brackets[i][0];
+
     if (brackets[i][1] != ""){
       option.text = brackets[i][1] + ": " + brackets[i][0];
     } else {
@@ -315,11 +316,11 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
 //===========================
 function UpdateTargetActivities(bracketNumber, debug=false) {
 
-  if (bracketNumber >= 0 && bracketNumber < (brackets.length-1)) {
+  if (bracketNumber >= 0 && bracketNumber < brackets.length) {
     if(debug){
       console.log("[DEBUG] [UpdateTargetActivities()] Changing selected index to: " + bracketNumber);
     }
-    document.getElementById("BracketDropDown").selectedIndex = bracketNumber;
+    document.getElementById("BracketDropDown").selectedIndex = bracketNumber; //This is N/A for drop down, but is used for buttons!
 
     if (brackets[bracketNumber][3] == "Dice" || brackets[bracketNumber][3] == "Numbers") {
       hideShowDice(true);
@@ -357,18 +358,16 @@ function UpdateTargetActivities(bracketNumber, debug=false) {
 
 //1. Generate Brackets:
 //=====================
-function addBracket(bracketNumber) {
-  if (bracketNumber >= 1 && bracketNumber < brackets.length) {
-    UpdateTargetActivities(bracketNumber);
+function addBracket(bracketNumber, debug=false) {
+  UpdateTargetActivities(bracketNumber);
 
-    var selectedBracketTag = document.getElementById("BracketDropDown").value;
-    SetupTargetsBasedOnBracketPick(selectedBracketTag); //Determine bracket, to dynamically add targets buttons (brackets[i][2])
+  var selectedBracketTag = document.getElementById("BracketDropDown").value;
+  SetupTargetsBasedOnBracketPick(selectedBracketTag); //Determine bracket, to dynamically add targets buttons (brackets[i][2])
 
-  } else {
-    document.getElementById("BracketDropDown").selectedIndex = 0;
+  if(debug){
+    console.log("[DEBUG] [addBracket()] Adding Bracket: " + brackets[bracketNumber][0] +"; for selected bracket tag: '" + selectedBracketTag + "'");
   }
-
-
+ 
   LedgerIt();
 }
 
