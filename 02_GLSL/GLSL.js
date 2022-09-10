@@ -90,6 +90,7 @@ var hasBracketBuildingStarted = false;
 
 var isShowingNumbers = false;
 var isInnerBracketToggled = false;
+var isAutoBracketToggled = true;
 
 var LastBracketSize = 0;
 var LastBracketWidth = 0; //SHOULD be (Size-1)/2 -- but I cannot say 100% ALWAYS will be...
@@ -120,10 +121,12 @@ window.onload = function() {
 
   //4. Setup Event Listeners/Watchers
   SetupWatcherUserPicksBracketDropDown();
+  SetupWatcherUserTogglesAutoBracket();
   SetupWatcherUserTogglesInnerBracket(); 
 
   //5. Setup default states
   ToggleDisableInnerbracket();
+  ToggleEnableAutobracket();
   hideShowDice(false);
   hasBracketBuildingStarted = false;
 }
@@ -185,6 +188,16 @@ function SetupWatcherUserPicksBracketDropDown(debug=false){
 
   });
   
+}
+
+function SetupWatcherUserTogglesAutoBracket(debug=false){
+  document.getElementById("toggleAutobracket").addEventListener("change", function() {
+    var isAutoBracket = document.getElementById("toggleAutobracket").checked;
+    isAutoBracketToggled = isAutoBracket;
+    if (debug){
+      console.log("[DEBUG] User toggled AutoBracket to: " + isAutoBracket);
+    }
+  });
 }
 
 function SetupWatcherUserTogglesInnerBracket(debug=false){
@@ -642,6 +655,19 @@ function addStringInLedgerBracket(PassedString){
 
 }
 
+function ToggleDisableAutobracket(){
+  //console.log("[DEBUG] [ToggleDisableAutobracket()]");
+  document.getElementById("toggleAutobracket").checked = false;
+  isAutoBracketToggled = false;
+  
+}
+
+function ToggleEnableAutobracket(){
+  //console.log("[DEBUG] [ToggleEnableAutobracket()]");
+  document.getElementById("toggleAutobracket").checked = true;
+  isAutoBracketToggled = true;
+}
+
 function ToggleDisableInnerbracket(){
   //console.log("[DEBUG] [ToggleDisableInnerbracket()]");
   document.getElementById("toggleInnerbracket").checked = false;
@@ -654,6 +680,9 @@ function ToggleEnableInnerbracket(){
   document.getElementById("toggleInnerbracket").checked = true;
   isInnerBracketToggled = true;
 }
+
+
+
 
 //////////////////////////////////////
 
