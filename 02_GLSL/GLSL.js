@@ -236,13 +236,6 @@ function SetupBracketButtons(){
 function SetupBracketDropDown(){
   document.getElementById("BracketDropDown").innerHTML = null; //reset buttons
 
-  // DIRECTLY ADDED THE BLANK OPTION -- to avoid odd adjusted math
-  // var optionBlank = document.createElement("option");
-  // optionBlank.value = "";
-  // optionBlank.text = "";
-  // document.getElementById("BracketDropDown").appendChild(optionBlank);
-
-  //generate option tags from brackets array
   for (var i = 0; i < brackets.length; i++) {
     var option = document.createElement("option");
 
