@@ -569,7 +569,7 @@ function LedgerIt(debug=true) {
     }
     document.getElementById("ledger").value += LeftSideBracket;
     document.getElementById("ledger").value += RightSideBracket;
-    addLedgerStringInnerBracket(tempTarget);
+    addLedgerStringAtEnd(tempTarget);
 
     CheckAndAddTarget();
 
@@ -584,7 +584,7 @@ function LedgerIt(debug=true) {
       }
       addLedgerStringInnerBracket(tempTarget);
       
-    } else {
+    } else { //deals with the nesting of brackets --- ex: [PC](A→]enemy NPC[]); the ][-bracket is nested within the ()-bracket
       if (debug){
         console.log("[DEBUG] [LedgerIt()] {isInnerBracketToggled} Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
       }
@@ -681,12 +681,21 @@ function addLedgerStringInnerBracket(PassedString){
 
 }
 
-function addLedgerStringAtEndBracket(PassedString){
+function addLedgerStringAtEnd(PassedString){
   var obj = document.getElementById("ledger");
   obj.value += PassedString;
 
-  console.log("[DEBUG] [addLedgerStringAtEndBracket()] Ledger: '" + obj.value + "'");
+  console.log("[DEBUG] [addLedgerStringAtEnd()] Ledger: '" + obj.value + "'");
 }
+
+// function addLedgerStringAtEndBracket(PassedString){
+//   var obj = document.getElementById("ledger");
+//   obj.value += PassedString;
+
+//TODO: bracket Left/Right side determination to then have: Left + Passed + Right....
+
+//   console.log("[DEBUG] [addLedgerStringAtEndBracket()] Ledger: '" + obj.value + "'");
+// }
 
 function ToggleDisableAutobracket(){
   //console.log("[DEBUG] [ToggleDisableAutobracket()]");
