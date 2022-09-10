@@ -134,21 +134,21 @@ window.onload = function() {
 
 function SetupInnerBracketShortcutsDice(){
   for (var k = 0; k <= 9; k++) {
-    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addStringInLedgerBracket(" + k + ")\">" + k + "</button>";
+    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addLedgerStringInnerBracket(" + k + ")\">" + k + "</button>";
   }
 
-  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('+')\"> + </button>";
-  document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addStringInLedgerBracket('-')\"> - </button>";
-  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('=')\"> = </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addLedgerStringInnerBracket('+')\"> + </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addLedgerStringInnerBracket('-')\"> - </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addLedgerStringInnerBracket('=')\"> = </button>";
  
 }
 
 function SetupInnerBracketShortcutsActionActivities (){
-  document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-success\" onclick=\"addStringInLedgerBracket('→')\"> → </button>";
+  document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-success\" onclick=\"addLedgerStringInnerBracket('→')\"> → </button>";
 }
 
 function SetupInnerBracketShortcutsNandPCs (){
-  document.getElementById("NandPCButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-primary\" onclick=\"addStringInLedgerBracket(';;')\"> ;; </button>";
+  document.getElementById("NandPCButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-primary\" onclick=\"addLedgerStringInnerBracket(';;')\"> ;; </button>";
 }
 
 //BUG: target as the selction goes to an index of "n-1"; so if item #4 is selected, it will be 3...
@@ -312,7 +312,7 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
 
           var safeStr = targets[j][0].replace(/'/g, "\\'");
           
-          document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
+          document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addLedgerStringInnerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
 
           foundTargets++;
         }
@@ -569,7 +569,7 @@ function LedgerIt(debug=true) {
     }
     document.getElementById("ledger").value += LeftSideBracket;
     document.getElementById("ledger").value += RightSideBracket;
-    addStringInLedgerBracket(tempTarget);
+    addLedgerStringInnerBracket(tempTarget);
 
     CheckAndAddTarget();
 
@@ -582,13 +582,13 @@ function LedgerIt(debug=true) {
       if (debug){
         console.log("[DEBUG] [LedgerIt()] {isInnerBracketToggled} Adding to Ledger: " + tempTarget);
       }
-      addStringInLedgerBracket(tempTarget);
+      addLedgerStringInnerBracket(tempTarget);
       
     } else {
       if (debug){
         console.log("[DEBUG] [LedgerIt()] {isInnerBracketToggled} Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
       }
-      addStringInLedgerBracket(LeftSideBracket+tempTarget+RightSideBracket);
+      addLedgerStringInnerBracket(LeftSideBracket+tempTarget+RightSideBracket);
     }
 
   }
@@ -663,14 +663,14 @@ function RemoveLastLog() {
 
 //Auto-deterines last bracket, and it's terminating bracket; then 'inserts' past string between the string-thru-terminating-bracket and the terminal-bracket
 // In short: DEALS with "insert into the last-placed-bracket" 
-function addStringInLedgerBracket(PassedString){
+function addLedgerStringInnerBracket(PassedString){
   var obj = document.getElementById("ledger");
 
   var tempLedger = obj.value.slice(0,obj.value.length-LastBracketWidth);
   var tempLedgerLastChar = obj.value.slice(-LastBracketWidth,obj.value.length);
   obj.value = tempLedger + PassedString + tempLedgerLastChar;
 
-  console.log("[DEBUG] [addStringInLedgerBracket()] Ledger: '" + obj.value + "'");
+  console.log("[DEBUG] [addLedgerStringInnerBracket()] Ledger: '" + obj.value + "'");
 
   //Any impacts of "isInnerBracketToggled" == true ?
 
@@ -809,7 +809,7 @@ function LoadAllTargetsAsOptions(debug=false){ //this vs. SetupTargetsBasedOnB
       }
   
       document.getElementById("targets").appendChild(option);
-      document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
+      document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addLedgerStringInnerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
 
       if (hasTwoTargets){
         currentTarget = secondaryTarget;
