@@ -200,7 +200,7 @@ function SetupWatcherUserTogglesInnerBracket(debug=false){
 // 1. Bracket Buttons setup:
 //========================== 
 function SetupBracketButtons(){
-  var seletionBracketCount = 1; //due to blank --^
+  var seletionBracketCount = 0;
   for (var i = 0; i < brackets.length; i++) { //use btn-outline-* for more variants
     if (brackets[i][2] == "Locations"){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
@@ -321,29 +321,44 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
 
 //0. Update Target Activities
 //===========================
-function UpdateTargetActivities(bracketNumber) {
-  var adjustedBracketNumber = bracketNumber - 1;
+function UpdateTargetActivities(bracketNumber, debug=false) {
 
-  if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
-    //console.log("UpdateTargetActivities() -- running");
-    //console.log("[DEBUG] [addBracket()] Changing selected index to: " + bracketNumber);
-    document.getElementById("BracketDropDown").selectedIndex = bracketNumber+1; //DONT LIKE THIS! 
+  if (bracketNumber >= 0 && bracketNumber < (brackets.length-1)) {
+    if(debug){
+      console.log("[DEBUG] [addBracket()] Changing selected index to: " + bracketNumber);
+    }
+    document.getElementById("BracketDropDown").selectedIndex = bracketNumber;
 
-    if (brackets[adjustedBracketNumber][3] == "Dice" || brackets[adjustedBracketNumber][3] == "Numbers") {
+    if (brackets[bracketNumber][3] == "Dice" || brackets[bracketNumber][3] == "Numbers") {
       hideShowDice(true);
-      // console.log("[DEBUG] [addBracket()] Toggle Dice - on");
+
+      if(debug){
+        console.log("[DEBUG] [addBracket()] Toggle Dice - on");
+      }
+
+    // } else if (...) {
+    //     Actions for: ()
+    //     Numbers and Letters for: <>
+    //     N/PC's for: ⸢  ⸣ || ⸤  ⸥ || ⸢  ⸥
+    //     Numbers for: ⦇⦈
+
     } else {
-      // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
       hideShowDice(false);
+
+      if(debug){
+        console.log("[DEBUG] [addBracket()] Toggle Dice - off");
+      }
     }
 
-    // Actions for: ()
-    // Numbers and Letters for: <>
-    // N/PC's for: ⸢  ⸣ || ⸤  ⸥ || ⸢  ⸥
-    // Numbers for: ⦇⦈
 
   } else {
     hideShowDice(false);
+    
+    //Disable...
+    //     Actions for: ()
+    //     Numbers and Letters for: <>
+    //     N/PC's for: ⸢  ⸣ || ⸤  ⸥ || ⸢  ⸥
+    //     Numbers for: ⦇⦈
   }
 
 }
@@ -351,8 +366,8 @@ function UpdateTargetActivities(bracketNumber) {
 //1. Generate Brackets:
 //=====================
 function addBracket(bracketNumber) {
-  var adjustedBracketNumber = bracketNumber - 1; //0 is the first option/default/blank selection
-  if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
+  //var adjustedBracketNumber = bracketNumber - 1; //0 is the first option/default/blank selection
+  if (bracketNumber >= 1 && bracketNumber < brackets.length-1) {
     UpdateTargetActivities(bracketNumber);
 
     var selectedBracketTag = document.getElementById("BracketDropDown").value;
