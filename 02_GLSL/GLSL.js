@@ -91,6 +91,7 @@ var hasBracketBuildingStarted = false;
 var isShowingNumbers = false;
 var isInnerBracketToggled = false;
 var isAutoBracketToggled = true;
+var hasBracketBeenPlaced = false;
 
 var LastBracketSize = 0;
 var LastBracketWidth = 0; //SHOULD be (Size-1)/2 -- but I cannot say 100% ALWAYS will be...
@@ -184,6 +185,7 @@ function SetupWatcherUserPicksBracketDropDown(debug=false){
       
     if(isAutoBracketToggled){
       LedgerIt();
+      hasBracketBeenPlaced = true;
       // ToggleEnableInnerbracket(); //--more logic is needed for deconflicting target buttons...  
     }
 
@@ -383,6 +385,7 @@ function addBracket(bracketNumber, debug=false) {
   }
 
   if(isAutoBracketToggled){
+    hasBracketBeenPlaced = true;
     LedgerIt();
   }
 }
@@ -525,6 +528,8 @@ function CheckAndAddTarget(){
 //2. LedgerIt 
 //===========
 function LedgerIt() {
+  console.log("[DEBUG] [LedgerIt()] Setting hasBracketBeenPlaced is: " + hasBracketBeenPlaced);
+
   //I. back, to allow a "rewind" of the ledger
   oldLedger.push(document.getElementById("ledger").value); //This is used for "Undo" Ledger Entry
 
