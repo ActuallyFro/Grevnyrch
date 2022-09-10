@@ -661,6 +661,8 @@ function RemoveLastLog() {
   }
 }
 
+//Auto-deterines last bracket, and it's terminating bracket; then 'inserts' past string between the string-thru-terminating-bracket and the terminal-bracket
+// In short: DEALS with "insert into the last-placed-bracket" 
 function addStringInLedgerBracket(PassedString){
   var obj = document.getElementById("ledger");
 
