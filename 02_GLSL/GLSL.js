@@ -178,13 +178,14 @@ function SetupWatcherUserPicksBracketDropDown(debug=false){
     UpdateTargetActivities(bracketNumber);
     // }
 
-    
     //  else {
     //   document.getElementById("BracketDropDown").selectedIndex = 0;
     // }
       
-    LedgerIt();
-    // ToggleEnableInnerbracket(); //--more logic is needed for deconflicting target buttons...
+    if(isAutoBracketToggled){
+      LedgerIt();
+      // ToggleEnableInnerbracket(); //--more logic is needed for deconflicting target buttons...  
+    }
 
   });
   
@@ -380,8 +381,10 @@ function addBracket(bracketNumber, debug=false) {
   if(debug){
     console.log("[DEBUG] [addBracket()] Adding Bracket: " + brackets[bracketNumber][0] +"; for selected bracket tag: '" + selectedBracketTag + "'");
   }
- 
-  LedgerIt();
+
+  if(isAutoBracketToggled){
+    LedgerIt();
+  }
 }
 
 //2. Clear - Bracket
