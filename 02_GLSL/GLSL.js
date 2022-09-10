@@ -567,9 +567,9 @@ function LedgerIt(debug=true) {
     if (debug){
       console.log("[DEBUG] [LedgerIt()] {Empty Ledger | !isInnerBracketToggled } Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
     }
-    document.getElementById("ledger").value += LeftSideBracket;
-    document.getElementById("ledger").value += RightSideBracket;
-    addLedgerStringAtEnd(tempTarget);
+    // document.getElementById("ledger").value += LeftSideBracket; -- this is direct menthod of the 'addLedgerStringAtEnd'
+    // document.getElementById("ledger").value += RightSideBracket; -- this is direct menthod of the 'addLedgerStringAtEnd'
+    addLedgerStringAtEnd(LeftSideBracket + tempTarget + RightSideBracket);
 
     CheckAndAddTarget();
 
