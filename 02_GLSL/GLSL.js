@@ -212,12 +212,10 @@ function SetupBracketButtons(debug=false){
 
     } else if (brackets[i][2] == "Event or Encounter"){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
-
           
     } else if (brackets[i][2] == "Object"){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-warning\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
 
-          
     } else if (brackets[i][2] == "Results"){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
 
