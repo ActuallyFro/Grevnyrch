@@ -672,13 +672,20 @@ function addLedgerStringInnerBracket(PassedString){
 
   console.log("[DEBUG] [addLedgerStringInnerBracket()] Ledger: '" + obj.value + "'");
 
-  //Any impacts of "isInnerBracketToggled" == true ?
+  //Any impacts of "isInnerBracketToggled" == true ? <-- NO
 
-  //if ;;, then toggle the inner-bracket
+  //Modify Activites are ALWAYS inner-bracket item; to save user click(s) this check will auto-toggle the next entry to be an innerbracket action
   if (PassedString == ";;"){
     ToggleEnableInnerbracket();
   }
 
+}
+
+function addLedgerStringAtEndBracket(PassedString){
+  var obj = document.getElementById("ledger");
+  obj.value += PassedString;
+
+  console.log("[DEBUG] [addLedgerStringAtEndBracket()] Ledger: '" + obj.value + "'");
 }
 
 function ToggleDisableAutobracket(){
