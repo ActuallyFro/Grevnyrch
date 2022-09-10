@@ -42,6 +42,7 @@ var oldLedger = [];
 var Log = [];
 
 var brackets = [
+["", "", "", ""],
 ["", "=== Location Brackets ===", "GUI - Selection Title", "Disabled"],
 ["༺ ༻", "Realm", "Locations", ""],
 ["〖 〗", "City", "Locations", ""],
@@ -169,11 +170,10 @@ function SetupWatcherUserPicksBracketDropDown(debug=false){
       }
     }
 
-    var adjustedBracketNumber = bracketNumber - 1;
-    if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
-      UpdateTargetActivities(bracketNumber);
-
-    }
+    // var adjustedBracketNumber = bracketNumber - 1;
+    // if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
+    UpdateTargetActivities(bracketNumber);
+    // }
 
     
     //  else {
@@ -200,37 +200,33 @@ function SetupWatcherUserTogglesInnerBracket(debug=false){
 // 1. Bracket Buttons setup:
 //========================== 
 function SetupBracketButtons(){
-  var seletionBracketCount = 0;
   for (var i = 0; i < brackets.length; i++) { //use btn-outline-* for more variants
     if (brackets[i][2] == "Locations"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
     
     } else if (brackets[i][2] == "Timing"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
     
     } else if (brackets[i][2] == "PC or NPC Level Actions"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
 
     } else if (brackets[i][2] == "Event or Encounter"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
 
           
     } else if (brackets[i][2] == "Object"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-warning\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-warning\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
 
           
     } else if (brackets[i][2] == "Results"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
 
-    } else if (brackets[i][2] != "GUI - Selection Title"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-info\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-
+    } else if (brackets[i][2] != "GUI - Selection Title" && brackets[i][2] != ""){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-info\" onclick=\"addBracket(" + i+1 + ")\">" + brackets[i][0] + "</button>";
     }
-
-    seletionBracketCount++;
   }
 
-  //console.log("SetupBracketButtons() -- created " + seletionBracketCount + " buttons");
+  //console.log("SetupBracketButtons() -- created " + i+1 + " buttons");
 
   // document.getElementById("BracketButtons").innerHTML += "<input type=\"button\" class=\"btn btn-danger\" value=\"Clear bracket\" onclick=\"ClearBracket()\"></input>"
 }
@@ -240,18 +236,23 @@ function SetupBracketButtons(){
 function SetupBracketDropDown(){
   document.getElementById("BracketDropDown").innerHTML = null; //reset buttons
 
-  var optionBlank = document.createElement("option");
-  optionBlank.value = "";
-  optionBlank.text = "";
-  document.getElementById("BracketDropDown").appendChild(optionBlank);
+  // DIRECTLY ADDED THE BLANK OPTION -- to avoid odd adjusted math
+  // var optionBlank = document.createElement("option");
+  // optionBlank.value = "";
+  // optionBlank.text = "";
+  // document.getElementById("BracketDropDown").appendChild(optionBlank);
 
   //generate option tags from brackets array
   for (var i = 0; i < brackets.length; i++) {
-
-    // Adding options to the Bracket, Tag Dropdown
     var option = document.createElement("option");
+
     option.value = brackets[i][0];
-    option.text = brackets[i][1] + ": " + brackets[i][0];
+    if (brackets[i][1] != ""){
+      option.text = brackets[i][1] + ": " + brackets[i][0];
+    } else {
+      option.text = "";
+    }
+
     if (brackets[i][3] == "Disabled") {
       option.disabled = true;
     }
@@ -325,7 +326,7 @@ function UpdateTargetActivities(bracketNumber, debug=false) {
 
   if (bracketNumber >= 0 && bracketNumber < (brackets.length-1)) {
     if(debug){
-      console.log("[DEBUG] [addBracket()] Changing selected index to: " + bracketNumber);
+      console.log("[DEBUG] [UpdateTargetActivities()] Changing selected index to: " + bracketNumber);
     }
     document.getElementById("BracketDropDown").selectedIndex = bracketNumber;
 
@@ -333,7 +334,7 @@ function UpdateTargetActivities(bracketNumber, debug=false) {
       hideShowDice(true);
 
       if(debug){
-        console.log("[DEBUG] [addBracket()] Toggle Dice - on");
+        console.log("[DEBUG] [UpdateTargetActivities()] Toggle Dice - on");
       }
 
     // } else if (...) {
@@ -346,14 +347,14 @@ function UpdateTargetActivities(bracketNumber, debug=false) {
       hideShowDice(false);
 
       if(debug){
-        console.log("[DEBUG] [addBracket()] Toggle Dice - off");
+        console.log("[DEBUG] [UpdateTargetActivities()] Toggle Dice - off");
       }
     }
 
 
   } else {
     hideShowDice(false);
-    
+
     //Disable...
     //     Actions for: ()
     //     Numbers and Letters for: <>
@@ -366,8 +367,7 @@ function UpdateTargetActivities(bracketNumber, debug=false) {
 //1. Generate Brackets:
 //=====================
 function addBracket(bracketNumber) {
-  //var adjustedBracketNumber = bracketNumber - 1; //0 is the first option/default/blank selection
-  if (bracketNumber >= 1 && bracketNumber < brackets.length-1) {
+  if (bracketNumber >= 1 && bracketNumber < brackets.length) {
     UpdateTargetActivities(bracketNumber);
 
     var selectedBracketTag = document.getElementById("BracketDropDown").value;
