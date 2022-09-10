@@ -553,45 +553,53 @@ function LedgerIt(debug=true) {
   var LeftSideBracket = currentBracket.slice(0,CurrentBracketWidth);
   var RightSideBracket = currentBracket.slice(-CurrentBracketWidth, CurrentBracketSize);
 
-  if (isLedgerEmpty || !isInnerBracketToggled){
-    
+  //isLedgerEmpty =?= hasBracketBuildingStarted??
+  if (isLedgerEmpty){    
     if (debug){
-      console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
+      console.log("[DEBUG] [LedgerIt()] {Empty Ledger} Updating flags!");
+    }
+
+    isLedgerEmpty = false;
+    hasBracketBuildingStarted = true;
+  }
+
+  if (!isInnerBracketToggled) {
+    if (debug){
+      console.log("[DEBUG] [LedgerIt()] {Empty Ledger | !isInnerBracketToggled } Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
     }
     document.getElementById("ledger").value += LeftSideBracket;
     document.getElementById("ledger").value += RightSideBracket;
     addStringInLedgerBracket(tempTarget);
 
-    if(isLedgerEmpty){
-      isLedgerEmpty = false;
-    }
-
     CheckAndAddTarget();
 
-    // ONLY update bracket sizes if not inner-bracket toggled!
     LastBracketSize = CurrentBracketSize;
     LastBracketWidth = CurrentBracketWidth;
     LastBracket = currentBracket;
 
   } else { //isInnerBracketToggled
-    if (LastBracket == currentBracket){
+    if (hasBracketBuildingStarted && LastBracket == currentBracket){
       if (debug){
-        console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + tempTarget);
+        console.log("[DEBUG] [LedgerIt()] {isInnerBracketToggled} Adding to Ledger: " + tempTarget);
       }
       addStringInLedgerBracket(tempTarget);
+      
     } else {
       if (debug){
-        console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
+        console.log("[DEBUG] [LedgerIt()] {isInnerBracketToggled} Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
       }
       addStringInLedgerBracket(LeftSideBracket+tempTarget+RightSideBracket);
     }
 
   }
 
-  if (!hasBracketBuildingStarted){
-    hasBracketBuildingStarted = true;
-  }
+  // if (!hasBracketBuildingStarted){
+  //   hasBracketBuildingStarted = true;
+  // }
 
+  if (debug){
+    console.log("[DEBUG] [LedgerIt()] DONE!!!");
+  }
 }
 
 //3. LogIt 
