@@ -114,6 +114,7 @@ window.onload = function() {
   //2. Setup Page Elements
   SetupBracketButtons();
   SetupBracketDropDown();
+  SetupBracketButtonClear();
 
   // 3. Add shortcut buttons to Shortcut Divs
   //----------------------------
@@ -244,6 +245,11 @@ function SetupBracketButtons(debug=false){
   if (debug){
     console.log("[DEBUG] Bracket Buttons Setup -- created " + brackets.length - 1 + " buttons");
   }
+}
+
+
+function SetupBracketButtonClear(){
+  document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addBracket(0)\"> Clear </button>";
 }
 
 // 2. Bracket Drop Down setup:
@@ -606,7 +612,7 @@ function LedgerIt(debug=true) {
   var obj = document.getElementById("ledger");
   obj.focus();
   obj.setSelectionRange(obj.value.length, obj.value.length);
-  
+
 
 }
 
