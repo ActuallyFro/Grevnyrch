@@ -527,8 +527,10 @@ function CheckAndAddTarget(){
 
 //2. LedgerIt 
 //===========
-function LedgerIt() {
-  console.log("[DEBUG] [LedgerIt()] Setting hasBracketBeenPlaced is: " + hasBracketBeenPlaced);
+function LedgerIt(debug=true) {
+  if (debug){
+    console.log("[DEBUG] [LedgerIt()] Setting hasBracketBeenPlaced is: " + hasBracketBeenPlaced);
+  }
 
   //I. back, to allow a "rewind" of the ledger
   oldLedger.push(document.getElementById("ledger").value); //This is used for "Undo" Ledger Entry
@@ -553,7 +555,9 @@ function LedgerIt() {
 
   if (isLedgerEmpty || !isInnerBracketToggled){
     
-    console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
+    if (debug){
+      console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
+    }
     document.getElementById("ledger").value += LeftSideBracket;
     document.getElementById("ledger").value += RightSideBracket;
     addStringInLedgerBracket(tempTarget);
@@ -571,10 +575,14 @@ function LedgerIt() {
 
   } else { //isInnerBracketToggled
     if (LastBracket == currentBracket){
-      console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + tempTarget);
+      if (debug){
+        console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + tempTarget);
+      }
       addStringInLedgerBracket(tempTarget);
     } else {
-      console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
+      if (debug){
+        console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
+      }
       addStringInLedgerBracket(LeftSideBracket+tempTarget+RightSideBracket);
     }
 
