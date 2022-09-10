@@ -73,6 +73,7 @@ var brackets = [
 ["⸤   ⸥", "Left hand", "Object", "Ignore"],
 ["⸢   ⸥", "Both hands/two handed", "Object", "Ignore"],
 ["⦇ ⦈", "Armor class", "Object", "Numbers"],
+["⦉ ⦊", "HP Amount", "Object", "Numbers"],
 
 ["", "=== Result Brackets ===", "GUI - Selection Title", "Disabled"],
 ["⟮ ⟯", "Dice Roll Success (check)", "Results", "Dice"],
@@ -600,6 +601,13 @@ function LedgerIt(debug=true) {
   if (debug){
     console.log("[DEBUG] [LedgerIt()] DONE!!!");
   }
+
+  //move cursor to the end of the ledger input field
+  var obj = document.getElementById("ledger");
+  obj.focus();
+  obj.setSelectionRange(obj.value.length, obj.value.length);
+  
+
 }
 
 //3. LogIt 
