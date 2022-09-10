@@ -73,6 +73,7 @@ var brackets = [
 ["⸤   ⸥", "Left hand", "Object", "Ignore"],
 ["⸢   ⸥", "Both hands/two handed", "Object", "Ignore"],
 ["⦇ ⦈", "Armor class", "Object", "Numbers"],
+["⦉ ⦊", "HP Amount", "Object", "Numbers"],
 
 ["", "=== Result Brackets ===", "GUI - Selection Title", "Disabled"],
 ["⟮ ⟯", "Dice Roll Success (check)", "Results", "Dice"],
