@@ -603,7 +603,7 @@ function LedgerIt(debug=true) {
 
   //move cursor to the end of the ledger input field
   var obj = document.getElementById("ledger");
-  obj.focus();
+  //obj.focus(); // THIS will pop up a keyboard prompt on mobile devices
   obj.setSelectionRange(obj.value.length, obj.value.length);
 
 
