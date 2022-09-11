@@ -176,14 +176,7 @@ function SetupWatcherUserPicksBracketDropDown(debug=false){
       }
     }
 
-    // var adjustedBracketNumber = bracketNumber - 1;
-    // if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
     UpdateTargetActivities(bracketNumber);
-    // }
-
-    //  else {
-    //   document.getElementById("BracketDropDown").selectedIndex = 0;
-    // }
       
     if(isAutoBracketToggled){
       LedgerIt();
