@@ -22,12 +22,12 @@ State "Log Entries" as LogEntries {
     State "Enable: InnerBracketIsToggled" as EnableInnerBracketIsToggled
   }
   
-  Init -down[dashed]-> LedgerLoop
-  UserJoins -down-> LedgerStart
+  Init --down[dashed]-> LedgerLoop
   
   State "1. Ledger Editing Loop" as LedgerLoop {
 
     State "Start Ledger Editing" as LedgerStart
+    UserJoins -down-> LedgerStart
   
     LedgerStart -[dashed]-> LedgerLoopForm
     LedgerStart -[dashed]-> LedgerLoopButtons
@@ -48,13 +48,13 @@ State "Log Entries" as LogEntries {
   }
 
   LedgerLoop -right[dashed]->TargetAdding
-  TargetAdding -left-> LedgerLoop
+  TargetAdding --up--> LedgerLoop
   
   State "2. Target Adding" as TargetAdding {
-    UserJoins -right-> TargetIsInputted
+    UserJoins -[dashed]-> TargetIsInputted
 
     State "User Inputs Target" as TargetIsInputted
-    TargetIsInputted -[dashed]> LedgerIt
+    TargetIsInputted -left[dashed]-> LedgerIt
   }
 
   
@@ -121,4 +121,4 @@ UserSpecifiesTargetAndInnerBracketInfo -down> [*]
 'end note
 
 'UserJoins -right-> SelectDropDownOrButton
-....
+.... 
