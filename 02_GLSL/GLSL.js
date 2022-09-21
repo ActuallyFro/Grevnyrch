@@ -126,6 +126,7 @@ window.onload = function() {
   SetupWatcherUserPicksBracketDropDown();
   SetupWatcherUserTogglesAutoBracket();
   SetupWatcherUserTogglesInnerBracket(); 
+  SetupWatcherUserTogglesSettingDarkMode(); 
 
   //5. Setup default states
   ToggleDisableInnerbracket();
@@ -206,6 +207,24 @@ function SetupWatcherUserTogglesInnerBracket(debug=false){
       console.log("[DEBUG] User toggled InnerBracket to: " + isInnerBracket);
     }
   });
+}
+
+function SetupWatcherUserTogglesSettingDarkMode(debug=true){
+  document.getElementById("toggleSettingDarkMode").addEventListener("change", function() {
+    var isDarkMode = document.getElementById("toggleSettingDarkMode").checked;
+    if (debug){
+      console.log("[DEBUG] User toggled DarkMode to: " + isDarkMode);
+    }
+    ToggleDarkMode(isDarkMode);
+  });
+}
+
+function ToggleDarkMode(isDarkMode){
+  if (isDarkMode){
+    document.getElementById("body").className = "bg-dark text-light";
+  } else {
+    document.getElementById("body").className = "bg-light text-dark";
+  }
 }
 
 // 1. Bracket Buttons setup:
