@@ -209,7 +209,7 @@ function SetupWatcherUserTogglesInnerBracket(debug=false){
   });
 }
 
-function SetupWatcherUserTogglesSettingDarkMode(debug=true){
+function SetupWatcherUserTogglesSettingDarkMode(debug=false){
   document.getElementById("toggleSettingDarkMode").addEventListener("change", function() {
     var isDarkMode = document.getElementById("toggleSettingDarkMode").checked;
     if (debug){
@@ -222,8 +222,10 @@ function SetupWatcherUserTogglesSettingDarkMode(debug=true){
 function ToggleDarkMode(isDarkMode){
   if (isDarkMode){
     document.getElementById("body").className = "bg-dark text-light";
+    document.getElementById("Navigation").className = "navbar navbar-expand-lg navbar-dark bg-secondary";
   } else {
     document.getElementById("body").className = "bg-light text-dark";
+    document.getElementById("Navigation").className = "navbar navbar-expand-lg navbar-light bg-light";
   }
 }
 
