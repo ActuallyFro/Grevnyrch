@@ -137,12 +137,12 @@ window.onload = function() {
 
 function SetupInnerBracketShortcutsDice(){
   for (var k = 0; k <= 9; k++) {
-    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addLedgerStringInnerBracket(" + k + ")\">" + k + "</button>";
+    document.getElementById("Dice").innerHTML += "<button type=\"button\" id=\"BtnDiceDark\" class=\"btn btn-dark\" onclick=\"addLedgerStringInnerBracket(" + k + ")\">" + k + "</button>";
   }
 
   document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addLedgerStringInnerBracket('+')\"> + </button>";
   document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addLedgerStringInnerBracket('-')\"> - </button>";
-  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addLedgerStringInnerBracket('=')\"> = </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addLedgerStringInnerBracket('=')\"> = </button>";
  
 }
 
@@ -223,9 +223,19 @@ function ToggleDarkMode(isDarkMode){
   if (isDarkMode){
     document.getElementById("body").className = "bg-dark text-light";
     document.getElementById("Navigation").className = "navbar navbar-expand-lg navbar-dark bg-secondary";
+    var elms = document.querySelectorAll("#BtnDiceDark");
+    for(var i = 0; i < elms.length; i++) {
+      elms[i].className = "btn btn-light";
+    }
+
   } else {
     document.getElementById("body").className = "bg-light text-dark";
     document.getElementById("Navigation").className = "navbar navbar-expand-lg navbar-light bg-light";
+
+    var elms = document.querySelectorAll("#BtnDiceDark");
+    for(var i = 0; i < elms.length; i++) {
+      elms[i].className = "btn btn-dark";
+    }
   }
 }
 
@@ -249,7 +259,7 @@ function SetupBracketButtons(debug=false){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-warning\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
 
     } else if (brackets[i][2] == "Results"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" id=\"BtnDiceDark\"class=\"btn btn-dark\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
 
     } else if (brackets[i][2] != "GUI - Selection Title" && brackets[i][2] != ""){
       document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-info\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
