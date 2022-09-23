@@ -229,6 +229,8 @@ function ToggleDarkMode(isDarkMode){
     }
 
     document.getElementById("LabelLogTable").style = "font-size: 40px; background-color: #000000; padding: 0px 5px;"
+    document.getElementById("TableLogTable").className = "table table-striped table-dark table-bordered table-hover";
+
 
   } else {
     document.getElementById("body").className = "bg-light text-dark";
@@ -240,6 +242,7 @@ function ToggleDarkMode(isDarkMode){
     }
 
     document.getElementById("LabelLogTable").style = "font-size: 40px; background-color: #F3F5F6; padding: 0px 5px;"
+    document.getElementById("TableLogTable").className = "table table-striped"
 
   }
 }
@@ -654,7 +657,7 @@ function LogIt() {
 
   if (isLogEmpty){
     isLogEmpty = false;
-    document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
+    document.getElementById("Logs").innerHTML = "<table id=\"TableLogTable\" class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
     //console.log("[DEBUG] [LogIt()] Logs table created");
   } 
 
