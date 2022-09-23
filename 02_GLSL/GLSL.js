@@ -228,6 +228,8 @@ function ToggleDarkMode(isDarkMode){
       elms[i].className = "btn btn-light";
     }
 
+    document.getElementById("LabelLogTable").style = "font-size: 40px; background-color: #000000; padding: 0px 5px;"
+
   } else {
     document.getElementById("body").className = "bg-light text-dark";
     document.getElementById("Navigation").className = "navbar navbar-expand-lg navbar-light bg-light";
@@ -236,6 +238,9 @@ function ToggleDarkMode(isDarkMode){
     for(var i = 0; i < elms.length; i++) {
       elms[i].className = "btn btn-dark";
     }
+
+    document.getElementById("LabelLogTable").style = "font-size: 40px; background-color: #F3F5F6; padding: 0px 5px;"
+
   }
 }
 
