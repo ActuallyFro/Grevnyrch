@@ -229,7 +229,7 @@ function ToggleDarkMode(isDarkMode){
     }
 
     document.getElementById("LabelLogTable").style = "font-size: 40px; background-color: #000000; padding: 0px 5px;"
-    document.getElementById("TableLogTable").className = "table table-striped table-dark table-bordered table-hover";
+    document.getElementById("TableLogTable").className = "table table-striped table-dark table-bordered table-hover text-white";
 
 
   } else {
