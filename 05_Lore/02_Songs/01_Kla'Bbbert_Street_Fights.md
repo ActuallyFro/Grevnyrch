@@ -1,3 +1,8 @@
+= Background
+- Think Blue Genie
+- Think the welcome song
+
+= Lyrics
 SO you’ve come to a place, which accepts every race
 From great beasts to the lowliest gnome
 Some throw dice, but-the-real spice, are barbs Fights 
