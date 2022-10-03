@@ -231,7 +231,6 @@ function ToggleDarkMode(isDarkMode){
     document.getElementById("LabelLogTable").style = "font-size: 40px; background-color: #000000; padding: 0px 5px;"
     document.getElementById("TableLogTable").className = "table table-striped table-dark table-bordered table-hover text-white";
 
-
   } else {
     document.getElementById("body").className = "bg-light text-dark";
     document.getElementById("Navigation").className = "navbar navbar-expand-lg navbar-light bg-light";
@@ -452,7 +451,7 @@ function ClearLog() {
   }
 
   isLogEmpty = true;
-  document.getElementById("Logs").innerHTML = "<div id=\"log\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
+  document.getElementById("Logs").innerHTML = "<div id=\"logTableDiv\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
 
   Log = [];
   LocalStorageClearLogsOnly();
@@ -657,7 +656,7 @@ function LogIt() {
 
   if (isLogEmpty){
     isLogEmpty = false;
-    document.getElementById("Logs").innerHTML = "<table id=\"TableLogTable\" class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
+    document.getElementById("Logs").innerHTML = "<table id=\"TableLogTable\" class=\"table table-striped\"><tbody id=\"LogTableBody\"></tbody></table>";
     //console.log("[DEBUG] [LogIt()] Logs table created");
   } 
 
@@ -820,8 +819,8 @@ function LoadArrayIntoLog(PassedArray){ //Passed JSON Parsed from String
   }
 }
 
-function LoadLogArrayIntoTable(){
-  document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
+function LoadLogArrayIntoTable(){  // \" class=\"table table-striped\"><tbody id=\"LogTableBody
+  document.getElementById("Logs").innerHTML = "<table id=\"TableLogTable\" class=\"table table-striped\"><tbody id=\"LogTableBody\"></tbody></table>";
   for (var j = 0; j < Log.length; j++) {
     var row = document.createElement("tr");
     var cell = document.createElement("td");
