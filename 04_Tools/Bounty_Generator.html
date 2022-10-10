@@ -75,6 +75,26 @@
         ["Wizard","Player's Hand Book"],
         ["Artificer","Tasha's Cauldron of Everything"]
       ];
+
+      backgrounds=[
+        ["Acolyte","Player's Hand Book"],
+        ["Charlatan","Player's Hand Book"],
+        ["Criminal","Player's Hand Book"],
+        ["Entertainer","Player's Hand Book"],
+        ["Folk Hero","Player's Hand Book"],
+        ["Guild Artisan","Player's Hand Book"],
+        ["Hermit","Player's Hand Book"],
+        ["Noble","Player's Hand Book"],
+        ["Outlander","Player's Hand Book"],
+        ["Sage","Player's Hand Book"],
+        ["Sailor","Player's Hand Book"],
+        ["Soldier","Player's Hand Book"],
+        ["Urchin","Player's Hand Book"]
+      ];
+
+      // Locations=[
+      //   ["Kla'Bbbert","inside",]
+      // ];
     </script>
   </head>
 
@@ -99,6 +119,7 @@
                 <th scope="col">What Bounty will do (Action)</th>
                 <th scope="col">Bounty Rac</th>
                 <th scope="col">Bounty Class</th>
+                <th scope="col">Bounty Background</th>
                 <th scope="col">Bounty CR</th>
                 <th scope="col">Bounty Reward</th>
                 <th scope="col">Source: In/Out of Kla'Bbbert</th>
@@ -149,17 +170,41 @@
         Cell_B_Rac.innerHTML = Racs[Roll_B_Rac][0];
         NewBountyRowEntry.appendChild(Cell_B_Rac);
 
-
         // Create random roll (pick 1 from Classes[]) , append to td element:  "B_Class"
+        var Roll_B_Class = Math.floor(Math.random() * classes.length);
+        var ID_B_Class = "B_Class_" + bountyID;
+        var Cell_B_Class = document.createElement("td");
+        Cell_B_Class.setAttribute("id", ID_B_Class);
+        Cell_B_Class.innerHTML = classes[Roll_B_Class][0];
+        NewBountyRowEntry.appendChild(Cell_B_Class);
+
+        // Create random roll (pick 1 from backgrounds[]) , append to td element:  "B_Background"
+        var Roll_B_Background = Math.floor(Math.random() * backgrounds.length);
+        var ID_B_Background = "B_Background_" + bountyID;
+        var Cell_B_Background = document.createElement("td");
+        Cell_B_Background.setAttribute("id", ID_B_Background);
+        Cell_B_Background.innerHTML = backgrounds[Roll_B_Background][0];
+        NewBountyRowEntry.appendChild(Cell_B_Background);
+
+
         // Create random roll (pick 1 from ) , append to td element:  "B_CR"
+
         // Create random roll (pick 1 from ) , append to td element:  "B_Reward"
+
         // Create random roll (pick 1 from ) , append to td element:  "S_InOut"
+
         // Create random roll (pick 1 from ) , append to td element:  "S_Location"
+
         // Create random roll (pick 1 from ) , append to td element:  "S_Spot"
+
         // Create random roll (pick 1 from ) , append to td element:  "S_Spin"
+
         // Create random roll (pick 1 from ) , append to td element:  "S_Distance"
+
         // Create random roll (pick 1 from ) , append to td element:  "S_Rac"
+
         // Create random roll (pick 1 from ) , append to td element:  "S_Class"
+
         // Create random roll (pick 1 from ) , append to td element:  "S_Age"  
 
         document.getElementById("BountyTable").appendChild(NewBountyRowEntry);
