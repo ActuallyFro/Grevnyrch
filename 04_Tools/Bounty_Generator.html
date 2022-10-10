@@ -26,17 +26,18 @@
         ["Tiefling","Player's Hand Book"],
         ["Aarakocra","Monsters of the Multiverse"],
         ["Aasimar","Monsters of the Multiverse"],
-        ["Air Genasi","Monsters of the Multiverse"],
         ["Bugbear","Monsters of the Multiverse"],
         ["Centaur","Monsters of the Multiverse"],
         ["Changeling","Monsters of the Multiverse"],
         ["Deep Gnome","Monsters of the Multiverse"],
         ["Duergar","Monsters of the Multiverse"],
-        ["Earth Genasi","Monsters of the Multiverse"],
         ["Eladrin","Monsters of the Multiverse"],
         ["Fairy","Monsters of the Multiverse"],
         ["Firbolg","Monsters of the Multiverse"],
-        ["Fire Genasi","Monsters of the Multiverse"],
+        ["Genasi, Air ","Monsters of the Multiverse"],
+        ["Genasi, Earth","Monsters of the Multiverse"],
+        ["Genasi, Fire","Monsters of the Multiverse"],
+        ["Genasi, Water","Monsters of the Multiverse"],
         ["Githyanki","Monsters of the Multiverse"],
         ["Githzerai","Monsters of the Multiverse"],
         ["Goblin","Monsters of the Multiverse"],
@@ -53,8 +54,8 @@
         ["Shadar-kai","Monsters of the Multiverse"],
         ["Shifter","Monsters of the Multiverse"],
         ["Tabaxi","Monsters of the Multiverse"],
+        ["Tortle","Monsters of the Multiverse"],
         ["Triton","Monsters of the Multiverse"],
-        ["Water Genasi","Monsters of the Multiverse"],
         ["Yuan-ti","Monsters of the Multiverse"]
       ];
 
@@ -141,6 +142,14 @@
         NewBountyRowEntry.appendChild(Cell_B_Action);
 
         // Create random roll (pick 1 from Racs[]) , append to td element:  "B_Rac"
+        var Roll_B_Rac = Math.floor(Math.random() * Racs.length);
+        var ID_B_Rac = "B_Rac_" + bountyID;
+        var Cell_B_Rac = document.createElement("td");
+        Cell_B_Rac.setAttribute("id", ID_B_Rac);
+        Cell_B_Rac.innerHTML = Racs[Roll_B_Rac][0];
+        NewBountyRowEntry.appendChild(Cell_B_Rac);
+
+
         // Create random roll (pick 1 from Classes[]) , append to td element:  "B_Class"
         // Create random roll (pick 1 from ) , append to td element:  "B_CR"
         // Create random roll (pick 1 from ) , append to td element:  "B_Reward"
