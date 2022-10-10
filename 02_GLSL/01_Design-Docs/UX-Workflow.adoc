@@ -17,41 +17,74 @@ State "User Specifies Target & Inner-bracket Info" as UserSpecifiesTargetAndInne
 [*] -down-> UserJoins
 
 
-State "Ledger Editing Loop" as LedgerLoop {
-  UserJoins -down-> SelectDropDownOrButton
-  UserJoins -down-> TargetIsInputted
-  UserJoins -down-> EnableInnerBracketIsToggled
-
-  State "Select Drop Down or Button" as SelectDropDownOrButton
-  State "Bracket Button Pressed" as BracketButton
-  State "Drop Down Bracket" as DropDownBracket 
-  State "addBracket()" as addBracket
-  State "'Ledger It!' Button Pressed" as PressesLedgerItButton
+State "Log Entries" as LogEntries {
+  State "0. Initialization" as Init {
+    State "Enable: InnerBracketIsToggled" as EnableInnerBracketIsToggled
+  }
   
-  State "User Inputs Target" as TargetIsInputted
+  Init --down[dashed]-> LedgerLoop
   
+  State "1. Ledger Editing Loop" as LedgerLoop {
+
+    State "Start Ledger Editing" as LedgerStart
+    UserJoins -down-> LedgerStart
+  
+    LedgerStart -[dashed]-> LedgerLoopForm
+    LedgerStart -[dashed]-> LedgerLoopButtons
+  
+    State "Form" as LedgerLoopForm {
+      State "User: Selects Bracket Drop Down" as SelectDropDown
+      SelectDropDown -down[dashed]-> DropDownBracket
+    
+      State "Drop Down Bracket" as DropDownBracket 
+      DropDownBracket --> PressesLedgerItButton      
+    }
+    
+    State "Buttons" as LedgerLoopButtons {
+      State "Bracket Button Pressed" as BracketButton
+      BracketButton --> PressesLedgerItButton
+    }
+  
+  }
+
+  LedgerLoop -right[dashed]->TargetAdding
+  TargetAdding --up--> LedgerLoop
+  
+  State "2. Target Adding" as TargetAdding {
+    UserJoins -[dashed]-> TargetIsInputted
+
+    State "User Inputs Target" as TargetIsInputted
+    TargetIsInputted -left[dashed]-> LedgerIt
+  }
+
   
 
+  State "3. 'Ledger It!' Button Pressed" as PressesLedgerItButton{
+    PressesLedgerItButton -down-> LedgerIt
+  }
 
-  SelectDropDownOrButton -down-> DropDownBracket
-  SelectDropDownOrButton -down-> BracketButton
-  BracketButton --> addBracket
 
-  TargetIsInputted -[dashed]> addBracket
-  TargetIsInputted -[dashed]> LedgerIt
+}
 
-  DropDownBracket --> PressesLedgerItButton
+    PressesLedgerItButton --> addBracket
 
-  PressesLedgerItButton -down-> LedgerIt
-  
-  addBracket --> SetupTargetsBasedOnBracketPick
-  SetupTargetsBasedOnBracketPick --> LedgerIt
+
+State "Usage/Async I/O Functions" as AsyncFunctions {
 
   LedgerIt: 1. Push Back current Ledger
   LedgerIt: 2. Get Current Bracket
   LedgerIt: 3. Determine Bracket Size + Width
   LedgerIt: 4. Determine Target
+
+  state "Bracket Adds" as Brackets {
+    State "addBracket()" as addBracket
+    TargetIsInputted -[dashed]> addBracket
+
+    addBracket --> SetupTargetsBasedOnBracketPick
+    SetupTargetsBasedOnBracketPick --> LedgerIt
   
+  }
+
   state LedgerIt {
     state addTo <<choice>>
     
@@ -64,6 +97,7 @@ State "Ledger Editing Loop" as LedgerLoop {
   }
 
 }
+
 
 State "User Menu Input" as UserMenuInput {
 
@@ -87,4 +121,4 @@ UserSpecifiesTargetAndInnerBracketInfo -down> [*]
 'end note
 
 'UserJoins -right-> SelectDropDownOrButton
-....
+.... 

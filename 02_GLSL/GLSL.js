@@ -42,6 +42,7 @@ var oldLedger = [];
 var Log = [];
 
 var brackets = [
+["", "", "", ""],
 ["", "=== Location Brackets ===", "GUI - Selection Title", "Disabled"],
 ["༺ ༻", "Realm", "Locations", ""],
 ["〖 〗", "City", "Locations", ""],
@@ -72,6 +73,7 @@ var brackets = [
 ["⸤   ⸥", "Left hand", "Object", "Ignore"],
 ["⸢   ⸥", "Both hands/two handed", "Object", "Ignore"],
 ["⦇ ⦈", "Armor class", "Object", "Numbers"],
+["⦉ ⦊", "HP Amount", "Object", "Numbers"],
 
 ["", "=== Result Brackets ===", "GUI - Selection Title", "Disabled"],
 ["⟮ ⟯", "Dice Roll Success (check)", "Results", "Dice"],
@@ -85,8 +87,12 @@ var targets = [
 ["Kla'Bbbert", "Locations", "KB"]
 ];
 
+var hasBracketBuildingStarted = false;
+
 var isShowingNumbers = false;
 var isInnerBracketToggled = false;
+var isAutoBracketToggled = true;
+var hasBracketBeenPlaced = false;
 
 var LastBracketSize = 0;
 var LastBracketWidth = 0; //SHOULD be (Size-1)/2 -- but I cannot say 100% ALWAYS will be...
@@ -108,6 +114,7 @@ window.onload = function() {
   //2. Setup Page Elements
   SetupBracketButtons();
   SetupBracketDropDown();
+  SetupBracketButtonClear();
 
   // 3. Add shortcut buttons to Shortcut Divs
   //----------------------------
@@ -117,31 +124,37 @@ window.onload = function() {
 
   //4. Setup Event Listeners/Watchers
   SetupWatcherUserPicksBracketDropDown();
+  SetupWatcherUserTogglesAutoBracket();
   SetupWatcherUserTogglesInnerBracket(); 
+  SetupWatcherUserTogglesSettingDarkMode(); 
 
   //5. Setup default states
   ToggleDisableInnerbracket();
+  ToggleEnableAutobracket();
+  hideShowDice(false);
+  hasBracketBuildingStarted = false;
 }
 
 function SetupInnerBracketShortcutsDice(){
   for (var k = 0; k <= 9; k++) {
-    document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addStringInLedgerBracket(" + k + ")\">" + k + "</button>";
+    document.getElementById("Dice").innerHTML += "<button type=\"button\" id=\"BtnDiceDark\" class=\"btn btn-dark\" onclick=\"addLedgerStringInnerBracket(" + k + ")\">" + k + "</button>";
   }
 
-  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('+')\"> + </button>";
-  document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addStringInLedgerBracket('-')\"> - </button>";
-  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('=')\"> = </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\"  class=\"btn btn-secondary\" onclick=\"addLedgerStringInnerBracket('+')\"> + </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addLedgerStringInnerBracket('-')\"> - </button>";
+  document.getElementById("Dice").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addLedgerStringInnerBracket('=')\"> = </button>";
  
 }
 
 function SetupInnerBracketShortcutsActionActivities (){
-  document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-success\" onclick=\"addStringInLedgerBracket('→')\"> → </button>";
+  document.getElementById("ActivityButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-success\" onclick=\"addLedgerStringInnerBracket('→')\"> → </button>";
 }
 
 function SetupInnerBracketShortcutsNandPCs (){
-  document.getElementById("NandPCButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-primary\" onclick=\"addStringInLedgerBracket(';;')\"> ;; </button>";
+  document.getElementById("NandPCButtons").innerHTML += "<button type=\"button\"  class=\"btn btn-primary\" onclick=\"addLedgerStringInnerBracket(';;')\"> ;; </button>";
 }
 
+//BUG: target as the selction goes to an index of "n-1"; so if item #4 is selected, it will be 3...
 function SetupWatcherUserPicksBracketDropDown(debug=false){
   document.getElementById("BracketDropDown").addEventListener("change", function() {
     var selectedBracketTag = document.getElementById("BracketDropDown").value;
@@ -150,8 +163,40 @@ function SetupWatcherUserPicksBracketDropDown(debug=false){
     }
 
     SetupTargetsBasedOnBracketPick(selectedBracketTag);
+
+    //Attempting to pass bracket number into UpdateTargetActivities()...
+    var bracketNumber=0;
+    for (var i = 0; i < brackets.length; i++) {
+      var foundTargetBracket = brackets[i][0];
+      if (brackets[i][0] == selectedBracketTag) {
+        bracketNumber = i;
+        if (debug){
+          console.log("[DEBUG] Bracket Number: " + bracketNumber);
+        }
+        break;
+      }
+    }
+
+    UpdateTargetActivities(bracketNumber);
+      
+    if(isAutoBracketToggled){
+      LedgerIt();
+      hasBracketBeenPlaced = true;
+      // ToggleEnableInnerbracket(); //--more logic is needed for deconflicting target buttons...  
+    }
+
   });
   
+}
+
+function SetupWatcherUserTogglesAutoBracket(debug=false){
+  document.getElementById("toggleAutobracket").addEventListener("change", function() {
+    var isAutoBracket = document.getElementById("toggleAutobracket").checked;
+    isAutoBracketToggled = isAutoBracket;
+    if (debug){
+      console.log("[DEBUG] User toggled AutoBracket to: " + isAutoBracket);
+    }
+  });
 }
 
 function SetupWatcherUserTogglesInnerBracket(debug=false){
@@ -164,42 +209,78 @@ function SetupWatcherUserTogglesInnerBracket(debug=false){
   });
 }
 
-// 1. Bracket Buttons setup:
-//========================== 
-function SetupBracketButtons(){
-  var seletionBracketCount = 1; //due to blank --^
-  for (var i = 0; i < brackets.length; i++) { //use btn-outline-* for more variants
-    if (brackets[i][2] == "Locations"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-    
-    } else if (brackets[i][2] == "Timing"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-    
-    } else if (brackets[i][2] == "PC or NPC Level Actions"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
+function SetupWatcherUserTogglesSettingDarkMode(debug=false){
+  document.getElementById("toggleSettingDarkMode").addEventListener("change", function() {
+    var isDarkMode = document.getElementById("toggleSettingDarkMode").checked;
+    if (debug){
+      console.log("[DEBUG] User toggled DarkMode to: " + isDarkMode);
+    }
+    ToggleDarkMode(isDarkMode);
+  });
+}
 
-    } else if (brackets[i][2] == "Event or Encounter"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-
-          
-    } else if (brackets[i][2] == "Object"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-warning\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-
-          
-    } else if (brackets[i][2] == "Results"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-dark\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-
-    } else if (brackets[i][2] != "GUI - Selection Title"){
-      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-info\" onclick=\"addBracket(" + seletionBracketCount + ")\">" + brackets[i][0] + "</button>";
-
+function ToggleDarkMode(isDarkMode){
+  if (isDarkMode){
+    document.getElementById("body").className = "bg-dark text-light";
+    document.getElementById("Navigation").className = "navbar navbar-expand-lg navbar-dark bg-secondary";
+    var elms = document.querySelectorAll("#BtnDiceDark");
+    for(var i = 0; i < elms.length; i++) {
+      elms[i].className = "btn btn-light";
     }
 
-    seletionBracketCount++;
+    document.getElementById("LabelLogTable").style = "font-size: 40px; background-color: #000000; padding: 0px 5px;"
+    document.getElementById("TableLogTable").className = "table table-striped table-dark table-bordered table-hover text-white";
+
+  } else {
+    document.getElementById("body").className = "bg-light text-dark";
+    document.getElementById("Navigation").className = "navbar navbar-expand-lg navbar-light bg-light";
+
+    var elms = document.querySelectorAll("#BtnDiceDark");
+    for(var i = 0; i < elms.length; i++) {
+      elms[i].className = "btn btn-dark";
+    }
+
+    document.getElementById("LabelLogTable").style = "font-size: 40px; background-color: #F3F5F6; padding: 0px 5px;"
+    document.getElementById("TableLogTable").className = "table table-striped"
+
+  }
+}
+
+// 1. Bracket Buttons setup:
+//========================== 
+function SetupBracketButtons(debug=false){
+  for (var i = 0; i < brackets.length; i++) { //use btn-outline-* for more variants
+    if (brackets[i][2] == "Locations"){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
+    
+    } else if (brackets[i][2] == "Timing"){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
+    
+    } else if (brackets[i][2] == "PC or NPC Level Actions"){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
+
+    } else if (brackets[i][2] == "Event or Encounter"){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-success\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
+          
+    } else if (brackets[i][2] == "Object"){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-warning\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
+
+    } else if (brackets[i][2] == "Results"){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" id=\"BtnDiceDark\"class=\"btn btn-dark\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
+
+    } else if (brackets[i][2] != "GUI - Selection Title" && brackets[i][2] != ""){
+      document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-info\" onclick=\"addBracket(" + i + ")\">" + brackets[i][0] + "</button>";
+    }
   }
 
-  //console.log("SetupBracketButtons() -- created " + seletionBracketCount + " buttons");
+  if (debug){
+    console.log("[DEBUG] Bracket Buttons Setup -- created " + brackets.length - 1 + " buttons");
+  }
+}
 
-  // document.getElementById("BracketButtons").innerHTML += "<input type=\"button\" class=\"btn btn-danger\" value=\"Clear bracket\" onclick=\"ClearBracket()\"></input>"
+
+function SetupBracketButtonClear(){
+  document.getElementById("BracketButtons").innerHTML += "<button type=\"button\" class=\"btn btn-danger\" onclick=\"addBracket(0)\"> Clear </button>";
 }
 
 // 2. Bracket Drop Down setup:
@@ -207,18 +288,17 @@ function SetupBracketButtons(){
 function SetupBracketDropDown(){
   document.getElementById("BracketDropDown").innerHTML = null; //reset buttons
 
-  var optionBlank = document.createElement("option");
-  optionBlank.value = "";
-  optionBlank.text = "";
-  document.getElementById("BracketDropDown").appendChild(optionBlank);
-
-  //generate option tags from brackets array
   for (var i = 0; i < brackets.length; i++) {
-
-    // Adding options to the Bracket, Tag Dropdown
     var option = document.createElement("option");
+
     option.value = brackets[i][0];
-    option.text = brackets[i][1] + ": " + brackets[i][0];
+
+    if (brackets[i][1] != ""){
+      option.text = brackets[i][1] + ": " + brackets[i][0];
+    } else {
+      option.text = "";
+    }
+
     if (brackets[i][3] == "Disabled") {
       option.disabled = true;
     }
@@ -244,7 +324,7 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
   document.getElementById("TargetButtons").innerHTML = null; //reset buttons
 
   if (SelectedBracket == "") {
-    LoadAllTargetsAsOptions(true);
+    LoadAllTargetsAsOptions(); //(true)
 
   } else {
     var SelectedBracketWords = ""
@@ -270,7 +350,7 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
 
           var safeStr = targets[j][0].replace(/'/g, "\\'");
           
-          document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
+          document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addLedgerStringInnerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
 
           foundTargets++;
         }
@@ -286,41 +366,66 @@ function SetupTargetsBasedOnBracketPick(SelectedBracket){
 //////////////////////////////////////
 // III. GUI Usage Functions
 
-//1. Generate Brackets:
-//=====================
-function addBracket(bracketNumber) {
-  var adjustedBracketNumber = bracketNumber - 1;
-  if (adjustedBracketNumber >= 0 && adjustedBracketNumber < brackets.length) {
+//0. Update Target Activities
+//===========================
+function UpdateTargetActivities(bracketNumber, debug=false) {
 
-    //console.log("[DEBUG] [addBracket()] Changing selected index to: " + bracketNumber);
-    document.getElementById("BracketDropDown").selectedIndex = bracketNumber; 
+  if (bracketNumber >= 0 && bracketNumber < brackets.length) {
+    if(debug){
+      console.log("[DEBUG] [UpdateTargetActivities()] Changing selected index to: " + bracketNumber);
+    }
+    document.getElementById("BracketDropDown").selectedIndex = bracketNumber; //This is N/A for drop down, but is used for buttons!
 
-    if (brackets[adjustedBracketNumber][3] == "Dice" || brackets[adjustedBracketNumber][3] == "Numbers") {
+    if (brackets[bracketNumber][3] == "Dice" || brackets[bracketNumber][3] == "Numbers") {
       hideShowDice(true);
-      // console.log("[DEBUG] [addBracket()] Toggle Dice - on");
+
+      if(debug){
+        console.log("[DEBUG] [UpdateTargetActivities()] Toggle Dice - on");
+      }
+
+    // } else if (...) {
+    //     Actions for: ()
+    //     Numbers and Letters for: <>
+    //     N/PC's for: ⸢  ⸣ || ⸤  ⸥ || ⸢  ⸥
+    //     Numbers for: ⦇⦈
+
     } else {
-      // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
       hideShowDice(false);
+
+      if(debug){
+        console.log("[DEBUG] [UpdateTargetActivities()] Toggle Dice - off");
+      }
     }
 
-    // Actions for: ()
-    
-    // Numbers and Letters for: <>
-
-    // N/PC's for: ⸢  ⸣ || ⸤  ⸥ || ⸢  ⸥
-
-    // Numbers for: ⦇⦈
 
   } else {
-    document.getElementById("BracketDropDown").selectedIndex = 0;
-    // console.log("[DEBUG] [addBracket()] Toggle Dice - off");
     hideShowDice(false);
+
+    //Disable...
+    //     Actions for: ()
+    //     Numbers and Letters for: <>
+    //     N/PC's for: ⸢  ⸣ || ⸤  ⸥ || ⸢  ⸥
+    //     Numbers for: ⦇⦈
   }
+
+}
+
+//1. Generate Brackets:
+//=====================
+function addBracket(bracketNumber, debug=false) {
+  UpdateTargetActivities(bracketNumber);
 
   var selectedBracketTag = document.getElementById("BracketDropDown").value;
   SetupTargetsBasedOnBracketPick(selectedBracketTag); //Determine bracket, to dynamically add targets buttons (brackets[i][2])
 
-  LedgerIt();
+  if(debug){
+    console.log("[DEBUG] [addBracket()] Adding Bracket: " + brackets[bracketNumber][0] +"; for selected bracket tag: '" + selectedBracketTag + "'");
+  }
+
+  if(isAutoBracketToggled){
+    hasBracketBeenPlaced = true;
+    LedgerIt();
+  }
 }
 
 //2. Clear - Bracket
@@ -346,7 +451,7 @@ function ClearLog() {
   }
 
   isLogEmpty = true;
-  document.getElementById("Logs").innerHTML = "<div id=\"log\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
+  document.getElementById("Logs").innerHTML = "<div id=\"logTableDiv\" style=\"background-color:rgba(178, 178, 188, 0.571);\"><h2><i>{Logs are empty}</i></h2></div>";
 
   Log = [];
   LocalStorageClearLogsOnly();
@@ -460,7 +565,11 @@ function CheckAndAddTarget(){
 
 //2. LedgerIt 
 //===========
-function LedgerIt() {
+function LedgerIt(debug=true) {
+  if (debug){
+    console.log("[DEBUG] [LedgerIt()] Setting hasBracketBeenPlaced is: " + hasBracketBeenPlaced);
+  }
+
   //I. back, to allow a "rewind" of the ledger
   oldLedger.push(document.getElementById("ledger").value); //This is used for "Undo" Ledger Entry
 
@@ -475,7 +584,6 @@ function LedgerIt() {
     console.log("[ERROR] Provided bracket is formmatted WRONG! (len: " + CurrentBracketSize + ")");
     //return;
   }
-
   //III. determine target from provided input field
   var tempTarget = document.getElementById("target").value;
 
@@ -483,34 +591,60 @@ function LedgerIt() {
   var LeftSideBracket = currentBracket.slice(0,CurrentBracketWidth);
   var RightSideBracket = currentBracket.slice(-CurrentBracketWidth, CurrentBracketSize);
 
-  if (isLedgerEmpty || !isInnerBracketToggled){
-    
-    console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
-    document.getElementById("ledger").value += LeftSideBracket;
-    document.getElementById("ledger").value += RightSideBracket;
-    addStringInLedgerBracket(tempTarget);
-
-    if(isLedgerEmpty){
-      isLedgerEmpty = false;
+  //isLedgerEmpty =?= hasBracketBuildingStarted??
+  if (isLedgerEmpty){    
+    if (debug){
+      console.log("[DEBUG] [LedgerIt()] {Empty Ledger} Updating flags!");
     }
+
+    isLedgerEmpty = false;
+    hasBracketBuildingStarted = true;
+  }
+
+  if (!isInnerBracketToggled) {
+    if (debug){
+      console.log("[DEBUG] [LedgerIt()] {Empty Ledger | !isInnerBracketToggled } Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
+    }
+    // document.getElementById("ledger").value += LeftSideBracket; -- this is direct menthod of the 'addLedgerStringAtEnd'
+    // document.getElementById("ledger").value += RightSideBracket; -- this is direct menthod of the 'addLedgerStringAtEnd'
+    addLedgerStringAtEnd(LeftSideBracket + tempTarget + RightSideBracket);
 
     CheckAndAddTarget();
 
-    // ONLY update bracket sizes if not inner-bracket toggled!
     LastBracketSize = CurrentBracketSize;
     LastBracketWidth = CurrentBracketWidth;
     LastBracket = currentBracket;
 
   } else { //isInnerBracketToggled
-    if (LastBracket == currentBracket){
-      console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + tempTarget);
-      addStringInLedgerBracket(tempTarget);
-    } else {
-      console.log("[DEBUG] [LedgerIt()] Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
-      addStringInLedgerBracket(LeftSideBracket+tempTarget+RightSideBracket);
+    if (hasBracketBuildingStarted && LastBracket == currentBracket){
+      if (debug){
+        console.log("[DEBUG] [LedgerIt()] {isInnerBracketToggled} Adding to Ledger: " + tempTarget);
+      }
+      addLedgerStringInnerBracket(tempTarget);
+      
+    } else { //deals with the nesting of brackets --- ex: [PC](A→]enemy NPC[]); the ][-bracket is nested within the ()-bracket
+      if (debug){
+        console.log("[DEBUG] [LedgerIt()] {isInnerBracketToggled} Adding to Ledger: " + LeftSideBracket + tempTarget + RightSideBracket);
+      }
+      addLedgerStringInnerBracket(LeftSideBracket+tempTarget+RightSideBracket);
     }
 
   }
+
+  // if (!hasBracketBuildingStarted){
+  //   hasBracketBuildingStarted = true;
+  // }
+
+  if (debug){
+    console.log("[DEBUG] [LedgerIt()] DONE!!!");
+  }
+
+  //move cursor to the end of the ledger input field
+  var obj = document.getElementById("ledger");
+  //obj.focus(); // THIS will pop up a keyboard prompt on mobile devices
+  obj.setSelectionRange(obj.value.length, obj.value.length);
+
+
 }
 
 //3. LogIt 
@@ -522,7 +656,7 @@ function LogIt() {
 
   if (isLogEmpty){
     isLogEmpty = false;
-    document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
+    document.getElementById("Logs").innerHTML = "<table id=\"TableLogTable\" class=\"table table-striped\"><tbody id=\"LogTableBody\"></tbody></table>";
     //console.log("[DEBUG] [LogIt()] Logs table created");
   } 
 
@@ -549,6 +683,8 @@ function LogIt() {
 
   //Any time LogIt() is called -- reset the inner-bracket toggles
   ToggleDisableInnerbracket();
+
+  hasBracketBuildingStarted = false;
 }
 
 //4. RemoveLastLog 
@@ -570,22 +706,53 @@ function RemoveLastLog() {
   }
 }
 
-function addStringInLedgerBracket(PassedString){
+//Auto-deterines last bracket, and it's terminating bracket; then 'inserts' past string between the string-thru-terminating-bracket and the terminal-bracket
+// In short: DEALS with "insert into the last-placed-bracket" 
+function addLedgerStringInnerBracket(PassedString){
   var obj = document.getElementById("ledger");
 
   var tempLedger = obj.value.slice(0,obj.value.length-LastBracketWidth);
   var tempLedgerLastChar = obj.value.slice(-LastBracketWidth,obj.value.length);
   obj.value = tempLedger + PassedString + tempLedgerLastChar;
 
-  console.log("[DEBUG] [addStringInLedgerBracket()] Ledger: '" + obj.value + "'");
+  console.log("[DEBUG] [addLedgerStringInnerBracket()] Ledger: '" + obj.value + "'");
 
-  //Any impacts of "isInnerBracketToggled" == true ?
+  //Any impacts of "isInnerBracketToggled" == true ? <-- NO
 
-  //if ;;, then toggle the inner-bracket
+  //Modify Activites are ALWAYS inner-bracket item; to save user click(s) this check will auto-toggle the next entry to be an innerbracket action
   if (PassedString == ";;"){
     ToggleEnableInnerbracket();
   }
 
+}
+
+function addLedgerStringAtEnd(PassedString){
+  var obj = document.getElementById("ledger");
+  obj.value += PassedString;
+
+  console.log("[DEBUG] [addLedgerStringAtEnd()] Ledger: '" + obj.value + "'");
+}
+
+// function addLedgerStringAtEndBracket(PassedString){
+//   var obj = document.getElementById("ledger");
+//   obj.value += PassedString;
+
+//TODO: bracket Left/Right side determination to then have: Left + Passed + Right....
+
+//   console.log("[DEBUG] [addLedgerStringAtEndBracket()] Ledger: '" + obj.value + "'");
+// }
+
+function ToggleDisableAutobracket(){
+  //console.log("[DEBUG] [ToggleDisableAutobracket()]");
+  document.getElementById("toggleAutobracket").checked = false;
+  isAutoBracketToggled = false;
+  
+}
+
+function ToggleEnableAutobracket(){
+  //console.log("[DEBUG] [ToggleEnableAutobracket()]");
+  document.getElementById("toggleAutobracket").checked = true;
+  isAutoBracketToggled = true;
 }
 
 function ToggleDisableInnerbracket(){
@@ -600,6 +767,9 @@ function ToggleEnableInnerbracket(){
   document.getElementById("toggleInnerbracket").checked = true;
   isInnerBracketToggled = true;
 }
+
+
+
 
 //////////////////////////////////////
 
@@ -649,8 +819,8 @@ function LoadArrayIntoLog(PassedArray){ //Passed JSON Parsed from String
   }
 }
 
-function LoadLogArrayIntoTable(){
-  document.getElementById("Logs").innerHTML = "<table class=\"table table-striped\"><tbody id=\"LogsTable\"></tbody></table>";
+function LoadLogArrayIntoTable(){  // \" class=\"table table-striped\"><tbody id=\"LogTableBody
+  document.getElementById("Logs").innerHTML = "<table id=\"TableLogTable\" class=\"table table-striped\"><tbody id=\"LogTableBody\"></tbody></table>";
   for (var j = 0; j < Log.length; j++) {
     var row = document.createElement("tr");
     var cell = document.createElement("td");
@@ -700,7 +870,7 @@ function LoadAllTargetsAsOptions(debug=false){ //this vs. SetupTargetsBasedOnB
       }
   
       document.getElementById("targets").appendChild(option);
-      document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addStringInLedgerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
+      document.getElementById("TargetButtons").innerHTML += "<button type=\"button\" class=\"btn btn-secondary\" onclick=\"addLedgerStringInnerBracket('"+safeStr+ "')\">" + targets[j][0] + "</button>";
 
       if (hasTwoTargets){
         currentTarget = secondaryTarget;
@@ -769,7 +939,7 @@ function ImportJsonToTargets(){
 
     LoadArrayIntoTargets(parsedTarget);
 
-    LoadAllTargetsAsOptions(true);
+    LoadAllTargetsAsOptions(); //(true)
     alert("Successfully loaded (" + targets.length + ") targets!");
   
   };
@@ -857,7 +1027,7 @@ function LocalStorageLoadMainKeys(debug=false){
         var loadedStorage = localStorage.getItem('GLSL-Targets');
         var parsedTarget = JSON.parse(loadedStorage);
         LoadArrayIntoTargets(parsedTarget);
-        LoadAllTargetsAsOptions(true);
+        LoadAllTargetsAsOptions(); //(true)
 
         SetupAllTargets();
       }

@@ -1,0 +1,6 @@
+= Features (NOT BUGS!) that are Unimplemented
+
+= 01 - Target options missing, after pressing undo
+* User presses bracket, then a second bracket
+* User presses undo
+* The second bracket targets remain, but it is reasonable to expect the first bracket targets are re-shown
