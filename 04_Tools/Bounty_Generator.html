@@ -1,0 +1,162 @@
+<!-- Webpage to help create a random encounter -->
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bounty Generator</title>
+
+    <link href="bootstrap.min.5.2.0.css" rel="stylesheet">
+    <script src="bootstrap.bundle.min.5.2.0.js"></script>
+
+    <!-- <script src="GLSL.js"></script>
+    <link href="GLSL.css" rel="stylesheet"> -->
+    <script>
+      // <!-- Rac's -- PHN, and MoM -->
+      var Racs = [
+        ["Dwarf","Player's Hand Book"],
+        ["Elf","Player's Hand Book"],
+        ["Halfling","Player's Hand Book"],
+        ["Human","Player's Hand Book"],
+        ["Dragonborn","Player's Hand Book"],
+        ["Gnome","Player's Hand Book"],
+        ["Half-Elf","Player's Hand Book"],
+        ["Half-Orc","Player's Hand Book"],
+        ["Tiefling","Player's Hand Book"],
+        ["Aarakocra","Monsters of the Multiverse"],
+        ["Aasimar","Monsters of the Multiverse"],
+        ["Air Genasi","Monsters of the Multiverse"],
+        ["Bugbear","Monsters of the Multiverse"],
+        ["Centaur","Monsters of the Multiverse"],
+        ["Changeling","Monsters of the Multiverse"],
+        ["Deep Gnome","Monsters of the Multiverse"],
+        ["Duergar","Monsters of the Multiverse"],
+        ["Earth Genasi","Monsters of the Multiverse"],
+        ["Eladrin","Monsters of the Multiverse"],
+        ["Fairy","Monsters of the Multiverse"],
+        ["Firbolg","Monsters of the Multiverse"],
+        ["Fire Genasi","Monsters of the Multiverse"],
+        ["Githyanki","Monsters of the Multiverse"],
+        ["Githzerai","Monsters of the Multiverse"],
+        ["Goblin","Monsters of the Multiverse"],
+        ["Goliath","Monsters of the Multiverse"],
+        ["Harengon","Monsters of the Multiverse"],
+        ["Hobgoblin","Monsters of the Multiverse"],
+        ["Kenku","Monsters of the Multiverse"],
+        ["Kobold","Monsters of the Multiverse"],
+        ["Lizardfolk","Monsters of the Multiverse"],
+        ["Minotaur","Monsters of the Multiverse"],
+        ["Orc","Monsters of the Multiverse"],
+        ["Satyr","Monsters of the Multiverse"],
+        ["Sea Elf","Monsters of the Multiverse"],
+        ["Shadar-kai","Monsters of the Multiverse"],
+        ["Shifter","Monsters of the Multiverse"],
+        ["Tabaxi","Monsters of the Multiverse"],
+        ["Triton","Monsters of the Multiverse"],
+        ["Water Genasi","Monsters of the Multiverse"],
+        ["Yuan-ti","Monsters of the Multiverse"]
+      ];
+
+      // <!-- Classes -->
+      classes=[
+        ["Barbarian","Player's Hand Book"],
+        ["Bard","Player's Hand Book"],
+        ["Cleric","Player's Hand Book"],
+        ["Druid","Player's Hand Book"],
+        ["Fighter","Player's Hand Book"],
+        ["Monk","Player's Hand Book"],
+        ["Paladin","Player's Hand Book"],
+        ["Ranger","Player's Hand Book"],
+        ["Rogue","Player's Hand Book"],
+        ["Sorcerer","Player's Hand Book"],
+        ["Warlock","Player's Hand Book"],
+        ["Wizard","Player's Hand Book"],
+        ["Artificer","Tasha's Cauldron of Everything"]
+      ];
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1>Bounty Generator</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h2>Random Bounty:</h2>
+
+          <p id="Bounty">
+            <!-- Action, Background, Class, Source of Bounty, Src location, Position-spin, Position-Distance -->
+          </p>
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">What Bounty will do (Action)</th>
+                <th scope="col">Bounty Rac</th>
+                <th scope="col">Bounty Class</th>
+                <th scope="col">Bounty CR</th>
+                <th scope="col">Bounty Reward</th>
+                <th scope="col">Source: In/Out of Kla'Bbbert</th>
+                <th scope="col">Source: Location</th>
+                <th scope="col">Source: 'Spot'</th>
+                <th scope="col">Source: Spin</th>
+                <th scope="col">Source: Distance</th>
+                <th scope="col">Source: Rac</th>
+                <th scope="col">Source: Class</th>
+                <th scope="col">Source: Age</th>
+              </tr>
+            </thead>
+            <tbody id="BountyTable">
+              <tr>           
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            <button type="button" class="btn btn-primary" onclick="randomBounty()">Generate</button>
+          </p>
+          <p id="bounty"></p>
+        </div>
+      </div>
+    </div>
+    <script>
+      function randomBounty() {
+        var NewBountyRowEntry = document.createElement("tr");
+
+        //create random 7 digit string
+        var bountyIDRoll = Math.floor(Math.random() * 10000000);
+        var bountyIDStr = bountyIDRoll.toString();
+        var bountyID = bountyIDStr.padStart(7, "0");        
+
+        // Create random roll (pick 1 from 100) , append to td element:  "B_Action"
+        var Roll_B_Action = Math.floor(Math.random() * 100);
+        var ID_B_Action = "B_Action_" + bountyID;
+        var Cell_B_Action = document.createElement("td");
+        Cell_B_Action.setAttribute("id", ID_B_Action);
+        Cell_B_Action.innerHTML = Roll_B_Action;
+        NewBountyRowEntry.appendChild(Cell_B_Action);
+
+        // Create random roll (pick 1 from Racs[]) , append to td element:  "B_Rac"
+        // Create random roll (pick 1 from Classes[]) , append to td element:  "B_Class"
+        // Create random roll (pick 1 from ) , append to td element:  "B_CR"
+        // Create random roll (pick 1 from ) , append to td element:  "B_Reward"
+        // Create random roll (pick 1 from ) , append to td element:  "S_InOut"
+        // Create random roll (pick 1 from ) , append to td element:  "S_Location"
+        // Create random roll (pick 1 from ) , append to td element:  "S_Spot"
+        // Create random roll (pick 1 from ) , append to td element:  "S_Spin"
+        // Create random roll (pick 1 from ) , append to td element:  "S_Distance"
+        // Create random roll (pick 1 from ) , append to td element:  "S_Rac"
+        // Create random roll (pick 1 from ) , append to td element:  "S_Class"
+        // Create random roll (pick 1 from ) , append to td element:  "S_Age"  
+
+        document.getElementById("BountyTable").appendChild(NewBountyRowEntry);
+
+      }
+
+    </script>
+  </body> 
+</html>
