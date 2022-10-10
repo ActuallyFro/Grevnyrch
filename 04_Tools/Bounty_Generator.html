@@ -137,12 +137,17 @@
           <table id="Skip" class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">What Bounty will do (Action)</th>
-                <th scope="col">Bounty Rac</th>
-                <th scope="col">Bounty Class</th>
-                <th scope="col">Bounty Background</th>
-                <th scope="col">Bounty CR</th>
-                <th scope="col">Bounty Reward</th>
+                <th scope="col">Spike will do (Action)...</th>
+                <th scope="col">Rac</th>
+                <th scope="col">Class</th>
+                <th scope="col">Background</th>
+                <th scope="col">CR</th>
+                <th scope="col">In/Out of Kla'Bbbert</th>
+                <th scope="col">Location</th>
+                <th scope="col">'Spot'</th>
+                <th scope="col">Spin</th>
+                <th scope="col">Distance</th>
+                <th scope="col">Reward</th>
               </tr>
             </thead>
             <tbody id="SkipTable">
@@ -161,17 +166,18 @@
           
           <!-- Bondsman -- aka source -->
           <h2>Source Table:</h2>
-          <table id="Skip" class="table table-hover">
+          <table id="Bondsman" class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">Source: In/Out of Kla'Bbbert</th>
-                <th scope="col">Source: Location</th>
-                <th scope="col">Source: 'Spot'</th>
-                <th scope="col">Source: Spin</th>
-                <th scope="col">Source: Distance</th>
-                <th scope="col">Source: Rac</th>
-                <th scope="col">Source: Class</th>
-                <th scope="col">Source: Age</th>
+                <th scope="col">"___" location as Posted Banner</th>
+                <th scope="col">In/Out of Kla'Bbbert</th>
+                <th scope="col">Location</th>
+                <th scope="col">'Spot'</th>
+                <th scope="col">Spin</th>
+                <th scope="col">Distance</th>
+                <th scope="col">Rac</th>
+                <th scope="col">Class</th>
+                <th scope="col">Age</th>
               </tr>
             </thead>
             <tbody id="BondsmanTable">
@@ -231,7 +237,15 @@
         NewBountyRowEntry.appendChild(Cell_B_Background);
 
 
-        // Create random roll (pick 1 from ) , append to td element:  "B_CR"
+        // Create random roll (pick 1 from 20; modulus with even) , append to td element:  "B_CR"
+
+        // Create random roll (pick 1 from 4) , append to td element:  "B_Location_InOut"
+
+        // Create random roll (pick 1 from ) , append to td element:  "B_Location"
+
+        // Create random roll (pick 1 from ) , append to td element:  "B_Spot"
+
+        // Create random roll (pick 1 from ) , append to td element:  "B_Spin"
 
         // Create random roll (pick 1 from ) , append to td element:  "B_Reward"
 
@@ -240,6 +254,29 @@
       }
 
       function randomBountyCreateBondsman() {
+        var NewBondsmanRowEntry = document.createElement("tr");
+
+        isBannerInTheSameDistrict = true;
+
+        // GENERATE Bondsman:
+        //create random 7 digit string
+        var bondsIDRoll = Math.floor(Math.random() * 10000000);
+        var bondsIDStr = bondsIDRoll.toString();
+        var bondsID = bondsIDStr.padStart(7, "0");  
+
+        // Create random roll (pick 1 from 20; if less taht 15 -- then the same as the board) , append to td element:  "S_BannerPostedFrom"
+        var Roll_S_BannerPostedFrom = Math.floor(Math.random() * 20);
+        var ID_S_BannerPostedFrom = "S_BannerPostedFrom_" + bondsID;
+        var Cell_S_BannerPostedFrom = document.createElement("td");
+        Cell_S_BannerPostedFrom.setAttribute("id", ID_S_BannerPostedFrom);
+        if(Roll_S_BannerPostedFrom < 15) {
+          Cell_S_BannerPostedFrom.innerHTML = "Same District";
+        } else {
+          isBannerInTheSameDistrict = false;
+          Cell_S_BannerPostedFrom.innerHTML = "Different District";
+        }
+        NewBondsmanRowEntry.appendChild(Cell_S_BannerPostedFrom);
+
         // Create random roll (pick 1 from ) , append to td element:  "S_InOut"
 
         // Create random roll (pick 1 from ) , append to td element:  "S_Location"
@@ -256,6 +293,7 @@
 
         // Create random roll (pick 1 from ) , append to td element:  "S_Age"  
 
+        document.getElementById("BondsmanTable").appendChild(NewBondsmanRowEntry);
       }
 
     </script>
