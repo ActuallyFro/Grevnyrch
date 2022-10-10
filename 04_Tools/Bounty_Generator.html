@@ -1,7 +1,12 @@
 <!-- Webpage to help create a random encounter -->
 <!DOCTYPE html>
 
-<html lang="en">
+<!-- DEV Notes: 
+  https://www.w3schools.com/bootstrap/bootstrap_filters.asp
+  https://en.wikipedia.org/wiki/Bounty_hunter
+-->
+
+ <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -107,13 +112,14 @@
       </div>
       <div class="row">
         <div class="col">
-          <h2>Random Bounty:</h2>
+          <h2>Skip Table:</h2>
 
           <p id="Bounty">
             <!-- Action, Background, Class, Source of Bounty, Src location, Position-spin, Position-Distance -->
           </p>
 
-          <table class="table table-hover">
+          <!-- https://en.wikipedia.org/wiki/Skiptrace -->
+          <table id="Skip" class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">What Bounty will do (Action)</th>
@@ -122,6 +128,27 @@
                 <th scope="col">Bounty Background</th>
                 <th scope="col">Bounty CR</th>
                 <th scope="col">Bounty Reward</th>
+              </tr>
+            </thead>
+            <tbody id="SkipTable">
+              <tr>           
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            <button type="button" class="btn btn-primary" onclick="randomBountyCreateSkip()">Generate</button>
+          </p>
+
+          <br>
+          <hr>
+          <br>
+          
+          <!-- Bondsman -- aka source -->
+          <h2>Source Table:</h2>
+          <table id="Skip" class="table table-hover">
+            <thead>
+              <tr>
                 <th scope="col">Source: In/Out of Kla'Bbbert</th>
                 <th scope="col">Source: Location</th>
                 <th scope="col">Source: 'Spot'</th>
@@ -132,23 +159,25 @@
                 <th scope="col">Source: Age</th>
               </tr>
             </thead>
-            <tbody id="BountyTable">
-              <tr>           
+            <tbody id="BondsmanTable">
+              <tr>
               </tr>
             </tbody>
           </table>
 
           <p>
-            <button type="button" class="btn btn-primary" onclick="randomBounty()">Generate</button>
+            <button type="button" class="btn btn-primary" onclick="randomBountyCreateBondsman()">Generate Source/Bondsman</button>
           </p>
           <p id="bounty"></p>
         </div>
       </div>
     </div>
+
     <script>
-      function randomBounty() {
+      function randomBountyCreateSkip() {
         var NewBountyRowEntry = document.createElement("tr");
 
+        // GENERATE Skip:
         //create random 7 digit string
         var bountyIDRoll = Math.floor(Math.random() * 10000000);
         var bountyIDStr = bountyIDRoll.toString();
@@ -191,6 +220,11 @@
 
         // Create random roll (pick 1 from ) , append to td element:  "B_Reward"
 
+        document.getElementById("SkipTable").appendChild(NewBountyRowEntry);
+
+      }
+
+      function randomBountyCreateBondsman() {
         // Create random roll (pick 1 from ) , append to td element:  "S_InOut"
 
         // Create random roll (pick 1 from ) , append to td element:  "S_Location"
@@ -206,8 +240,6 @@
         // Create random roll (pick 1 from ) , append to td element:  "S_Class"
 
         // Create random roll (pick 1 from ) , append to td element:  "S_Age"  
-
-        document.getElementById("BountyTable").appendChild(NewBountyRowEntry);
 
       }
 
