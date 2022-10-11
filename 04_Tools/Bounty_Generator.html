@@ -97,6 +97,7 @@
         ["Urchin","Player's Hand Book"]
       ];
 
+      // [0-Region, 1-in or outside of the region, 2-name of district, 3-maxCR, 4-minCR]:
       Locations=[
         ["Kla'Bbbert","inside","Castle",20,19],
         ["Kla'Bbbert","inside","Cloud Church",19,18],
@@ -111,9 +112,9 @@
         ["Kla'Bbbert","inside","Smallgate",4,3],
         ["Kla'Bbbert","inside","Meat Bridge",2,0],
         ["Kla'Bbbert","outside","Darkhall",12,10],
-        ["Kla'Bbbert","outside","Ghost Crown",9,7],
-        ["Kla'Bbbert","outside","Three Heath",7,5],
-        ["Kla'Bbbert","outside","The Ridge",7,5],
+        ["Kla'Bbbert","outside","The Ridge",9,7],
+        ["Kla'Bbbert","outside","Ghost Crown",7,5],
+        ["Kla'Bbbert","outside","Three Heaths",7,5]
       ];
     </script>
   </head>
@@ -131,6 +132,11 @@
 
           <p id="Bounty">
             <!-- Action, Background, Class, Source of Bounty, Src location, Position-spin, Position-Distance -->
+          </p>
+          <!-- Input for CR Level -->
+          <p>
+            <label for="CR">CR Level:</label>
+            <input type="number" id="BountyCRLevel" name="CR" min="0" max="20" value="0">
           </p>
 
           <!-- https://en.wikipedia.org/wiki/Skiptrace -->
@@ -196,6 +202,9 @@
 
     <script>
       function randomBountyCreateSkip() {
+        // load BountyCRLevel as int
+        var BountyCRLevel = document.getElementById("BountyCRLevel").value;
+
         var NewBountyRowEntry = document.createElement("tr");
 
         // GENERATE Skip:
@@ -236,8 +245,50 @@
         Cell_B_Background.innerHTML = backgrounds[Roll_B_Background][0];
         NewBountyRowEntry.appendChild(Cell_B_Background);
 
+        var BountyCRLevelMin = parseInt(BountyCRLevel) - 1;
+        var BountyCRLevelMax = parseInt(BountyCRLevel) + 1;
+
+        var validLocations = [];
+
+        var testingPoints = [BountyCRLevelMin, BountyCRLevel, BountyCRLevelMax];
+        for (var i = 0; i < testingPoints.length; i++) {
+
+          var chosenCR = testingPoints[i];
+          if (chosenCR >= 0 && chosenCR < 20) {
+
+            // [0-Region, 1-in or outside of the region, 2-name of district, 3-maxCR, 4-minCR]:
+            console.log("chosenCR: " + chosenCR);
+            for (var j = 0; j < Locations.length; j++) {
+              if (chosenCR >= Locations[j][4]  && chosenCR <= Locations[j][3]) {         // Locations[3: maxCR, 4: minCR]:
+
+                // check all validLocations for duplicates
+                var duplicate = false;
+                for (var k = 0; k < validLocations.length; k++) {
+                  if (validLocations[k] == Locations[j][2]) {
+                    duplicate = true;
+                    console.log("\tDuplicate found: " + validLocations[k]);
+                  }
+                }
+
+                if (!duplicate) {
+                  validLocations.push(Locations[j][2]);
+                  console.log("\tValid (and/or NEW) locale!: "+ Locations[j][2]);
+                }
+
+              }
+            }
+            
+          }
+        }
+
+        // console.log("Done with Loop: " + i+1);
+
+        // debug print validLocations
+        console.log("[DEBUG] Found a total of:" + validLocations.length + "; they are:" + validLocations);
 
         // Create random roll (pick 1 from 20; modulus with even) , append to td element:  "B_CR"
+        var Roll_B_CR = Math.floor(Math.random() * 20);
+        // 
 
         // Create random roll (pick 1 from 4) , append to td element:  "B_Location_InOut"
 
