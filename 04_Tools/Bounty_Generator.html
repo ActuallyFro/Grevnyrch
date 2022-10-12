@@ -217,6 +217,30 @@
     </div>
 
     <script>
+
+      function isCRinLocation(CR,index){
+        isLocationInRange=false
+
+        if (CR >= Locations[index][4]  && CR <= Locations[index][3]) {
+          isLocationInRange=true;
+        }
+        return isLocationInRange;
+      }
+
+      function isLocationDuplicate(searchStr, LocationArray){
+
+        var duplicate = false;
+        for (var k = 0; k < LocationArray.length; k++) {
+          if (LocationArray[k] == searchStr) {
+            duplicate = true;
+            // if(debugMsgs){
+            //   console.log("\tDuplicate found: " + LocationArray[k]);
+            // }
+          }
+        }
+        return duplicate;
+      }
+
       function GenerateValidLocationsFromCR(targetCR, debugMsgs=false){
         var BountyCRLevel = targetCR
         var BountyCRLevelMin = parseInt(BountyCRLevel) - 1;
@@ -229,32 +253,21 @@
           var chosenCR = testingPoints[i];
           if (chosenCR >= 0 && chosenCR < 20) {
 
-            // [0-Region, 1-in or outside of the region, 2-name of district, 3-maxCR, 4-minCR]:
-            if(debugMsgs){
-              console.log("chosenCR: " + chosenCR);
-            }
+            // if(debugMsgs){
+            //   console.log("chosenCR: " + chosenCR);
+            // }
             for (var j = 0; j < Locations.length; j++) {
-              if (chosenCR >= Locations[j][4]  && chosenCR <= Locations[j][3]) {         // Locations[3: maxCR, 4: minCR]:
+              if(isCRinLocation(chosenCR,j)){
 
-                // check all validLocations for duplicates
-                var duplicate = false;
-                for (var k = 0; k < validLocations.length; k++) {
-                  if (validLocations[k] == Locations[j][2]) {
-                    duplicate = true;
-                    if(debugMsgs){
-                      console.log("\tDuplicate found: " + validLocations[k]);
-                    }
-                  }
+                var checkLocation = Locations[j][2];
+                if (!isLocationDuplicate(checkLocation, validLocations)) {
+                  validLocations.push(checkLocation);
+                  // if(debugMsgs){
+                  //   console.log("\tValid (and/or NEW) locale!: "+ checkLocation);
+                  // }
                 }
-
-                if (!duplicate) {
-                  validLocations.push(Locations[j][2]);
-                  if(debugMsgs){
-                    console.log("\tValid (and/or NEW) locale!: "+ Locations[j][2]);
-                  }
-                }
-
               }
+
             }
             
           }
@@ -339,6 +352,14 @@
         NewBountyRowEntry.appendChild(Cell_B_Background);
 
         var validLocations = GenerateValidLocationsFromCR(BountyCRLevel);
+        //shuffle validLocations
+        for (var i = validLocations.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = validLocations[i];
+          validLocations[i] = validLocations[j];
+          validLocations[j] = temp;
+        }
+
         // Create random roll (pick 1 from 20; modulus with even) , append to td element:  "B_CR"
         var Roll_B_CR = Math.floor(Math.random() * 20);
         var ID_B_CR = "B_CR_" + bountyID;
@@ -357,7 +378,10 @@
         Cell_B_Location_InOut.innerHTML = RollLocationInOut[Roll_B_Location_InOut]+"〔"+sum+"〕";
         NewBountyRowEntry.appendChild(Cell_B_Location_InOut);
 
-        // Create random roll (pick 1 from ) , append to td element:  "B_Location"
+        // Create random roll (pick 1 from 6 and add pick 1 from 10) , append to td element:  "B_Location"
+        var Roll_B_Location = Math.floor(Math.random() * 6) + Math.floor(Math.random() * 10);
+        //2-5 == -1, 6-12 == 0, 13-16 == +1
+
 
         // Create random roll (pick 1 from ) , append to td element:  "B_Spot"
 
