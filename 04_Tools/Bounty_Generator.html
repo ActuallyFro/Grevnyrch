@@ -116,6 +116,22 @@
         ["Kla'Bbbert","outside","Ghost Crown",7,5],
         ["Kla'Bbbert","outside","Three Heaths",7,5]
       ];
+
+      RollLocationInOut=[
+        ["Inside"],
+        ["Inside"],
+        ["Inside"],
+        ["Outside"]
+      ];
+
+      RollAction=[
+        ["Innocent - Framed",1,6],
+        ["Innocent - Wrong Guy",7,24],
+        ["Runs Away",25,75],
+        ["Guilty - Lying",76,95],
+        ["Guilty - Lying",96,100]
+      ];
+
     </script>
   </head>
 
@@ -201,6 +217,56 @@
     </div>
 
     <script>
+      function GenerateValidLocationsFromCR(targetCR, debugMsgs=false){
+        var BountyCRLevel = targetCR
+        var BountyCRLevelMin = parseInt(BountyCRLevel) - 1;
+        var BountyCRLevelMax = parseInt(BountyCRLevel) + 1;
+
+        var validLocations=[];
+        var testingPoints = [BountyCRLevelMin, BountyCRLevel, BountyCRLevelMax];
+        for (var i = 0; i < testingPoints.length; i++) {
+
+          var chosenCR = testingPoints[i];
+          if (chosenCR >= 0 && chosenCR < 20) {
+
+            // [0-Region, 1-in or outside of the region, 2-name of district, 3-maxCR, 4-minCR]:
+            if(debugMsgs){
+              console.log("chosenCR: " + chosenCR);
+            }
+            for (var j = 0; j < Locations.length; j++) {
+              if (chosenCR >= Locations[j][4]  && chosenCR <= Locations[j][3]) {         // Locations[3: maxCR, 4: minCR]:
+
+                // check all validLocations for duplicates
+                var duplicate = false;
+                for (var k = 0; k < validLocations.length; k++) {
+                  if (validLocations[k] == Locations[j][2]) {
+                    duplicate = true;
+                    if(debugMsgs){
+                      console.log("\tDuplicate found: " + validLocations[k]);
+                    }
+                  }
+                }
+
+                if (!duplicate) {
+                  validLocations.push(Locations[j][2]);
+                  if(debugMsgs){
+                    console.log("\tValid (and/or NEW) locale!: "+ Locations[j][2]);
+                  }
+                }
+
+              }
+            }
+            
+          }
+        }
+
+        // console.log("Done with Loop: " + i+1);
+
+        // debug print validLocations
+        console.log("[DEBUG] Found a total of:" + validLocations.length + "; they are:" + validLocations);
+        return validLocations;
+      }
+
       function randomBountyCreateSkip() {
         // load BountyCRLevel as int
         var BountyCRLevel = document.getElementById("BountyCRLevel").value;
@@ -218,7 +284,34 @@
         var ID_B_Action = "B_Action_" + bountyID;
         var Cell_B_Action = document.createElement("td");
         Cell_B_Action.setAttribute("id", ID_B_Action);
-        Cell_B_Action.innerHTML = Roll_B_Action;
+
+        //determine index, based on RollAction
+        var ActionIndex = 0;
+        var isRunAway = false;
+        for (var iAct = 0; iAct < RollAction.length; iAct++) {
+          if (RollAction[iAct][1] <= Roll_B_Action && Roll_B_Action <= RollAction[iAct][2]) {
+            ActionIndex = iAct;
+            if (RollAction[iAct][0] == "Runs Away") {
+              isRunAway = true;
+            }
+            break;
+          }
+        }
+
+        var RollString=RollAction[ActionIndex][0];
+        
+        var InnocentOrGuilty="";
+        if(isRunAway){
+          console.log("Run Away FOUND!");
+          InnocentOrGuilty="Innocent - ";
+
+          if(Math.random() < 0.5){
+            InnocentOrGuilty="Guilty - ";
+          }
+        }
+        var sumAct=Roll_B_Action+1;
+
+        Cell_B_Action.innerHTML = InnocentOrGuilty + RollString + "〔"+sumAct+"〕";
         NewBountyRowEntry.appendChild(Cell_B_Action);
 
         // Create random roll (pick 1 from Racs[]) , append to td element:  "B_Rac"
@@ -226,7 +319,7 @@
         var ID_B_Rac = "B_Rac_" + bountyID;
         var Cell_B_Rac = document.createElement("td");
         Cell_B_Rac.setAttribute("id", ID_B_Rac);
-        Cell_B_Rac.innerHTML = Racs[Roll_B_Rac][0];
+        Cell_B_Rac.innerHTML = Racs[Roll_B_Rac][0]+"〔"+Roll_B_Rac+"〕";
         NewBountyRowEntry.appendChild(Cell_B_Rac);
 
         // Create random roll (pick 1 from Classes[]) , append to td element:  "B_Class"
@@ -234,7 +327,7 @@
         var ID_B_Class = "B_Class_" + bountyID;
         var Cell_B_Class = document.createElement("td");
         Cell_B_Class.setAttribute("id", ID_B_Class);
-        Cell_B_Class.innerHTML = classes[Roll_B_Class][0];
+        Cell_B_Class.innerHTML = classes[Roll_B_Class][0]+"〔"+Roll_B_Class+"〕";
         NewBountyRowEntry.appendChild(Cell_B_Class);
 
         // Create random roll (pick 1 from backgrounds[]) , append to td element:  "B_Background"
@@ -242,55 +335,27 @@
         var ID_B_Background = "B_Background_" + bountyID;
         var Cell_B_Background = document.createElement("td");
         Cell_B_Background.setAttribute("id", ID_B_Background);
-        Cell_B_Background.innerHTML = backgrounds[Roll_B_Background][0];
+        Cell_B_Background.innerHTML = backgrounds[Roll_B_Background][0]+"〔"+Roll_B_Background+"〕";
         NewBountyRowEntry.appendChild(Cell_B_Background);
 
-        var BountyCRLevelMin = parseInt(BountyCRLevel) - 1;
-        var BountyCRLevelMax = parseInt(BountyCRLevel) + 1;
-
-        var validLocations = [];
-
-        var testingPoints = [BountyCRLevelMin, BountyCRLevel, BountyCRLevelMax];
-        for (var i = 0; i < testingPoints.length; i++) {
-
-          var chosenCR = testingPoints[i];
-          if (chosenCR >= 0 && chosenCR < 20) {
-
-            // [0-Region, 1-in or outside of the region, 2-name of district, 3-maxCR, 4-minCR]:
-            console.log("chosenCR: " + chosenCR);
-            for (var j = 0; j < Locations.length; j++) {
-              if (chosenCR >= Locations[j][4]  && chosenCR <= Locations[j][3]) {         // Locations[3: maxCR, 4: minCR]:
-
-                // check all validLocations for duplicates
-                var duplicate = false;
-                for (var k = 0; k < validLocations.length; k++) {
-                  if (validLocations[k] == Locations[j][2]) {
-                    duplicate = true;
-                    console.log("\tDuplicate found: " + validLocations[k]);
-                  }
-                }
-
-                if (!duplicate) {
-                  validLocations.push(Locations[j][2]);
-                  console.log("\tValid (and/or NEW) locale!: "+ Locations[j][2]);
-                }
-
-              }
-            }
-            
-          }
-        }
-
-        // console.log("Done with Loop: " + i+1);
-
-        // debug print validLocations
-        console.log("[DEBUG] Found a total of:" + validLocations.length + "; they are:" + validLocations);
-
+        var validLocations = GenerateValidLocationsFromCR(BountyCRLevel);
         // Create random roll (pick 1 from 20; modulus with even) , append to td element:  "B_CR"
         var Roll_B_CR = Math.floor(Math.random() * 20);
-        // 
+        var ID_B_CR = "B_CR_" + bountyID;
+        var Cell_B_CR = document.createElement("td");
+        Cell_B_CR.setAttribute("id", ID_B_CR);
+        Cell_B_CR.innerHTML = Roll_B_CR;
+        NewBountyRowEntry.appendChild(Cell_B_CR);
 
         // Create random roll (pick 1 from 4) , append to td element:  "B_Location_InOut"
+        var Roll_B_Location_InOut = Math.floor(Math.random() * RollLocationInOut.length);
+        var ID_B_Location_InOut = "B_Location_InOut_" + bountyID;
+        var Cell_B_Location_InOut = document.createElement("td");
+        Cell_B_Location_InOut.setAttribute("id", ID_B_Location_InOut);
+        // Cell_B_Location_InOut.innerHTML = Roll_B_Location_InOut+1 //Locations[Roll_B_Location_InOut][1];
+        var sum = Roll_B_Location_InOut + 1;
+        Cell_B_Location_InOut.innerHTML = RollLocationInOut[Roll_B_Location_InOut]+"〔"+sum+"〕";
+        NewBountyRowEntry.appendChild(Cell_B_Location_InOut);
 
         // Create random roll (pick 1 from ) , append to td element:  "B_Location"
 
