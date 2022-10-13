@@ -132,6 +132,89 @@
         ["Guilty - Lying",96,100]
       ];
 
+      Spot=[
+        ["Adventurer Shop"],
+        ["Alchemist Shop"],
+        ["Arcane Magic Shop"],
+        ["Blacksmith"],
+        ["Bookstore"],
+        ["Bowyer-Fletcher"],
+        ["General Store"],
+        ["Inn or Tavern"],
+        ["Jeweler"],
+        ["Tanner/Leatherworker"],
+        ["Mason Shop"],
+        ["Art Gallery"],
+        ["Pottery Store"],
+        ["Scribe"],
+        ["Shipwright"],
+        ["Tailor"],
+        ["Tinker"],
+        ["Weaver"],
+        ["Woodcarver"],
+        ["Carpenter"],
+        ["Gem Cutter"],
+        ["Exotic Pet Store"],
+        ["Counselor/Legal Service"],
+        ["Magic Item Shop"],
+        ["Luthier"],
+        ["Instrument Shop"],
+        ["Games Shop"],
+        ["A Fence"],
+        ["Pet Store"],
+        ["Temple or Church"],
+        ["Apothecary"],
+        ["Street Vendor"]
+      ];
+
+      Hideout=[
+        ["Inn or Tavern"],
+        ["Street Vendor"],
+        ["Random House"],
+        ["Abandoned House"],
+        ["Sewers"],
+        ["Street Vendor"],
+        ["Random House"],
+        ["Abandoned House"],
+        ["Sewers"],
+        ["Street Vendor"],
+        ["Random House"],
+        ["Abandoned House"],
+        ["Sewers"],
+        ["A Syndicate Safehouse"],
+        ["Adventurer Shop"],
+        ["Alchemist Shop"],
+        ["Arcane Magic Shop"],
+        ["Blacksmith"],
+        ["Bookstore"],
+        ["Bowyer-Fletcher"],
+        ["General Store"],
+        ["Inn or Tavern"],
+        ["Jeweler"],
+        ["Tanner/Leatherworker"],
+        ["Mason Shop"],
+        ["Art Gallery"],
+        ["Pottery Store"],
+        ["Scribe"],
+        ["Shipwright"],
+        ["Tailor"],
+        ["Tinker"],
+        ["Weaver"],
+        ["Woodcarver"],
+        ["Carpenter"],
+        ["Gem Cutter"],
+        ["Exotic Pet Store"],
+        ["Counselor/Legal Service"],
+        ["Magic Item Shop"],
+        ["Luthier"],
+        ["Instrument Shop"],
+        ["Games Shop"],
+        ["A Fence"],
+        ["Pet Store"],
+        ["Temple or Church"],
+        ["Apothecary"]
+      ];
+
     </script>
   </head>
 
@@ -166,7 +249,7 @@
                 <th scope="col">CR</th>
                 <th scope="col">In/Out of Kla'Bbbert</th>
                 <th scope="col">Location</th>
-                <th scope="col">'Spot'</th>
+                <th scope="col">Hideout</th>
                 <th scope="col">Spin</th>
                 <th scope="col">Distance</th>
                 <th scope="col">Reward</th>
@@ -364,11 +447,29 @@
         NewBountyRowEntry.appendChild(Cell_B_Background);
 
         // Create random roll (pick 1 from 20; modulus with even) , append to td element:  "B_CR"
-        var Roll_B_CR = Math.floor(Math.random() * 20);
+        var Roll_B_CR = Math.floor(Math.random() * 6) + Math.floor(Math.random() * 10);
+        var offsetCR;
+        if (Roll_B_CR < 6) {
+          offsetCR = -1;
+        } else if (Roll_B_CR < 13) {
+          offsetCR = 0;
+        } else {
+          offsetCR = 1;
+        }
+        var targetCR = parseInt(BountyCRLevel) + offsetCR;
+        console.log("targetCR: " + targetCR);
+        if (targetCR < 0) {
+          targetCR = 0;
+        } else if (targetCR > 20) {
+          targetCR = 20;
+        }
+
+
+        // var Roll_B_CR = Math.floor(Math.random() * 20);
         var ID_B_CR = "B_CR_" + bountyID;
         var Cell_B_CR = document.createElement("td");
         Cell_B_CR.setAttribute("id", ID_B_CR);
-        Cell_B_CR.innerHTML = Roll_B_CR;
+        Cell_B_CR.innerHTML = targetCR;
         NewBountyRowEntry.appendChild(Cell_B_CR);
 
         // Create random roll (pick 1 from 4) , append to td element:  "B_Location_InOut"
@@ -422,21 +523,6 @@
 
         // Create random roll (pick 1 from 6 and add pick 1 from 10) , append to td element:  "B_Location"
         var Roll_B_Location = Math.floor(Math.random() * 6) + Math.floor(Math.random() * 10);
-        var offset;
-        if (Roll_B_Location < 6) {
-          offset = -1;
-        } else if (Roll_B_Location < 13) {
-          offset = 0;
-        } else {
-          offset = 1;
-        }
-        var targetCR = parseInt(BountyCRLevel) + offset;
-        console.log("targetCR: " + targetCR);
-        if (targetCR < 0) {
-          targetCR = 0;
-        } else if (targetCR > 20) {
-          targetCR = 20;
-        }
 
         targetLocation = filteredValidLocations[0];
         console.log("Only one valid location: " + targetLocation);
@@ -444,11 +530,19 @@
         var ID_B_Location = "B_Location_" + bountyID;
         var Cell_B_Location = document.createElement("td");
         Cell_B_Location.setAttribute("id", ID_B_Location);
-        Cell_B_Location.innerHTML = targetLocation + "〔" + Roll_B_Location + "〕";
+        Cell_B_Location.innerHTML = targetLocation + "〔" + Roll_B_Location + " - no impact〕";
         NewBountyRowEntry.appendChild(Cell_B_Location);
 
 
-        // Create random roll (pick 1 from ) , append to td element:  "B_Spot"
+        // Create random roll (pick 1 from ) , append to td element:  "B_Hideout"
+        var Roll_B_Hideout = Math.floor(Math.random() * Hideout.length);
+        var ID_B_Hideout = "B_Hideout_" + bountyID;
+        var Cell_B_Hideout = document.createElement("td");
+        Cell_B_Hideout.setAttribute("id", ID_B_Hideout);
+        Cell_B_Hideout.innerHTML = Hideout[Roll_B_Hideout][0]+"〔"+Roll_B_Hideout+"〕";
+        NewBountyRowEntry.appendChild(Cell_B_Hideout);
+        
+
 
         // Create random roll (pick 1 from ) , append to td element:  "B_Spin"
 
@@ -459,6 +553,10 @@
       }
 
       function randomBountyCreateBondsman() {
+        var bondIDRoll = Math.floor(Math.random() * 10000000);
+        var bondIDStr = bondIDRoll.toString();
+        var bondID = bondIDStr.padStart(7, "0"); 
+
         var NewBondsmanRowEntry = document.createElement("tr");
 
         isBannerInTheSameDistrict = true;
@@ -487,6 +585,12 @@
         // Create random roll (pick 1 from ) , append to td element:  "S_Location"
 
         // Create random roll (pick 1 from ) , append to td element:  "S_Spot"
+        var Roll_S_Spot = Math.floor(Math.random() * Spot.length);
+        var ID_S_Spot = "S_Spot_" + bondsID;
+        var Cell_S_Spot = document.createElement("td");
+        Cell_S_Spot.setAttribute("id", ID_S_Spot);
+        Cell_S_Spot.innerHTML = Spot[Roll_S_Spot][0]+"〔"+Roll_S_Spot+"〕";
+        NewBondsmanRowEntry.appendChild(Cell_S_Spot);
 
         // Create random roll (pick 1 from ) , append to td element:  "S_Spin"
 
