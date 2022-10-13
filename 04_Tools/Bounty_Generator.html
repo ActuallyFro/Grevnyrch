@@ -97,24 +97,24 @@
         ["Urchin","Player's Hand Book"]
       ];
 
-      // [0-Region, 1-in or outside of the region, 2-name of district, 3-maxCR, 4-minCR]:
+      // [0-Region, 1-in or Outside of the region, 2-name of district, 3-maxCR, 4-minCR]:
       Locations=[
-        ["Kla'Bbbert","inside","Castle",20,19],
-        ["Kla'Bbbert","inside","Cloud Church",19,18],
-        ["Kla'Bbbert","inside","Six Fairs - District 1",18,17],
-        ["Kla'Bbbert","inside","Six Fairs - District 2",17,16],
-        ["Kla'Bbbert","inside","Six Fairs - District 3",16,15],
-        ["Kla'Bbbert","inside","Fey Port",14,13],
-        ["Kla'Bbbert","inside","Six Fairs - District 4",12,11],
-        ["Kla'Bbbert","inside","Six Fairs - District 5",10,9],
-        ["Kla'Bbbert","inside","Fish Port",8,7],
-        ["Kla'Bbbert","inside","Six Fairs - District 6",6,5],
-        ["Kla'Bbbert","inside","Smallgate",4,3],
-        ["Kla'Bbbert","inside","Meat Bridge",2,0],
-        ["Kla'Bbbert","outside","Darkhall",12,10],
-        ["Kla'Bbbert","outside","The Ridge",9,7],
-        ["Kla'Bbbert","outside","Ghost Crown",7,5],
-        ["Kla'Bbbert","outside","Three Heaths",7,5]
+        ["Kla'Bbbert","Inside","Castle",20,19],
+        ["Kla'Bbbert","Inside","Cloud Church",19,18],
+        ["Kla'Bbbert","Inside","Six Fairs - District 1",18,17],
+        ["Kla'Bbbert","Inside","Six Fairs - District 2",17,16],
+        ["Kla'Bbbert","Inside","Six Fairs - District 3",16,15],
+        ["Kla'Bbbert","Inside","Fey Port",14,13],
+        ["Kla'Bbbert","Inside","Six Fairs - District 4",12,11],
+        ["Kla'Bbbert","Inside","Six Fairs - District 5",10,9],
+        ["Kla'Bbbert","Inside","Fish Port",8,7],
+        ["Kla'Bbbert","Inside","Six Fairs - District 6",6,5],
+        ["Kla'Bbbert","Inside","Smallgate",4,3],
+        ["Kla'Bbbert","Inside","Meat Bridge",2,0],
+        ["Kla'Bbbert","Outside","Darkhall",12,10],
+        ["Kla'Bbbert","Outside","The Ridge",9,7],
+        ["Kla'Bbbert","Outside","Ghost Crown",7,5],
+        ["Kla'Bbbert","Outside","Three Heaths",7,5]
       ];
 
       RollLocationInOut=[
@@ -218,11 +218,22 @@
 
     <script>
 
+      function getLocationIndex(LookUpStr){
+        for (var i = 0; i < Locations.length; i++) {
+          if (Locations[i][2] == LookUpStr) {
+            return i;
+          }
+        }
+        return -1;
+      }
+
       function isCRinLocation(CR,index){
+        // console.log("isCRinLocation() -- CR: " + CR + " index: " + index);
         isLocationInRange=false
 
         if (CR >= Locations[index][4]  && CR <= Locations[index][3]) {
           isLocationInRange=true;
+          console.log("isCRinLocation() -- CR: " + CR + " index: " + index + " isLocationInRange: " + isLocationInRange);
         }
         return isLocationInRange;
       }
@@ -257,6 +268,7 @@
             //   console.log("chosenCR: " + chosenCR);
             // }
             for (var j = 0; j < Locations.length; j++) {
+              // console.log("isCRinLocation: " + chosenCR + "; Index:" + j);
               if(isCRinLocation(chosenCR,j)){
 
                 var checkLocation = Locations[j][2];
@@ -351,15 +363,6 @@
         Cell_B_Background.innerHTML = backgrounds[Roll_B_Background][0]+"〔"+Roll_B_Background+"〕";
         NewBountyRowEntry.appendChild(Cell_B_Background);
 
-        var validLocations = GenerateValidLocationsFromCR(BountyCRLevel);
-        //shuffle validLocations
-        for (var i = validLocations.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var temp = validLocations[i];
-          validLocations[i] = validLocations[j];
-          validLocations[j] = temp;
-        }
-
         // Create random roll (pick 1 from 20; modulus with even) , append to td element:  "B_CR"
         var Roll_B_CR = Math.floor(Math.random() * 20);
         var ID_B_CR = "B_CR_" + bountyID;
@@ -370,17 +373,79 @@
 
         // Create random roll (pick 1 from 4) , append to td element:  "B_Location_InOut"
         var Roll_B_Location_InOut = Math.floor(Math.random() * RollLocationInOut.length);
+
+        //////////
+        var validLocations = GenerateValidLocationsFromCR(BountyCRLevel);
+      
+        var locationMismatch = true;
+        var filteredValidLocations = [];
+        for (var ij = 0; ij < validLocations.length; ij++) {
+          // for (var j = 0; j < Locations.length; j++) {
+            //console: log -- RollLocationInOut[Roll_B_Location_InOut] == Locations[j][1]
+            var LocationIndex = getLocationIndex(validLocations[ij]);
+            console.log("RollLocationInOut[Roll_B_Location_InOut] ("+RollLocationInOut[Roll_B_Location_InOut]+") == Locations[LocationIndex][1] ("+Locations[LocationIndex][1]+")");
+            if (RollLocationInOut[Roll_B_Location_InOut] == Locations[LocationIndex][1]) {
+              console.log("MATCH!");
+              filteredValidLocations.push(validLocations[ij]);
+              locationMismatch=false;
+            }
+          // }
+        }
+
+        //shuffle validLocations
+        if (locationMismatch) {
+          console.log("[DEBUG] Location Mismatch! FLIPPING!");
+          filteredValidLocations = validLocations; //override
+          //toggle: Roll_B_Location_InOut
+          if (Roll_B_Location_InOut == 0) {
+            Roll_B_Location_InOut = 1;
+          } else {
+            Roll_B_Location_InOut = 0;
+          }
+        }
+
+        for (var i = filteredValidLocations.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = filteredValidLocations[i];
+          filteredValidLocations[i] = filteredValidLocations[j];
+          filteredValidLocations[j] = temp;
+        }
+
+        //////////
+
         var ID_B_Location_InOut = "B_Location_InOut_" + bountyID;
         var Cell_B_Location_InOut = document.createElement("td");
         Cell_B_Location_InOut.setAttribute("id", ID_B_Location_InOut);
-        // Cell_B_Location_InOut.innerHTML = Roll_B_Location_InOut+1 //Locations[Roll_B_Location_InOut][1];
         var sum = Roll_B_Location_InOut + 1;
         Cell_B_Location_InOut.innerHTML = RollLocationInOut[Roll_B_Location_InOut]+"〔"+sum+"〕";
         NewBountyRowEntry.appendChild(Cell_B_Location_InOut);
 
         // Create random roll (pick 1 from 6 and add pick 1 from 10) , append to td element:  "B_Location"
         var Roll_B_Location = Math.floor(Math.random() * 6) + Math.floor(Math.random() * 10);
-        //2-5 == -1, 6-12 == 0, 13-16 == +1
+        var offset;
+        if (Roll_B_Location < 6) {
+          offset = -1;
+        } else if (Roll_B_Location < 13) {
+          offset = 0;
+        } else {
+          offset = 1;
+        }
+        var targetCR = parseInt(BountyCRLevel) + offset;
+        console.log("targetCR: " + targetCR);
+        if (targetCR < 0) {
+          targetCR = 0;
+        } else if (targetCR > 20) {
+          targetCR = 20;
+        }
+
+        targetLocation = filteredValidLocations[0];
+        console.log("Only one valid location: " + targetLocation);
+
+        var ID_B_Location = "B_Location_" + bountyID;
+        var Cell_B_Location = document.createElement("td");
+        Cell_B_Location.setAttribute("id", ID_B_Location);
+        Cell_B_Location.innerHTML = targetLocation + "〔" + Roll_B_Location + "〕";
+        NewBountyRowEntry.appendChild(Cell_B_Location);
 
 
         // Create random roll (pick 1 from ) , append to td element:  "B_Spot"
