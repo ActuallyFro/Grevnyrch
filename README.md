@@ -40,7 +40,12 @@ Tools
 2. [Initiative.sh](https://initiative.sh/)
 3. [Treasure - Donjon](https://donjon.bin.sh/5e/random/#type=treasure;cr=0;loot_type=Individual%20Treasure?refer_by=scabard.com)
 4. [Fantasy Names Generator](https://www.fantasynamegenerators.com/shop-names.php)
-5. [Shop Generator](https://www.thievesguild.cc/shops/)
+
+###Name Generator:
+1. [Name Generator - Inns](https://www.fantasynamegenerators.com/inn-names.php)
+2. [Name Generator - Shops](https://www.fantasynamegenerators.com/shop-names.php)
+3. [NPC Name/features](https://initiative.sh/) Run command: `npc`
+4. [Shop Generator](https://www.thievesguild.cc/shops/)
 
 Known, but not used
 -------------------
