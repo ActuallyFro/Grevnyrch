@@ -163,8 +163,15 @@ fn main() {
   generate_room(&mut new_room);
 
   println!("[ROOM] === Room {}{} ===", new_room.room_type, new_room.id);
+  println!("[ROOM] Room Clock Position: {}", new_room.clock_position);
+  println!("[ROOM] Room Distance From Center: {}", new_room.distance_from_center);
   println!("[ROOM] Room Shape: {}", new_room.shape);
   println!("[ROOM] Room Size: {}", new_room.size);
+  println!("[ROOM] Room Shape Type: {}", new_room.shape_type);
+  println!("[ROOM] Room Shape Orientation: {}", new_room.shape_orientation);
+  println!("[ROOM] Room Door Amount: {} (Roll: {})", new_room.door_amount, new_room.door_roll);
+  println!("[ROOM] Room General Features: {}", new_room.general_features);
+  println!("[ROOM] Room Furnishings: {}", new_room.furnishings);
 
   
 
@@ -175,10 +182,10 @@ fn generate_room(passed_room: &mut data_defs::Room) {
   passed_room.id = 1;
 
   //Determine Room Shape
-  let rng_shape: i32 = random_number(1, 8);
+  passed_room.shape_id = random_number(1, 8);
 
   //1 - Circle, 2 - Corridor, 3 - Triangle, 4 - Square, 5 - Pentagon, 6 - Hexagon, 7 - Rectangle, 8 - Octagon
-  match rng_shape {
+  match passed_room.shape_id {
     1 => passed_room.shape = "Circle <1>".to_string(),
     2 => passed_room.shape = "Corridor <2>".to_string(),
     3 => passed_room.shape = "Triangle <3>".to_string(),
@@ -199,6 +206,37 @@ fn generate_room(passed_room: &mut data_defs::Room) {
   let rng_size2_b: i32 = random_number(1, 8);
   passed_room.size2 = rng_size2_a * rng_size2_b * 5;
   
+  //determine room placement (clock_position and distance_from_center)
+  passed_room.clock_position = random_number(1, 12);
+  passed_room.distance_from_center = random_number(1, 100);
+
+  let cooridoor_width: i32 = random_number(1, 8)*5;
+  let mut pentagon_type: String = "Regular".to_string();
+  let mut pentagon_roll: i32 = random_number(1, 100);
+  if pentagon_roll > 50 {
+    pentagon_type = "Irregular".to_string();
+  }
+  //append pentagon_roll to pentagon_type
+  pentagon_type = format!("{} <{}>", pentagon_type, pentagon_roll);
+
+  let mut basic_shape_type: String = "Regular".to_string();
+  let mut basic_shape_type_roll: i32 = random_number(1, 100);
+  if basic_shape_type_roll > 66 {
+    basic_shape_type = "Irregular".to_string();
+  }
+  //append basic_shape_type_roll to basic_shape_type
+  basic_shape_type = format!("{} <{}>", basic_shape_type, basic_shape_type_roll);
+
+
+
+  match passed_room.shape_id {
+    1 | 7 => passed_room.shape_type = "<N/A>".to_string(),
+    2 => passed_room.shape_type = cooridoor_width.to_string(),
+    3 | 4 | 6 | 8 => passed_room.shape_type = basic_shape_type.to_string(),
+    5 => passed_room.shape_type = pentagon_type.to_string(),
+    _ => passed_room.shape_type = "[ERROR]".to_string(),
+
+  }
 
 }
 
