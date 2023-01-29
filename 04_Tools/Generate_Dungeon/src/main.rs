@@ -227,14 +227,27 @@ fn generate_room(passed_room: &mut data_defs::Room) {
   //append basic_shape_type_roll to basic_shape_type
   basic_shape_type = format!("{} <{}>", basic_shape_type, basic_shape_type_roll);
 
+  // match passed_room.shape_id {
+  //   1 | 7 => passed_room.shape_type = "<N/A>".to_string(),
+  //   2 => passed_room.shape_type = cooridoor_width.to_string(),
+  //   3 | 4 | 6 | 8 => passed_room.shape_type = basic_shape_type.to_string(),
+  //   5 => passed_room.shape_type = pentagon_type.to_string(),
+  //   _ => passed_room.shape_type = "[ERROR]".to_string(),
+  // }
 
+  let mut shape_orientation_roll: i32 = random_number(1, 100);
+  if passed_room.shape_id == 1 {
+    passed_room.shape_type = "<N/A>".to_string();
+    passed_room.shape_orientation = "<N/A>".to_string();
 
-  match passed_room.shape_id {
-    1 | 7 => passed_room.shape_type = "<N/A>".to_string(),
-    2 => passed_room.shape_type = cooridoor_width.to_string(),
-    3 | 4 | 6 | 8 => passed_room.shape_type = basic_shape_type.to_string(),
-    5 => passed_room.shape_type = pentagon_type.to_string(),
-    _ => passed_room.shape_type = "[ERROR]".to_string(),
+  } else if passed_room.shape_id == 2 {
+    passed_room.shape_type = cooridoor_width.to_string();
+
+    if shape_orientation_roll > 50 {
+      passed_room.shape_orientation = "Vertical".to_string();
+    } else {
+      passed_room.shape_orientation = "Horizontal".to_string();
+    }
 
   }
 
