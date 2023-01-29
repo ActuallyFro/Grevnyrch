@@ -5,7 +5,7 @@ use std::io::Write;
 use std::env::args;
 use rand::Rng;
 
-// determine if flag of a dash and a Captial letter was passed, return bool
+// determine if argument is a flag (dash and a Captial letter) vs. input argument
 fn is_flag(arg: &String) -> bool {
   let mut flag: bool = false;
   let mut dash: bool = false;
