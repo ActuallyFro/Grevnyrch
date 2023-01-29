@@ -67,6 +67,7 @@ struct Dungeon {
 // create main() with args
 fn main() {
   let args: Vec<String> = args().collect();
+  let mut verbose: bool = false;
 
   //dungeon map config variables
   //============================
@@ -102,13 +103,13 @@ fn main() {
   };
 
   if args.len() > 1 {
-    println!("[DEBUG] a total of {} arguments were passed", args.len()-1);
-
     for arg in args.iter().skip(1) {
-      println!("[DEBUG] Looking at: {}", arg);
-
       if is_flag(arg) {
-        println!("[DEBUG] \t{} is a flag", arg);
+        if arg == "-V" {
+          println!("[VERBOSE] Verbose mode enabled");
+          verbose = true;
+        }
+
       } else {
         if arg == "--name" {
           let next_arg = args.iter().skip(2).next().unwrap();
@@ -116,9 +117,6 @@ fn main() {
         }
       }
     }
-
-  // } else {
-  //     println!("[DEBUG] no arguments were passed");
   }
 
   // Determine if Multiverse World Dungeon vs. Grevnyrch Dungeon
@@ -126,17 +124,20 @@ fn main() {
   if rng_multiverse >= 67 {
     multiverse_world_dungeon.is_world_in_multiverse = true;
   }
-  println!("[DEBUG] 1. is_world_in_multiverse: {} (rolled: {})", multiverse_world_dungeon.is_world_in_multiverse, rng_multiverse);
 
-  //if name is empty, get user input
+  if verbose {
+    println!("[VERBOSE] 1. is_world_in_multiverse: {} (rolled: {})", multiverse_world_dungeon.is_world_in_multiverse, rng_multiverse);
+  }
+
   if dungeon.name.is_empty() {
-    // get_user_input(&mut dungeon);
+    // refactor: get_user_input(&mut dungeon);?
 
-    // get user input
     println!("[Input] Enter the name of the Dungeon: ");
     io::stdout().flush().unwrap();
     io::stdin().read_line(&mut dungeon.name).unwrap();
   }
 
-  println!("[DEBUG] 2. dungeon.name: {}", dungeon.name);
+  if verbose {
+    println!("[VERBOSE] 2. dungeon.name: {}", dungeon.name);
+  }
 }
