@@ -5,6 +5,11 @@ use std::io::Write;
 use std::env::args;
 use rand::Rng;
 
+mod data_defs;
+mod init_functions;
+
+use crate::init_functions::new_room;
+
 //single dash with any number of alpha-numeric characters
 fn is_flag(arg: &String) -> bool {
   let mut flag: bool = false;
@@ -38,91 +43,6 @@ fn random_number(min: i32, max: i32) -> i32 {
   return random_number;
 }
 
-// World Dungeon Struct
-//=====================
-struct WorldDungeon {
-  is_world_in_multiverse: bool,
-  is_new_world: bool,
-  is_world_in_space: bool,
-  selected_world: i32,
-  max_worlds: i32,
-  existing_worlds: i32,
-  world_words: i32,
-  name : String,
-}
-
-// Grevnyrch Dungeon Struct
-//=========================
-struct GrevnyrchDungeon {
-  is_outside_klabbbert: bool,
-  grevnyrch_x: i32,
-  grevnyrch_y: i32,
-  is_acceptable_xy: bool,
-  is_new_tear_dungeon: bool,
-}
-
-//Dungeon Struct
-//==============
-struct Dungeon {
-  name: String,
-  purpose: String,
-  creator: String,
-  npc_alignment: String,
-  npc_class: String,
-  history: String,
-}
-
-struct Door {
-  pos_clock_based: i32,
-  door_type: String,
-  leading_to: *const Room,
-}
-
-struct Room {
-  room_type: String,
-  id: i32,
-  shape: String,
-  size: i32,
-  size2: i32,
-  purpose: String,
-  contents: String,
-  door_roll: i32,
-  door_amount: i32,
-  doors: Vec<Door>,
-  traps_tricks_hazards: String,
-  monster_motivation: String,
-  state: String,
-  noises: String,
-  odors: String,
-  general_features: String,
-  furnishings: String,
-  contents_other: String,
-}
-
-fn new_room() -> Room {
-  let mut room: Room = Room {
-    room_type: String::new(),
-    id: 0,
-    shape: String::new(),
-    size: 0,
-    size2: 0,
-    purpose: String::new(),
-    contents: String::new(),
-    door_roll: 0,
-    door_amount: 0,
-    doors: Vec::new(),
-    traps_tricks_hazards: String::new(),
-    monster_motivation: String::new(),
-    state: String::new(),
-    noises: String::new(),
-    odors: String::new(),
-    general_features: String::new(),
-    furnishings: String::new(),
-    contents_other: String::new(),
-  };
-
-  return room;
-}
 
 // create main() with args
 fn main() {
@@ -136,7 +56,7 @@ fn main() {
 
   // Multiverse World Dungeon
   // ------------------------
-  let mut multiverse_world_dungeon: WorldDungeon = WorldDungeon {
+  let mut multiverse_world_dungeon: data_defs::WorldDungeon = data_defs::WorldDungeon {
     is_world_in_multiverse: false,
     is_new_world: false,
     is_world_in_space: false,
@@ -149,7 +69,7 @@ fn main() {
 
   // Grevnyrch Dungeon
   // -----------------
-  let mut grevnyrch_dungeon: GrevnyrchDungeon = GrevnyrchDungeon {
+  let mut grevnyrch_dungeon: data_defs::GrevnyrchDungeon = data_defs::GrevnyrchDungeon {
     is_outside_klabbbert: false,
     grevnyrch_x: 0,
     grevnyrch_y: 0,
@@ -159,7 +79,7 @@ fn main() {
 
   // General Dungeon Info
   // --------------------
-  let mut dungeon: Dungeon = Dungeon {
+  let mut dungeon: data_defs::Dungeon = data_defs::Dungeon {
     name: String::new(),
     purpose: String::new(),
     creator: String::new(),
@@ -328,7 +248,7 @@ fn main() {
   //TODO Add logic: for EACH ROOM + "max rooms" / etc., but until then:
 
   //Generate Single Room
-  let mut new_room: Room = new_room();
+  let mut new_room: data_defs::Room = new_room();
   generate_room(&mut new_room);
 
   println!("[ROOM] === Room {}{} ===", new_room.room_type, new_room.id);
@@ -339,7 +259,7 @@ fn main() {
 
 }
 
-fn generate_room(passed_room: &mut Room) {
+fn generate_room(passed_room: &mut data_defs::Room) {
   passed_room.room_type = "S".to_string();
   passed_room.id = 1;
 
