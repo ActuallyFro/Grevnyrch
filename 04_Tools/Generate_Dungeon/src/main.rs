@@ -34,6 +34,25 @@ fn random_number(min: i32, max: i32) -> i32 {
   return random_number;
 }
 
+// World Dungeon Struct
+//=====================
+struct WorldDungeon {
+  is_world_in_multiverse: bool,
+  is_new_world: bool,
+  is_world_in_space: bool,
+  selected_world: i32,
+}
+
+// Grevnyrch Dungeon Struct
+//=========================
+struct GrevnyrchDungeon {
+  is_outside_klabbbert: bool,
+  grevnyrch_x: i32,
+  grevnyrch_y: i32,
+  is_acceptable_xy: bool,
+  is_new_tear_dungeon: bool,
+}
+
 //Dungeon Struct
 //==============
 struct Dungeon {
@@ -54,18 +73,22 @@ fn main() {
 
   // Multiverse World Dungeon
   // ------------------------
-  let mut isWorldInMultiverse: bool = false;
-  let isNewWorld: bool = false;
-  let isWorldInSpace: bool = false;
-  let selectedWorld: i32 = 0;
+  let mut multiverse_world_dungeon: WorldDungeon = WorldDungeon {
+    is_world_in_multiverse: false,
+    is_new_world: false,
+    is_world_in_space: false,
+    selected_world: 0,
+  };
 
   // Grevnyrch Dungeon
   // -----------------
-  let isOutsideKlabbbert: bool = false;
-  let GrevnyrchX: i32 = 0;
-  let GrevnyrchY: i32 = 0;
-  let isAcceptableXY: bool = false;
-  let isNewTearDungeon: bool = false;
+  let mut grevnyrch_dungeon: GrevnyrchDungeon = GrevnyrchDungeon {
+    is_outside_klabbbert: false,
+    grevnyrch_x: 0,
+    grevnyrch_y: 0,
+    is_acceptable_xy: false,
+    is_new_tear_dungeon: false,
+  };
 
   // General Dungeon Info
   // --------------------
@@ -96,11 +119,11 @@ fn main() {
   }
 
   // Determine if Multiverse World Dungeon vs. Grevnyrch Dungeon
-  let rngMultiverse: i32 = random_number(1, 100);
-  if rngMultiverse >= 67 {
-    isWorldInMultiverse = true;
+  let rng_multiverse: i32 = random_number(1, 100);
+  if rng_multiverse >= 67 {
+    multiverse_world_dungeon.is_world_in_multiverse = true;
   }
-  println!("[DEBUG] 1. isWorldInMultiverse: {} (rolled: {})", isWorldInMultiverse, rngMultiverse);
+  println!("[DEBUG] 1. is_world_in_multiverse: {} (rolled: {})", multiverse_world_dungeon.is_world_in_multiverse, rng_multiverse);
 
   // get user input
   println!("[Input] Enter the name of the Dungeon: ");
