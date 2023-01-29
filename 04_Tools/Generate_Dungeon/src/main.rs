@@ -110,7 +110,10 @@ fn main() {
       if is_flag(arg) {
         println!("[DEBUG] \t{} is a flag", arg);
       } else {
-        println!("[DEBUG] \t{} is not a flag", arg);
+        if arg == "--name" {
+          let next_arg = args.iter().skip(2).next().unwrap();
+          dungeon.name = next_arg.to_string();
+        }
       }
     }
 
@@ -125,9 +128,15 @@ fn main() {
   }
   println!("[DEBUG] 1. is_world_in_multiverse: {} (rolled: {})", multiverse_world_dungeon.is_world_in_multiverse, rng_multiverse);
 
-  // get user input
-  println!("[Input] Enter the name of the Dungeon: ");
-  io::stdout().flush().unwrap();
-  io::stdin().read_line(&mut dungeon.name).unwrap();
+  //if name is empty, get user input
+  if dungeon.name.is_empty() {
+    // get_user_input(&mut dungeon);
+
+    // get user input
+    println!("[Input] Enter the name of the Dungeon: ");
+    io::stdout().flush().unwrap();
+    io::stdin().read_line(&mut dungeon.name).unwrap();
+  }
+
   println!("[DEBUG] 2. dungeon.name: {}", dungeon.name);
 }
