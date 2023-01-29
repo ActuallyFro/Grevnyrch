@@ -61,68 +61,7 @@ fn main() {
   let mut dungeon: data_defs::Dungeon = new_dungeon(); 
 
   if args.len() > 1 {
-    let mut args_index = 0;
-    let mut skip_read = false;
-    for arg in args.iter().skip(1) {
-      if skip_read {
-        skip_read = false;
-        continue;
-      }
-
-      if debug {
-        println!("[DEBUG] --------------");
-      }
-
-      if is_flag(arg) {
-        if arg == "-V" {
-          println!("[VERBOSE] Verbose mode enabled");
-          verbose = true;
-
-        } else if arg == "-D" {
-          println!("[DEBUG] Debug mode enabled");
-          debug = true;
-
-        } else if arg == "-single" {
-          println!("[NOTICE] Generating SINGLE ROOM!");
-          is_single_room = true;
-
-        } else {
-          println!("[WARNING] Skipping unknown flag: {}", arg);
-        }
-
-      } else {
-        let next_arg = args.iter().skip(args_index+2).next().unwrap(); 
-
-        if debug {
-          println!("[DEBUG] arg: {}, next_arg: {}", arg, next_arg);
-        }
-
-        if arg == "--name-dungeon" {
-          dungeon.name = next_arg.to_string();
-          println!("[SETTING] dungeon name: {}", dungeon.name);
-
-        } else if arg == "--name-world" {
-          multiverse_world_dungeon.name = next_arg.to_string();
-          println!("[SETTING] world name: {}", multiverse_world_dungeon.name);
-
-        } else if arg == "--existing-worlds" {
-          multiverse_world_dungeon.existing_worlds = next_arg.trim().parse().unwrap();
-
-          println!("[SETTING] existing_worlds: {}", multiverse_world_dungeon.existing_worlds);
-
-        } else if arg == "--world-words" {
-          multiverse_world_dungeon.world_words = next_arg.trim().parse().unwrap();
-
-          println!("[SETTING] world_words: {}", multiverse_world_dungeon.world_words);
-
-        } else {
-          println!("[WARNING] Skipping unknown flag: {}", arg);
-        }
-        args_index += 1;
-        skip_read = true;
-      }
-      args_index += 1;
-    }
+    process_args(&args, &mut verbose, &mut debug, &mut is_single_room, &mut multiverse_world_dungeon, &mut grevnyrch_dungeon, &mut dungeon);
   }
 
   if !is_single_room {
@@ -261,4 +200,69 @@ fn generate_room(passed_room: &mut data_defs::Room) {
   passed_room.size2 = rng_size2_a * rng_size2_b * 5;
   
 
+}
+
+fn process_args(args: &Vec<String>, passed_verbose: &mut bool, passed_debug: &mut bool, passed_is_single_room: &mut bool, passed_multiverse_world_dungeon: &mut data_defs::WorldDungeon, passed_greynyrch_dungeon: &mut data_defs::GrevnyrchDungeon, passed_dungeon: &mut data_defs::Dungeon) {
+  let mut args_index = 0;
+  let mut skip_read = false;
+  for arg in args.iter().skip(1) {
+    if skip_read {
+      skip_read = false;
+      continue;
+    }
+
+    if *passed_debug {
+      println!("[*passed_debug] --------------");
+    }
+
+    if is_flag(arg) {
+      if arg == "-V" {
+        println!("[*passed_verbose] *passed_verbose mode enabled");
+        *passed_verbose = true;
+
+      } else if arg == "-D" {
+        println!("[*passed_debug] *passed_debug mode enabled");
+        *passed_debug = true;
+
+      } else if arg == "-single" {
+        println!("[NOTICE] Generating SINGLE ROOM!");
+        *passed_is_single_room = true;
+
+      } else {
+        println!("[WARNING] Skipping unknown flag: {}", arg);
+      }
+
+    } else {
+      let next_arg = args.iter().skip(args_index+2).next().unwrap(); 
+
+      if *passed_debug {
+        println!("[*passed_debug] arg: {}, next_arg: {}", arg, next_arg);
+      }
+
+      if arg == "--name-dungeon" {
+        passed_dungeon.name = next_arg.to_string();
+        println!("[SETTING] dungeon name: {}", passed_dungeon.name);
+
+      } else if arg == "--name-world" {
+        passed_multiverse_world_dungeon.name = next_arg.to_string();
+        println!("[SETTING] world name: {}", passed_multiverse_world_dungeon.name);
+
+      } else if arg == "--existing-worlds" {
+        passed_multiverse_world_dungeon.existing_worlds = next_arg.trim().parse().unwrap();
+
+        println!("[SETTING] existing_worlds: {}", passed_multiverse_world_dungeon.existing_worlds);
+
+      } else if arg == "--world-words" {
+        passed_multiverse_world_dungeon.world_words = next_arg.trim().parse().unwrap();
+
+        println!("[SETTING] world_words: {}", passed_multiverse_world_dungeon.world_words);
+
+      } else {
+        println!("[WARNING] Skipping unknown flag: {}", arg);
+      }
+      args_index += 1;
+      skip_read = true;
+    }
+    args_index += 1;
+  }
 }
