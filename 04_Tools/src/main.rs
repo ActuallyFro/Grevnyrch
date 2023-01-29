@@ -3,6 +3,7 @@
 use std::io;
 use std::io::Write;
 use std::env::args;
+use rand::Rng;
 
 // determine if flag of a dash and a Captial letter was passed, return bool
 fn is_flag(arg: &String) -> bool {
@@ -25,6 +26,14 @@ fn is_flag(arg: &String) -> bool {
   return flag;
 }
 
+// random number, with range (min,max), generator
+fn random_number(min: i32, max: i32) -> i32 {
+  let mut rng = rand::thread_rng();
+  let random_number = rng.gen_range(min..max);
+
+  return random_number;
+}
+
 // create main() with args
 fn main() {
   let args: Vec<String> = args().collect();
@@ -34,7 +43,7 @@ fn main() {
 
   // Multiverse World Dungeon
   // ------------------------
-  let isWorldInMultiverse: bool = false;
+  let mut isWorldInMultiverse: bool = false;
   let isNewWorld: bool = false;
   let isWorldInSpace: bool = false;
   let selectedWorld: i32 = 0;
@@ -72,6 +81,13 @@ fn main() {
   // } else {
   //     println!("[DEBUG] no arguments were passed");
   }
+
+  // Determine if Multiverse World Dungeon vs. Grevnyrch Dungeon
+  let rngMultiverse: i32 = random_number(1, 100);
+  if rngMultiverse >= 67 {
+    isWorldInMultiverse = true;
+  }
+  println!("[DEBUG] 1. isWorldInMultiverse: {} (rolled: {})", isWorldInMultiverse, rngMultiverse);
 
   // get user input
   println!("[Input] Enter the name of the Dungeon: ");
