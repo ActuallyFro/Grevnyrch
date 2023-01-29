@@ -41,6 +41,8 @@ struct WorldDungeon {
   is_new_world: bool,
   is_world_in_space: bool,
   selected_world: i32,
+  max_worlds: i32,
+  existing_worlds: i32,
 }
 
 // Grevnyrch Dungeon Struct
@@ -79,6 +81,8 @@ fn main() {
     is_new_world: false,
     is_world_in_space: false,
     selected_world: 0,
+    max_worlds: 16,
+    existing_worlds: 0,
   };
 
   // Grevnyrch Dungeon
@@ -129,6 +133,24 @@ fn main() {
     println!("[VERBOSE] 1. is_world_in_multiverse: {} (rolled: {})", multiverse_world_dungeon.is_world_in_multiverse, rng_multiverse);
   }
 
+  if multiverse_world_dungeon.is_world_in_multiverse {
+
+    //Pick a world from the multiverse
+    let rng_multiverse_existing: i32 = random_number(1, 100);
+    if rng_multiverse_existing >= 67 {
+      multiverse_world_dungeon.selected_world = random_number(1, multiverse_world_dungeon.max_worlds);
+    } else {
+      println!("[Input] Enter the max range of number of existing worlds: ");
+      io::stdout().flush().unwrap();
+      let mut existing_worlds_str = String::new();
+      io::stdin().read_line(&mut existing_worlds_str).unwrap();
+      multiverse_world_dungeon.existing_worlds = existing_worlds_str.trim().parse().unwrap();
+      multiverse_world_dungeon.selected_world = random_number(1, multiverse_world_dungeon.existing_worlds);
+    }
+  
+  }
+
+
   if dungeon.name.is_empty() {
     // refactor: get_user_input(&mut dungeon);?
 
@@ -139,5 +161,6 @@ fn main() {
 
   if verbose {
     println!("[VERBOSE] 2. dungeon.name: {}", dungeon.name);
+    println!("[VERBOSE] 3. selected_world: {}", multiverse_world_dungeon.selected_world);
   }
 }
