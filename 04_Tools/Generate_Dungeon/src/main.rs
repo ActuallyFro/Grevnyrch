@@ -34,6 +34,17 @@ fn random_number(min: i32, max: i32) -> i32 {
   return random_number;
 }
 
+//Dungeon Struct
+//==============
+struct Dungeon {
+  name: String,
+  purpose: String,
+  creator: String,
+  npc_alignment: String,
+  npc_class: String,
+  history: String,
+}
+
 // create main() with args
 fn main() {
   let args: Vec<String> = args().collect();
@@ -58,12 +69,14 @@ fn main() {
 
   // General Dungeon Info
   // --------------------
-  let mut dungeonName: String = String::new();
-  let dungeonPurpose: String = String::new();
-  let dungeonCreator: String = String::new();
-  let dungeonNPCAlignment: String = String::new();
-  let dungeonNPCClass: String = String::new();
-  let dungeonHistory: String = String::new();
+  let mut dungeon: Dungeon = Dungeon {
+    name: String::new(),
+    purpose: String::new(),
+    creator: String::new(),
+    npc_alignment: String::new(),
+    npc_class: String::new(),
+    history: String::new(),
+  };
 
   if args.len() > 1 {
     println!("[DEBUG] a total of {} arguments were passed", args.len()-1);
@@ -92,5 +105,6 @@ fn main() {
   // get user input
   println!("[Input] Enter the name of the Dungeon: ");
   io::stdout().flush().unwrap();
-  io::stdin().read_line(&mut dungeonName).unwrap();
+  io::stdin().read_line(&mut dungeon.name).unwrap();
+  println!("[DEBUG] 2. dungeon.name: {}", dungeon.name);
 }
