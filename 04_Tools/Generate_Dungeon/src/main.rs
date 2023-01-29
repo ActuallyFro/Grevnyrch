@@ -5,21 +5,25 @@ use std::io::Write;
 use std::env::args;
 use rand::Rng;
 
-// determine if argument is a flag (dash and a Captial letter) vs. input argument
+//single dash with any number of alpha-numeric characters
 fn is_flag(arg: &String) -> bool {
   let mut flag: bool = false;
   let mut dash: bool = false;
-  let mut cap: bool = false;
+  let mut nonalphanum: bool = false;
 
+  let mut dashCount: i32 = 0;
   for c in arg.chars() {
     if c == '-' {
       dash = true;
-    } else if c.is_uppercase() {
-      cap = true;
+      dashCount += 1;
+
+    } else if !c.is_alphanumeric() {
+      nonalphanum = true;
+      break;      
     }
   }
 
-  if dash && cap {
+  if dash && dashCount == 1  && !nonalphanum {
     flag = true;
   }
 
@@ -70,6 +74,7 @@ struct Dungeon {
 fn main() {
   let args: Vec<String> = args().collect();
   let mut verbose: bool = false;
+  let mut debug: bool = false;
 
   //dungeon map config variables
   //============================
@@ -114,24 +119,38 @@ fn main() {
         skip_read = false;
         continue;
       }
-      println!("[DEBUG] --------------");
+
+      if debug {
+        println!("[DEBUG] --------------");
+      }
+
       if is_flag(arg) {
         if arg == "-V" {
           println!("[VERBOSE] Verbose mode enabled");
           verbose = true;
+        } else if arg == "-D" {
+          println!("[DEBUG] Debug mode enabled");
+          debug = true;
+
+        } else {
+          println!("[WARNING] Skipping unknown flag: {}", arg);
         }
 
       } else {
-        let next_arg = args.iter().skip(args_index+2).next().unwrap();
-        println!("[DEBUG] arg: {} next_arg: {}", arg, next_arg);
- 
+        let next_arg = args.iter().skip(args_index+2).next().unwrap(); 
+
+        if debug {
+          println!("[DEBUG] arg: {}, next_arg: {}", arg, next_arg);
+        }
+
         if arg == "--name" {
           dungeon.name = next_arg.to_string();
+          println!("[SETTING] world name: {}", dungeon.name);
+
         } else if arg == "--existing-worlds" {
           multiverse_world_dungeon.existing_worlds = next_arg.trim().parse().unwrap();
-          if verbose {
-            println!("[VERBOSE] 0. existing_worlds: {}", multiverse_world_dungeon.existing_worlds);
-          }
+
+          println!("[SETTING] existing_worlds: {}", multiverse_world_dungeon.existing_worlds);
         }
         args_index += 1;
         skip_read = true;
