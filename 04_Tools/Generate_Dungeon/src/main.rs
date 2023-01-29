@@ -107,7 +107,14 @@ fn main() {
   };
 
   if args.len() > 1 {
+    let mut args_index = 0;
+    let mut skip_read = false;
     for arg in args.iter().skip(1) {
+      if skip_read {
+        skip_read = false;
+        continue;
+      }
+      println!("[DEBUG] --------------");
       if is_flag(arg) {
         if arg == "-V" {
           println!("[VERBOSE] Verbose mode enabled");
@@ -115,11 +122,21 @@ fn main() {
         }
 
       } else {
+        let next_arg = args.iter().skip(args_index+2).next().unwrap();
+        println!("[DEBUG] arg: {} next_arg: {}", arg, next_arg);
+ 
         if arg == "--name" {
-          let next_arg = args.iter().skip(2).next().unwrap();
           dungeon.name = next_arg.to_string();
+        } else if arg == "--existing-worlds" {
+          multiverse_world_dungeon.existing_worlds = next_arg.trim().parse().unwrap();
+          if verbose {
+            println!("[VERBOSE] 0. existing_worlds: {}", multiverse_world_dungeon.existing_worlds);
+          }
         }
+        args_index += 1;
+        skip_read = true;
       }
+      args_index += 1;
     }
   }
 
@@ -140,11 +157,13 @@ fn main() {
     if rng_multiverse_existing >= 67 {
       multiverse_world_dungeon.selected_world = random_number(1, multiverse_world_dungeon.max_worlds);
     } else {
-      println!("[Input] Enter the max range of number of existing worlds: ");
-      io::stdout().flush().unwrap();
-      let mut existing_worlds_str = String::new();
-      io::stdin().read_line(&mut existing_worlds_str).unwrap();
-      multiverse_world_dungeon.existing_worlds = existing_worlds_str.trim().parse().unwrap();
+      if multiverse_world_dungeon.existing_worlds == 0 {
+        println!("[Input] Enter the max range of number of existing worlds: ");
+        io::stdout().flush().unwrap();
+        let mut existing_worlds_str = String::new();
+        io::stdin().read_line(&mut existing_worlds_str).unwrap();
+        multiverse_world_dungeon.existing_worlds = existing_worlds_str.trim().parse().unwrap();
+      }
       multiverse_world_dungeon.selected_world = random_number(1, multiverse_world_dungeon.existing_worlds);
     }
   
