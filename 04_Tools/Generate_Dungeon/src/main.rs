@@ -149,7 +149,7 @@ fn main() {
 
         if arg == "--name-dungeon" {
           dungeon.name = next_arg.to_string();
-          println!("[SETTING] world name: {}", dungeon.name);
+          println!("[SETTING] dungeon name: {}", dungeon.name);
 
         } else if arg == "--name-world" {
           multiverse_world_dungeon.name = next_arg.to_string();
