@@ -9,6 +9,9 @@ mod data_defs;
 mod init_functions;
 
 use crate::init_functions::new_room;
+use crate::init_functions::new_multiverse_dungeon;
+use crate::init_functions::new_grevnyrch_dungeon;
+use crate::init_functions::new_dungeon;
 
 //single dash with any number of alpha-numeric characters
 fn is_flag(arg: &String) -> bool {
@@ -53,40 +56,9 @@ fn main() {
 
   //dungeon map config variables
   //============================
-
-  // Multiverse World Dungeon
-  // ------------------------
-  let mut multiverse_world_dungeon: data_defs::WorldDungeon = data_defs::WorldDungeon {
-    is_world_in_multiverse: false,
-    is_new_world: false,
-    is_world_in_space: false,
-    selected_world: 0,
-    max_worlds: 16,
-    existing_worlds: 0,
-    world_words: 2,
-    name: String::new(),
-  };
-
-  // Grevnyrch Dungeon
-  // -----------------
-  let mut grevnyrch_dungeon: data_defs::GrevnyrchDungeon = data_defs::GrevnyrchDungeon {
-    is_outside_klabbbert: false,
-    grevnyrch_x: 0,
-    grevnyrch_y: 0,
-    is_acceptable_xy: false,
-    is_new_tear_dungeon: false,
-  };
-
-  // General Dungeon Info
-  // --------------------
-  let mut dungeon: data_defs::Dungeon = data_defs::Dungeon {
-    name: String::new(),
-    purpose: String::new(),
-    creator: String::new(),
-    npc_alignment: String::new(),
-    npc_class: String::new(),
-    history: String::new(),
-  };
+  let mut multiverse_world_dungeon: data_defs::WorldDungeon = new_multiverse_dungeon(); 
+  let mut grevnyrch_dungeon: data_defs::GrevnyrchDungeon = new_grevnyrch_dungeon(); 
+  let mut dungeon: data_defs::Dungeon = new_dungeon(); 
 
   if args.len() > 1 {
     let mut args_index = 0;
