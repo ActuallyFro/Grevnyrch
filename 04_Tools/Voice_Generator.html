@@ -15,9 +15,14 @@
 
     <script>
       VoiceAttr1Laban = [
-        ["Dwarf","Player's Hand Book"],
-        ["Triton","Monsters of the Multiverse"],
-        ["Yuan-ti","Monsters of the Multiverse"]
+        ["Dabbing","Sudden, direct & light"],
+        ["Flicking","Sudden, indirect & light"],
+        ["Pressing","Sustained, direct & strong"],
+        ["Thrusting","Sudden, direct & strong"],
+        ["Gliding","Sustained, direct & light"],
+        ["Floating","Sustained, indirect & light"],
+        ["Wringing","Sustained, indirect & strong"],
+        ["Slashing","Sudden, indirect & strong"]
       ];
 
       VoiceAttr2Placement=[
@@ -227,42 +232,41 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
 
         var NewBountyRowEntry = document.createElement("tr");
 
-        // GENERATE Skip:
-        //create random 7 digit string
-        var bountyIDRoll = Math.floor(Math.random() * 10000000);
-        var bountyIDStr = bountyIDRoll.toString();
-        var bountyID = bountyIDStr.padStart(7, "0");        
+        // GENERATE Voice:
+        var voiceIDRoll = Math.floor(Math.random() * 10000000);
+        var voiceIDStr = voiceIDRoll.toString();
+        var voiceID = voiceIDStr.padStart(7, "0");        
 
         // Create random roll (pick 1 from 100) , append to td element:  "B_Action"
         var Roll_B_Action = Math.floor(Math.random() * 100);
-        var ID_B_Action = "B_Action_" + bountyID;
+        var ID_B_Action = "B_Action_" + voiceID;
         var Cell_B_Action = document.createElement("td");
         Cell_B_Action.setAttribute("id", ID_B_Action);
 
-        //determine index, based on RollAction
-        var ActionIndex = 0;
-        var isRunAway = false;
-        for (var iAct = 0; iAct < RollAction.length; iAct++) {
-          if (RollAction[iAct][1] <= Roll_B_Action && Roll_B_Action <= RollAction[iAct][2]) {
-            ActionIndex = iAct;
-            if (RollAction[iAct][0] == "Runs Away") {
-              isRunAway = true;
-            }
-            break;
-          }
-        }
+        // //determine index, based on RollAction
+        // var ActionIndex = 0;
+        // // var isRunAway = false;
+        // for (var iAct = 0; iAct < RollAction.length; iAct++) {
+        //   if (RollAction[iAct][1] <= Roll_B_Action && Roll_B_Action <= RollAction[iAct][2]) {
+        //     ActionIndex = iAct;
+        //     // if (RollAction[iAct][0] == "Runs Away") {
+        //     //   isRunAway = true;
+        //     // }
+        //     break;
+        //   }
+        // }
 
-        var RollString=RollAction[ActionIndex][0];
+        // var RollString=RollAction[ActionIndex][0];
         
-        var InnocentOrGuilty="";
-        if(isRunAway){
-          console.log("Run Away FOUND!");
-          InnocentOrGuilty="Innocent - ";
+        // var InnocentOrGuilty="";
+        // if(isRunAway){
+        //   console.log("Run Away FOUND!");
+        //   InnocentOrGuilty="Innocent - ";
 
-          if(Math.random() < 0.5){
-            InnocentOrGuilty="Guilty - ";
-          }
-        }
+        //   if(Math.random() < 0.5){
+        //     InnocentOrGuilty="Guilty - ";
+        //   }
+        // }
         var sumAct=Roll_B_Action+1;
 
         Cell_B_Action.innerHTML = InnocentOrGuilty + RollString + "〔"+sumAct+"〕";
@@ -270,7 +274,7 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
 
         // Create random roll (pick 1 from Racs[]) , append to td element:  "B_Rac"
         var Roll_B_Rac = Math.floor(Math.random() * Racs.length);
-        var ID_B_Rac = "B_Rac_" + bountyID;
+        var ID_B_Rac = "B_Rac_" + voiceID;
         var Cell_B_Rac = document.createElement("td");
         Cell_B_Rac.setAttribute("id", ID_B_Rac);
         Cell_B_Rac.innerHTML = Racs[Roll_B_Rac][0]+"〔"+Roll_B_Rac+"〕";
@@ -278,7 +282,7 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
 
         // Create random roll (pick 1 from Classes[]) , append to td element:  "B_Class"
         var Roll_B_Class = Math.floor(Math.random() * classes.length);
-        var ID_B_Class = "B_Class_" + bountyID;
+        var ID_B_Class = "B_Class_" + voiceID;
         var Cell_B_Class = document.createElement("td");
         Cell_B_Class.setAttribute("id", ID_B_Class);
         Cell_B_Class.innerHTML = classes[Roll_B_Class][0]+"〔"+Roll_B_Class+"〕";
@@ -286,7 +290,7 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
 
         // Create random roll (pick 1 from backgrounds[]) , append to td element:  "B_Background"
         var Roll_B_Background = Math.floor(Math.random() * backgrounds.length);
-        var ID_B_Background = "B_Background_" + bountyID;
+        var ID_B_Background = "B_Background_" + voiceID;
         var Cell_B_Background = document.createElement("td");
         Cell_B_Background.setAttribute("id", ID_B_Background);
         Cell_B_Background.innerHTML = backgrounds[Roll_B_Background][0]+"〔"+Roll_B_Background+"〕";
@@ -312,7 +316,7 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
 
 
         // var Roll_B_CR = Math.floor(Math.random() * 20);
-        var ID_B_CR = "B_CR_" + bountyID;
+        var ID_B_CR = "B_CR_" + voiceID;
         var Cell_B_CR = document.createElement("td");
         Cell_B_CR.setAttribute("id", ID_B_CR);
         Cell_B_CR.innerHTML = targetCR;
@@ -360,7 +364,7 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
 
         //////////
 
-        var ID_B_Location_InOut = "B_Location_InOut_" + bountyID;
+        var ID_B_Location_InOut = "B_Location_InOut_" + voiceID;
         var Cell_B_Location_InOut = document.createElement("td");
         Cell_B_Location_InOut.setAttribute("id", ID_B_Location_InOut);
         var sum = Roll_B_Location_InOut + 1;
@@ -373,7 +377,7 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
         targetLocation = filteredValidLocations[0];
         console.log("Only one valid location: " + targetLocation);
 
-        var ID_B_Location = "B_Location_" + bountyID;
+        var ID_B_Location = "B_Location_" + voiceID;
         var Cell_B_Location = document.createElement("td");
         Cell_B_Location.setAttribute("id", ID_B_Location);
         Cell_B_Location.innerHTML = targetLocation + "〔" + Roll_B_Location + " - no impact〕";
@@ -382,7 +386,7 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
 
         // Create random roll (pick 1 from ) , append to td element:  "B_Hideout"
         var Roll_B_Hideout = Math.floor(Math.random() * Hideout.length);
-        var ID_B_Hideout = "B_Hideout_" + bountyID;
+        var ID_B_Hideout = "B_Hideout_" + voiceID;
         var Cell_B_Hideout = document.createElement("td");
         Cell_B_Hideout.setAttribute("id", ID_B_Hideout);
         Cell_B_Hideout.innerHTML = Hideout[Roll_B_Hideout][0]+"〔"+Roll_B_Hideout+"〕";
