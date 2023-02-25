@@ -106,6 +106,7 @@
                 <th scope="col">Placement</th>
                 <th scope="col">Air Quality</th>
                 <th scope="col">Age</th>
+                <th scope="col">Pitch</th>
                 <th scope="col">Size</th>
                 <th scope="col">Tempo</th>
                 <th scope="col">Volume</th>
@@ -113,14 +114,6 @@
                 <th scope="col">Accents</th>
                 <th scope="col">Vocal Issues</th>
 
-                <!-- <th scope="col">Class</th>
-                <th scope="col">CR</th>
-                <th scope="col">In/Out of Kla'Bbbert</th>
-                <th scope="col">Location</th>
-                <th scope="col">Hideout</th>
-                <th scope="col">Spin</th>
-                <th scope="col">Distance</th>
-                <th scope="col">Reward</th> -->
               </tr>
             </thead>
             <tbody id="VoiceTable">
@@ -148,7 +141,7 @@
         return -1;
       }
 
-document.getElementById('flexSwitchCheckDefault').addEventListener('change', function() {
+      document.getElementById('flexSwitchCheckDefault').addEventListener('change', function() {
         if (this.checked) {
           document.body.classList.add('dark');
         } else {
@@ -165,67 +158,6 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
         var element = document.body;
         element.classList.toggle("light-mode");
       } 
-
-      // function isCRinLocation(CR,index){
-      //   isLocationInRange=false
-
-      //   if (CR >= Locations[index][4]  && CR <= Locations[index][3]) {
-      //     isLocationInRange=true;
-      //     console.log("isCRinLocation() -- CR: " + CR + " index: " + index + " isLocationInRange: " + isLocationInRange);
-      //   }
-      //   return isLocationInRange;
-      // }
-
-      // function isLocationDuplicate(searchStr, LocationArray){
-
-      //   var duplicate = false;
-      //   for (var k = 0; k < LocationArray.length; k++) {
-      //     if (LocationArray[k] == searchStr) {
-      //       duplicate = true;
-      //       // if(debugMsgs){
-      //       //   console.log("\tDuplicate found: " + LocationArray[k]);
-      //       // }
-      //     }
-      //   }
-      //   return duplicate;
-      // }
-
-      // function GenerateValidLocationsFromCR(targetCR, debugMsgs=false){
-      //   var BountyCRLevel = targetCR
-      //   var BountyCRLevelMin = parseInt(BountyCRLevel) - 1;
-      //   var BountyCRLevelMax = parseInt(BountyCRLevel) + 1;
-
-      //   var validLocations=[];
-      //   var testingPoints = [BountyCRLevelMin, BountyCRLevel, BountyCRLevelMax];
-      //   for (var i = 0; i < testingPoints.length; i++) {
-
-      //     var chosenCR = testingPoints[i];
-      //     if (chosenCR >= 0 && chosenCR < 20) {
-
-      //       // if(debugMsgs){
-      //       //   console.log("chosenCR: " + chosenCR);
-      //       // }
-      //       for (var j = 0; j < Locations.length; j++) {
-      //         // console.log("isCRinLocation: " + chosenCR + "; Index:" + j);
-      //         if(isCRinLocation(chosenCR,j)){
-
-      //           var checkLocation = Locations[j][2];
-      //           if (!isLocationDuplicate(checkLocation, validLocations)) {
-      //             validLocations.push(checkLocation);
-      //             // if(debugMsgs){
-      //             //   console.log("\tValid (and/or NEW) locale!: "+ checkLocation);
-      //             // }
-      //           }
-      //         }
-
-      //       }
-            
-      //     }
-      //   }
-
-      //   console.log("[DEBUG] Found a total of:" + validLocations.length + "; they are:" + validLocations);
-      //   return validLocations;
-      // }
 
       function randomVoiceGenerate() {
 
@@ -244,100 +176,66 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
         // var Cell_B_Action = document.createElement("td");
         // Cell_B_Action.setAttribute("id", ID_B_Action);
 
-        // // //determine index, based on RollAction
-        // // var ActionIndex = 0;
-        // // // var isRunAway = false;
-        // // for (var iAct = 0; iAct < RollAction.length; iAct++) {
-        // //   if (RollAction[iAct][1] <= Roll_B_Action && Roll_B_Action <= RollAction[iAct][2]) {
-        // //     ActionIndex = iAct;
-        // //     // if (RollAction[iAct][0] == "Runs Away") {
-        // //     //   isRunAway = true;
-        // //     // }
-        // //     break;
-        // //   }
-        // // }
-
-        // // var RollString=RollAction[ActionIndex][0];
-        
-        // // var InnocentOrGuilty="";
-        // // if(isRunAway){
-        // //   console.log("Run Away FOUND!");
-        // //   InnocentOrGuilty="Innocent - ";
-
-        // //   if(Math.random() < 0.5){
-        // //     InnocentOrGuilty="Guilty - ";
-        // //   }
-        // // }
-        // var sumAct=Roll_B_Action+1;
-
-        // Cell_B_Action.innerHTML = InnocentOrGuilty + RollString + "〔"+sumAct+"〕";
-        // NewBountyRowEntry.appendChild(Cell_B_Action);
-
-        // <th scope="col">Laban Effort</th>
-
         var Cell_V_Laban = document.createElement("td");
         var ID_V_Laban = "V_Laban_" + voiceID;
         Cell_V_Laban.setAttribute("id", ID_V_Laban);
         Cell_V_Laban.innerHTML = "Laban TODO";
         NewVoiceRowEntry.appendChild(Cell_V_Laban);
 
-        //         <th scope="col">Placement</th>
         var Cell_V_Placement = document.createElement("td");
         var ID_V_Placement = "V_Placement_" + voiceID;
         Cell_V_Placement.setAttribute("id", ID_V_Placement);
         Cell_V_Placement.innerHTML = "Placement TODO";
         NewVoiceRowEntry.appendChild(Cell_V_Placement);
 
-        //         <th scope="col">Air Quality</th>
         var Cell_V_AirQuality = document.createElement("td");
         var ID_V_AirQuality = "V_AirQuality_" + voiceID;
         Cell_V_AirQuality.setAttribute("id", ID_V_AirQuality);
         Cell_V_AirQuality.innerHTML = "Air Quality TODO";
         NewVoiceRowEntry.appendChild(Cell_V_AirQuality);
 
-        //         <th scope="col">Age</th>
         var Cell_V_Age = document.createElement("td");
         var ID_V_Age = "V_Age_" + voiceID;
         Cell_V_Age.setAttribute("id", ID_V_Age);
         Cell_V_Age.innerHTML = "Age TODO";
         NewVoiceRowEntry.appendChild(Cell_V_Age);
 
-        //         <th scope="col">Size</th>
+        var Cell_V_Pitch = document.createElement("td");
+        var ID_V_Pitch = "V_Pitch_" + voiceID;
+        Cell_V_Pitch.setAttribute("id", ID_V_Pitch);
+        Cell_V_Pitch.innerHTML = "Pitch TODO";
+        NewVoiceRowEntry.appendChild(Cell_V_Pitch);
+
         var Cell_V_Size = document.createElement("td");
         var ID_V_Size = "V_Size_" + voiceID;
         Cell_V_Size.setAttribute("id", ID_V_Size);
         Cell_V_Size.innerHTML = "Size TODO";
         NewVoiceRowEntry.appendChild(Cell_V_Size);
 
-        //         <th scope="col">Tempo</th>
         var Cell_V_Tempo = document.createElement("td");
         var ID_V_Tempo = "V_Tempo_" + voiceID;
         Cell_V_Tempo.setAttribute("id", ID_V_Tempo);
         Cell_V_Tempo.innerHTML = "Tempo TODO";
         NewVoiceRowEntry.appendChild(Cell_V_Tempo);
 
-        //         <th scope="col">Volume</th>
         var Cell_V_Volume = document.createElement("td");
         var ID_V_Volume = "V_Volume_" + voiceID;
         Cell_V_Volume.setAttribute("id", ID_V_Volume);
         Cell_V_Volume.innerHTML = "Volume TODO";
         NewVoiceRowEntry.appendChild(Cell_V_Volume);
 
-        //         <th scope="col">Attitude</th>
         var Cell_V_Attitude = document.createElement("td");
         var ID_V_Attitude = "V_Attitude_" + voiceID;
         Cell_V_Attitude.setAttribute("id", ID_V_Attitude);
         Cell_V_Attitude.innerHTML = "Attitude TODO";
         NewVoiceRowEntry.appendChild(Cell_V_Attitude);
 
-        //         <th scope="col">Accents</th>
         var Cell_V_Accents = document.createElement("td");
         var ID_V_Accents = "V_Accents_" + voiceID;
         Cell_V_Accents.setAttribute("id", ID_V_Accents);
         Cell_V_Accents.innerHTML = "Accents TODO";
         NewVoiceRowEntry.appendChild(Cell_V_Accents);
         
-        //         <th scope="col">Vocal Issues</th>
         var Cell_V_VocalIssues = document.createElement("td");
         var ID_V_VocalIssues = "V_VocalIssues_" + voiceID;
         Cell_V_VocalIssues.setAttribute("id", ID_V_VocalIssues);
@@ -464,69 +362,9 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
         // Cell_B_Hideout.innerHTML = Hideout[Roll_B_Hideout][0]+"〔"+Roll_B_Hideout+"〕";
         // NewBountyRowEntry.appendChild(Cell_B_Hideout);
         
-
-
-        // // Create random roll (pick 1 from ) , append to td element:  "B_Spin"
-
-        // // Create random roll (pick 1 from ) , append to td element:  "B_Reward"
-
         document.getElementById("VoiceTable").appendChild(NewVoiceRowEntry);
 
       }
-
-      function randomBountyCreateBondsman() {
-        var bondIDRoll = Math.floor(Math.random() * 10000000);
-        var bondIDStr = bondIDRoll.toString();
-        var bondID = bondIDStr.padStart(7, "0"); 
-
-        var NewBondsmanRowEntry = document.createElement("tr");
-
-        isBannerInTheSameDistrict = true;
-
-        // GENERATE Bondsman:
-        //create random 7 digit string
-        var bondsIDRoll = Math.floor(Math.random() * 10000000);
-        var bondsIDStr = bondsIDRoll.toString();
-        var bondsID = bondsIDStr.padStart(7, "0");  
-
-        // Create random roll (pick 1 from 20; if less taht 15 -- then the same as the board) , append to td element:  "S_BannerPostedFrom"
-        var Roll_S_BannerPostedFrom = Math.floor(Math.random() * 20);
-        var ID_S_BannerPostedFrom = "S_BannerPostedFrom_" + bondsID;
-        var Cell_S_BannerPostedFrom = document.createElement("td");
-        Cell_S_BannerPostedFrom.setAttribute("id", ID_S_BannerPostedFrom);
-        if(Roll_S_BannerPostedFrom < 15) {
-          Cell_S_BannerPostedFrom.innerHTML = "Same District";
-        } else {
-          isBannerInTheSameDistrict = false;
-          Cell_S_BannerPostedFrom.innerHTML = "Different District";
-        }
-        NewBondsmanRowEntry.appendChild(Cell_S_BannerPostedFrom);
-
-        // Create random roll (pick 1 from ) , append to td element:  "S_InOut"
-
-        // Create random roll (pick 1 from ) , append to td element:  "S_Location"
-
-        // Create random roll (pick 1 from ) , append to td element:  "S_Spot"
-        var Roll_S_Spot = Math.floor(Math.random() * Spot.length);
-        var ID_S_Spot = "S_Spot_" + bondsID;
-        var Cell_S_Spot = document.createElement("td");
-        Cell_S_Spot.setAttribute("id", ID_S_Spot);
-        Cell_S_Spot.innerHTML = Spot[Roll_S_Spot][0]+"〔"+Roll_S_Spot+"〕";
-        NewBondsmanRowEntry.appendChild(Cell_S_Spot);
-
-        // Create random roll (pick 1 from ) , append to td element:  "S_Spin"
-
-        // Create random roll (pick 1 from ) , append to td element:  "S_Distance"
-
-        // Create random roll (pick 1 from ) , append to td element:  "S_Rac"
-
-        // Create random roll (pick 1 from ) , append to td element:  "S_Class"
-
-        // Create random roll (pick 1 from ) , append to td element:  "S_Age"  
-
-        document.getElementById("BondsmanTable").appendChild(NewBondsmanRowEntry);
-      }
-
     </script>
   </body> 
 </html>
@@ -565,15 +403,23 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
 * Attribute 5: Size
 ** Small 
 ** Medium
+** Medium
+** Medium
 ** Large
 
 * Attribute 6: Tempo
 ** Slow 
 ** Medium 
+** Medium 
+** Medium 
+** Medium 
+** Fast
 ** Fast
 
 * Attribute 7: Volume
 ** Quiet 
+** Mid 
+** Mid 
 ** Mid 
 ** Loud
 
@@ -595,12 +441,20 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
 ** None
 ** None
 ** None
+** None
+** None
+** None
 ** Sore throat
 ** Lisp
 ** Stutter/stammer
 ** Mumbler ​
 ** Cigar Smoker
 ** Cougher
+
+Attribute 11: Pitch
+** Low
+** Medium
+** High
 
 
  -->
