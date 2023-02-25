@@ -42,7 +42,15 @@
         "Old"
       ];
 
-      VoiceAttr5Size=[
+      VoiceAttr5Pitch=[
+        "Low",
+        "Medium",
+        "Medium",
+        "Medium",
+        "High"
+      ];
+
+      VoiceAttr6Size=[
         "Small",
         "Medium",
         "Medium",
@@ -50,7 +58,7 @@
         "Large"
       ];
 
-      VoiceAttr6Tempo=[
+      VoiceAttr7Tempo=[
         "Slow",
         "Medium",
         "Medium",
@@ -60,7 +68,7 @@
         "Fast"
       ];
 
-      VoiceAttr7Volume=[
+      VoiceAttr8Volume=[
         "Quiet",
         "Mid",
         "Mid",
@@ -68,13 +76,13 @@
         "Loud"
       ];
 
-      VoiceAttr8ToneAttitude=[
+      VoiceAttr9ToneAttitude=[
         "Friendly",
         "Impartial",
         "Agressive"
       ];
 
-      VoiceAttr9Accents=[
+      VoiceAttr10Accents=[
         "British",
         "Australian",
         "Canadian",
@@ -102,17 +110,7 @@
         "Latin American"
       ];
 
-      VoiceAttr12Misc=[
-        "Singing",
-        "Whispering",
-        "Yelling",
-        "Crying",
-        "Laughing",
-        "Talking",
-        "Talking"
-      ];
-
-      VoiceAttr10VocalIssues=[
+      VoiceAttr11VocalIssues=[
         "None",
         "Stuttering",
         "Stammering",
@@ -122,15 +120,12 @@
         "Soar Throat",
         "Lisp",
         "Cigar Smoker",
-        "Cougher"
-      ];
-
-      VoiceAttr11Pitch=[
-        "Low",
-        "Medium",
-        "Medium",
-        "Medium",
-        "High"
+        "Cougher",
+        "Singing",
+        "Whispering",
+        "Yelling",
+        "Crying",
+        "Laughing",
       ];
 
     </script>
@@ -227,10 +222,11 @@
         // var Cell_B_Action = document.createElement("td");
         // Cell_B_Action.setAttribute("id", ID_B_Action);
 
+        var Roll_v_Laban = Math.floor(Math.random() * VoiceAttr1Laban.length);
         var Cell_V_Laban = document.createElement("td");
         var ID_V_Laban = "V_Laban_" + voiceID;
         Cell_V_Laban.setAttribute("id", ID_V_Laban);
-        Cell_V_Laban.innerHTML = "Laban TODO";
+        Cell_V_Laban.innerHTML = VoiceAttr1Laban[Roll_v_Laban][0]+"〔"+Roll_v_Laban+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Laban);
 
         var Cell_V_Placement = document.createElement("td");
