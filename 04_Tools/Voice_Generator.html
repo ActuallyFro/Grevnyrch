@@ -123,7 +123,7 @@
                 <th scope="col">Reward</th> -->
               </tr>
             </thead>
-            <tbody id="SkipTable">
+            <tbody id="VoiceTable">
               <tr>           
               </tr>
             </tbody>
@@ -228,177 +228,249 @@ document.getElementById('flexSwitchCheckDefault').addEventListener('change', fun
       // }
 
       function randomVoiceGenerate() {
-        var BountyCRLevel = document.getElementById("BountyCRLevel").value;
 
-        var NewBountyRowEntry = document.createElement("tr");
+        //var BountyCRLevel = document.getElementById("BountyCRLevel").value;
+
+        var NewVoiceRowEntry = document.createElement("tr");
 
         // GENERATE Voice:
         var voiceIDRoll = Math.floor(Math.random() * 10000000);
         var voiceIDStr = voiceIDRoll.toString();
         var voiceID = voiceIDStr.padStart(7, "0");        
 
-        // Create random roll (pick 1 from 100) , append to td element:  "B_Action"
-        var Roll_B_Action = Math.floor(Math.random() * 100);
-        var ID_B_Action = "B_Action_" + voiceID;
-        var Cell_B_Action = document.createElement("td");
-        Cell_B_Action.setAttribute("id", ID_B_Action);
+        // // Create random roll (pick 1 from 100) , append to td element:  "B_Action"
+        // var Roll_B_Action = Math.floor(Math.random() * 100);
+        // var ID_B_Action = "B_Action_" + voiceID;
+        // var Cell_B_Action = document.createElement("td");
+        // Cell_B_Action.setAttribute("id", ID_B_Action);
 
-        // //determine index, based on RollAction
-        // var ActionIndex = 0;
-        // // var isRunAway = false;
-        // for (var iAct = 0; iAct < RollAction.length; iAct++) {
-        //   if (RollAction[iAct][1] <= Roll_B_Action && Roll_B_Action <= RollAction[iAct][2]) {
-        //     ActionIndex = iAct;
-        //     // if (RollAction[iAct][0] == "Runs Away") {
-        //     //   isRunAway = true;
-        //     // }
-        //     break;
-        //   }
-        // }
+        // // //determine index, based on RollAction
+        // // var ActionIndex = 0;
+        // // // var isRunAway = false;
+        // // for (var iAct = 0; iAct < RollAction.length; iAct++) {
+        // //   if (RollAction[iAct][1] <= Roll_B_Action && Roll_B_Action <= RollAction[iAct][2]) {
+        // //     ActionIndex = iAct;
+        // //     // if (RollAction[iAct][0] == "Runs Away") {
+        // //     //   isRunAway = true;
+        // //     // }
+        // //     break;
+        // //   }
+        // // }
 
-        // var RollString=RollAction[ActionIndex][0];
+        // // var RollString=RollAction[ActionIndex][0];
         
-        // var InnocentOrGuilty="";
-        // if(isRunAway){
-        //   console.log("Run Away FOUND!");
-        //   InnocentOrGuilty="Innocent - ";
+        // // var InnocentOrGuilty="";
+        // // if(isRunAway){
+        // //   console.log("Run Away FOUND!");
+        // //   InnocentOrGuilty="Innocent - ";
 
-        //   if(Math.random() < 0.5){
-        //     InnocentOrGuilty="Guilty - ";
-        //   }
+        // //   if(Math.random() < 0.5){
+        // //     InnocentOrGuilty="Guilty - ";
+        // //   }
+        // // }
+        // var sumAct=Roll_B_Action+1;
+
+        // Cell_B_Action.innerHTML = InnocentOrGuilty + RollString + "〔"+sumAct+"〕";
+        // NewBountyRowEntry.appendChild(Cell_B_Action);
+
+        // <th scope="col">Laban Effort</th>
+
+        var Cell_V_Laban = document.createElement("td");
+        var ID_V_Laban = "V_Laban_" + voiceID;
+        Cell_V_Laban.setAttribute("id", ID_V_Laban);
+        Cell_V_Laban.innerHTML = "Laban TODO";
+        NewVoiceRowEntry.appendChild(Cell_V_Laban);
+
+        //         <th scope="col">Placement</th>
+        var Cell_V_Placement = document.createElement("td");
+        var ID_V_Placement = "V_Placement_" + voiceID;
+        Cell_V_Placement.setAttribute("id", ID_V_Placement);
+        Cell_V_Placement.innerHTML = "Placement TODO";
+        NewVoiceRowEntry.appendChild(Cell_V_Placement);
+
+        //         <th scope="col">Air Quality</th>
+        var Cell_V_AirQuality = document.createElement("td");
+        var ID_V_AirQuality = "V_AirQuality_" + voiceID;
+        Cell_V_AirQuality.setAttribute("id", ID_V_AirQuality);
+        Cell_V_AirQuality.innerHTML = "Air Quality TODO";
+        NewVoiceRowEntry.appendChild(Cell_V_AirQuality);
+
+        //         <th scope="col">Age</th>
+        var Cell_V_Age = document.createElement("td");
+        var ID_V_Age = "V_Age_" + voiceID;
+        Cell_V_Age.setAttribute("id", ID_V_Age);
+        Cell_V_Age.innerHTML = "Age TODO";
+        NewVoiceRowEntry.appendChild(Cell_V_Age);
+
+        //         <th scope="col">Size</th>
+        var Cell_V_Size = document.createElement("td");
+        var ID_V_Size = "V_Size_" + voiceID;
+        Cell_V_Size.setAttribute("id", ID_V_Size);
+        Cell_V_Size.innerHTML = "Size TODO";
+        NewVoiceRowEntry.appendChild(Cell_V_Size);
+
+        //         <th scope="col">Tempo</th>
+        var Cell_V_Tempo = document.createElement("td");
+        var ID_V_Tempo = "V_Tempo_" + voiceID;
+        Cell_V_Tempo.setAttribute("id", ID_V_Tempo);
+        Cell_V_Tempo.innerHTML = "Tempo TODO";
+        NewVoiceRowEntry.appendChild(Cell_V_Tempo);
+
+        //         <th scope="col">Volume</th>
+        var Cell_V_Volume = document.createElement("td");
+        var ID_V_Volume = "V_Volume_" + voiceID;
+        Cell_V_Volume.setAttribute("id", ID_V_Volume);
+        Cell_V_Volume.innerHTML = "Volume TODO";
+        NewVoiceRowEntry.appendChild(Cell_V_Volume);
+
+        //         <th scope="col">Attitude</th>
+        var Cell_V_Attitude = document.createElement("td");
+        var ID_V_Attitude = "V_Attitude_" + voiceID;
+        Cell_V_Attitude.setAttribute("id", ID_V_Attitude);
+        Cell_V_Attitude.innerHTML = "Attitude TODO";
+        NewVoiceRowEntry.appendChild(Cell_V_Attitude);
+
+        //         <th scope="col">Accents</th>
+        var Cell_V_Accents = document.createElement("td");
+        var ID_V_Accents = "V_Accents_" + voiceID;
+        Cell_V_Accents.setAttribute("id", ID_V_Accents);
+        Cell_V_Accents.innerHTML = "Accents TODO";
+        NewVoiceRowEntry.appendChild(Cell_V_Accents);
+        
+        //         <th scope="col">Vocal Issues</th>
+        var Cell_V_VocalIssues = document.createElement("td");
+        var ID_V_VocalIssues = "V_VocalIssues_" + voiceID;
+        Cell_V_VocalIssues.setAttribute("id", ID_V_VocalIssues);
+        Cell_V_VocalIssues.innerHTML = "Vocal Issues TODO";
+        NewVoiceRowEntry.appendChild(Cell_V_VocalIssues);
+
+        // // Create random roll (pick 1 from Racs[]) , append to td element:  "B_Rac"        
+        // var Roll_B_Rac = Math.floor(Math.random() * Racs.length);
+        // var ID_B_Rac = "B_Rac_" + voiceID;
+        // var Cell_B_Rac = document.createElement("td");
+        // Cell_B_Rac.setAttribute("id", ID_B_Rac);
+        // Cell_B_Rac.innerHTML = Racs[Roll_B_Rac][0]+"〔"+Roll_B_Rac+"〕";
+        // NewBountyRowEntry.appendChild(Cell_B_Rac);
+
+        // // Create random roll (pick 1 from Classes[]) , append to td element:  "B_Class"
+        // var Roll_B_Class = Math.floor(Math.random() * classes.length);
+        // var ID_B_Class = "B_Class_" + voiceID;
+        // var Cell_B_Class = document.createElement("td");
+        // Cell_B_Class.setAttribute("id", ID_B_Class);
+        // Cell_B_Class.innerHTML = classes[Roll_B_Class][0]+"〔"+Roll_B_Class+"〕";
+        // NewBountyRowEntry.appendChild(Cell_B_Class);
+
+        // // Create random roll (pick 1 from backgrounds[]) , append to td element:  "B_Background"
+        // var Roll_B_Background = Math.floor(Math.random() * backgrounds.length);
+        // var ID_B_Background = "B_Background_" + voiceID;
+        // var Cell_B_Background = document.createElement("td");
+        // Cell_B_Background.setAttribute("id", ID_B_Background);
+        // Cell_B_Background.innerHTML = backgrounds[Roll_B_Background][0]+"〔"+Roll_B_Background+"〕";
+        // NewBountyRowEntry.appendChild(Cell_B_Background);
+
+        // // Create random roll (pick 1 from 20; modulus with even) , append to td element:  "B_CR"
+        // var Roll_B_CR = Math.floor(Math.random() * 6) + Math.floor(Math.random() * 10);
+        // var offsetCR;
+        // if (Roll_B_CR < 6) {
+        //   offsetCR = -1;
+        // } else if (Roll_B_CR < 13) {
+        //   offsetCR = 0;
+        // } else {
+        //   offsetCR = 1;
         // }
-        var sumAct=Roll_B_Action+1;
-
-        Cell_B_Action.innerHTML = InnocentOrGuilty + RollString + "〔"+sumAct+"〕";
-        NewBountyRowEntry.appendChild(Cell_B_Action);
-
-        // Create random roll (pick 1 from Racs[]) , append to td element:  "B_Rac"
-        var Roll_B_Rac = Math.floor(Math.random() * Racs.length);
-        var ID_B_Rac = "B_Rac_" + voiceID;
-        var Cell_B_Rac = document.createElement("td");
-        Cell_B_Rac.setAttribute("id", ID_B_Rac);
-        Cell_B_Rac.innerHTML = Racs[Roll_B_Rac][0]+"〔"+Roll_B_Rac+"〕";
-        NewBountyRowEntry.appendChild(Cell_B_Rac);
-
-        // Create random roll (pick 1 from Classes[]) , append to td element:  "B_Class"
-        var Roll_B_Class = Math.floor(Math.random() * classes.length);
-        var ID_B_Class = "B_Class_" + voiceID;
-        var Cell_B_Class = document.createElement("td");
-        Cell_B_Class.setAttribute("id", ID_B_Class);
-        Cell_B_Class.innerHTML = classes[Roll_B_Class][0]+"〔"+Roll_B_Class+"〕";
-        NewBountyRowEntry.appendChild(Cell_B_Class);
-
-        // Create random roll (pick 1 from backgrounds[]) , append to td element:  "B_Background"
-        var Roll_B_Background = Math.floor(Math.random() * backgrounds.length);
-        var ID_B_Background = "B_Background_" + voiceID;
-        var Cell_B_Background = document.createElement("td");
-        Cell_B_Background.setAttribute("id", ID_B_Background);
-        Cell_B_Background.innerHTML = backgrounds[Roll_B_Background][0]+"〔"+Roll_B_Background+"〕";
-        NewBountyRowEntry.appendChild(Cell_B_Background);
-
-        // Create random roll (pick 1 from 20; modulus with even) , append to td element:  "B_CR"
-        var Roll_B_CR = Math.floor(Math.random() * 6) + Math.floor(Math.random() * 10);
-        var offsetCR;
-        if (Roll_B_CR < 6) {
-          offsetCR = -1;
-        } else if (Roll_B_CR < 13) {
-          offsetCR = 0;
-        } else {
-          offsetCR = 1;
-        }
-        var targetCR = parseInt(BountyCRLevel) + offsetCR;
-        console.log("targetCR: " + targetCR);
-        if (targetCR < 0) {
-          targetCR = 0;
-        } else if (targetCR > 20) {
-          targetCR = 20;
-        }
+        // var targetCR = parseInt(BountyCRLevel) + offsetCR;
+        // console.log("targetCR: " + targetCR);
+        // if (targetCR < 0) {
+        //   targetCR = 0;
+        // } else if (targetCR > 20) {
+        //   targetCR = 20;
+        // }
 
 
-        // var Roll_B_CR = Math.floor(Math.random() * 20);
-        var ID_B_CR = "B_CR_" + voiceID;
-        var Cell_B_CR = document.createElement("td");
-        Cell_B_CR.setAttribute("id", ID_B_CR);
-        Cell_B_CR.innerHTML = targetCR;
-        NewBountyRowEntry.appendChild(Cell_B_CR);
+        // // var Roll_B_CR = Math.floor(Math.random() * 20);
+        // var ID_B_CR = "B_CR_" + voiceID;
+        // var Cell_B_CR = document.createElement("td");
+        // Cell_B_CR.setAttribute("id", ID_B_CR);
+        // Cell_B_CR.innerHTML = targetCR;
+        // NewBountyRowEntry.appendChild(Cell_B_CR);
 
-        // Create random roll (pick 1 from 4) , append to td element:  "B_Location_InOut"
-        var Roll_B_Location_InOut = Math.floor(Math.random() * RollLocationInOut.length);
+        // // Create random roll (pick 1 from 4) , append to td element:  "B_Location_InOut"
+        // var Roll_B_Location_InOut = Math.floor(Math.random() * RollLocationInOut.length);
 
-        //////////
-        var validLocations = GenerateValidLocationsFromCR(BountyCRLevel);
+        // //////////
+        // var validLocations = GenerateValidLocationsFromCR(BountyCRLevel);
       
-        var locationMismatch = true;
-        var filteredValidLocations = [];
-        for (var ij = 0; ij < validLocations.length; ij++) {
-          // for (var j = 0; j < Locations.length; j++) {
-            //console: log -- RollLocationInOut[Roll_B_Location_InOut] == Locations[j][1]
-            var LocationIndex = getLocationIndex(validLocations[ij]);
-            console.log("RollLocationInOut[Roll_B_Location_InOut] ("+RollLocationInOut[Roll_B_Location_InOut]+") == Locations[LocationIndex][1] ("+Locations[LocationIndex][1]+")");
-            if (RollLocationInOut[Roll_B_Location_InOut] == Locations[LocationIndex][1]) {
-              console.log("MATCH!");
-              filteredValidLocations.push(validLocations[ij]);
-              locationMismatch=false;
-            }
-          // }
-        }
+        // var locationMismatch = true;
+        // var filteredValidLocations = [];
+        // for (var ij = 0; ij < validLocations.length; ij++) {
+        //   // for (var j = 0; j < Locations.length; j++) {
+        //     //console: log -- RollLocationInOut[Roll_B_Location_InOut] == Locations[j][1]
+        //     var LocationIndex = getLocationIndex(validLocations[ij]);
+        //     console.log("RollLocationInOut[Roll_B_Location_InOut] ("+RollLocationInOut[Roll_B_Location_InOut]+") == Locations[LocationIndex][1] ("+Locations[LocationIndex][1]+")");
+        //     if (RollLocationInOut[Roll_B_Location_InOut] == Locations[LocationIndex][1]) {
+        //       console.log("MATCH!");
+        //       filteredValidLocations.push(validLocations[ij]);
+        //       locationMismatch=false;
+        //     }
+        //   // }
+        // }
 
-        //shuffle validLocations
-        if (locationMismatch) {
-          console.log("[DEBUG] Location Mismatch! FLIPPING!");
-          filteredValidLocations = validLocations; //override
-          //toggle: Roll_B_Location_InOut
-          if (Roll_B_Location_InOut == 0) {
-            Roll_B_Location_InOut = 1;
-          } else {
-            Roll_B_Location_InOut = 0;
-          }
-        }
+        // //shuffle validLocations
+        // if (locationMismatch) {
+        //   console.log("[DEBUG] Location Mismatch! FLIPPING!");
+        //   filteredValidLocations = validLocations; //override
+        //   //toggle: Roll_B_Location_InOut
+        //   if (Roll_B_Location_InOut == 0) {
+        //     Roll_B_Location_InOut = 1;
+        //   } else {
+        //     Roll_B_Location_InOut = 0;
+        //   }
+        // }
 
-        for (var i = filteredValidLocations.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var temp = filteredValidLocations[i];
-          filteredValidLocations[i] = filteredValidLocations[j];
-          filteredValidLocations[j] = temp;
-        }
+        // for (var i = filteredValidLocations.length - 1; i > 0; i--) {
+        //   var j = Math.floor(Math.random() * (i + 1));
+        //   var temp = filteredValidLocations[i];
+        //   filteredValidLocations[i] = filteredValidLocations[j];
+        //   filteredValidLocations[j] = temp;
+        // }
 
-        //////////
+        // //////////
 
-        var ID_B_Location_InOut = "B_Location_InOut_" + voiceID;
-        var Cell_B_Location_InOut = document.createElement("td");
-        Cell_B_Location_InOut.setAttribute("id", ID_B_Location_InOut);
-        var sum = Roll_B_Location_InOut + 1;
-        Cell_B_Location_InOut.innerHTML = RollLocationInOut[Roll_B_Location_InOut]+"〔"+sum+"〕";
-        NewBountyRowEntry.appendChild(Cell_B_Location_InOut);
+        // var ID_B_Location_InOut = "B_Location_InOut_" + voiceID;
+        // var Cell_B_Location_InOut = document.createElement("td");
+        // Cell_B_Location_InOut.setAttribute("id", ID_B_Location_InOut);
+        // var sum = Roll_B_Location_InOut + 1;
+        // Cell_B_Location_InOut.innerHTML = RollLocationInOut[Roll_B_Location_InOut]+"〔"+sum+"〕";
+        // NewBountyRowEntry.appendChild(Cell_B_Location_InOut);
 
-        // Create random roll (pick 1 from 6 and add pick 1 from 10) , append to td element:  "B_Location"
-        var Roll_B_Location = Math.floor(Math.random() * 6) + Math.floor(Math.random() * 10);
+        // // Create random roll (pick 1 from 6 and add pick 1 from 10) , append to td element:  "B_Location"
+        // var Roll_B_Location = Math.floor(Math.random() * 6) + Math.floor(Math.random() * 10);
 
-        targetLocation = filteredValidLocations[0];
-        console.log("Only one valid location: " + targetLocation);
+        // targetLocation = filteredValidLocations[0];
+        // console.log("Only one valid location: " + targetLocation);
 
-        var ID_B_Location = "B_Location_" + voiceID;
-        var Cell_B_Location = document.createElement("td");
-        Cell_B_Location.setAttribute("id", ID_B_Location);
-        Cell_B_Location.innerHTML = targetLocation + "〔" + Roll_B_Location + " - no impact〕";
-        NewBountyRowEntry.appendChild(Cell_B_Location);
+        // var ID_B_Location = "B_Location_" + voiceID;
+        // var Cell_B_Location = document.createElement("td");
+        // Cell_B_Location.setAttribute("id", ID_B_Location);
+        // Cell_B_Location.innerHTML = targetLocation + "〔" + Roll_B_Location + " - no impact〕";
+        // NewBountyRowEntry.appendChild(Cell_B_Location);
 
 
-        // Create random roll (pick 1 from ) , append to td element:  "B_Hideout"
-        var Roll_B_Hideout = Math.floor(Math.random() * Hideout.length);
-        var ID_B_Hideout = "B_Hideout_" + voiceID;
-        var Cell_B_Hideout = document.createElement("td");
-        Cell_B_Hideout.setAttribute("id", ID_B_Hideout);
-        Cell_B_Hideout.innerHTML = Hideout[Roll_B_Hideout][0]+"〔"+Roll_B_Hideout+"〕";
-        NewBountyRowEntry.appendChild(Cell_B_Hideout);
+        // // Create random roll (pick 1 from ) , append to td element:  "B_Hideout"
+        // var Roll_B_Hideout = Math.floor(Math.random() * Hideout.length);
+        // var ID_B_Hideout = "B_Hideout_" + voiceID;
+        // var Cell_B_Hideout = document.createElement("td");
+        // Cell_B_Hideout.setAttribute("id", ID_B_Hideout);
+        // Cell_B_Hideout.innerHTML = Hideout[Roll_B_Hideout][0]+"〔"+Roll_B_Hideout+"〕";
+        // NewBountyRowEntry.appendChild(Cell_B_Hideout);
         
 
 
-        // Create random roll (pick 1 from ) , append to td element:  "B_Spin"
+        // // Create random roll (pick 1 from ) , append to td element:  "B_Spin"
 
-        // Create random roll (pick 1 from ) , append to td element:  "B_Reward"
+        // // Create random roll (pick 1 from ) , append to td element:  "B_Reward"
 
-        document.getElementById("SkipTable").appendChild(NewBountyRowEntry);
+        document.getElementById("VoiceTable").appendChild(NewVoiceRowEntry);
 
       }
 
