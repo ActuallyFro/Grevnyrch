@@ -226,67 +226,78 @@
         var Cell_V_Laban = document.createElement("td");
         var ID_V_Laban = "V_Laban_" + voiceID;
         Cell_V_Laban.setAttribute("id", ID_V_Laban);
+        Cell_V_Laban.setAttribute("title", VoiceAttr1Laban[Roll_v_Laban][1]);
         Cell_V_Laban.innerHTML = VoiceAttr1Laban[Roll_v_Laban][0]+"〔"+Roll_v_Laban+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Laban);
 
+        var Roll_v_Placement = Math.floor(Math.random() * VoiceAttr2Placement.length);
         var Cell_V_Placement = document.createElement("td");
         var ID_V_Placement = "V_Placement_" + voiceID;
         Cell_V_Placement.setAttribute("id", ID_V_Placement);
-        Cell_V_Placement.innerHTML = "Placement TODO";
+        Cell_V_Placement.innerHTML = VoiceAttr2Placement[Roll_v_Placement]+"〔"+Roll_v_Placement+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Placement);
 
+        var Roll_v_AirQuality = Math.floor(Math.random() * VoiceAttr3AirQuality.length);
         var Cell_V_AirQuality = document.createElement("td");
         var ID_V_AirQuality = "V_AirQuality_" + voiceID;
         Cell_V_AirQuality.setAttribute("id", ID_V_AirQuality);
-        Cell_V_AirQuality.innerHTML = "Air Quality TODO";
+        Cell_V_AirQuality.innerHTML = VoiceAttr3AirQuality[Roll_v_AirQuality]+"〔"+Roll_v_AirQuality+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_AirQuality);
 
+        var Roll_v_Age = Math.floor(Math.random() * VoiceAttr4AgeRange.length);
         var Cell_V_Age = document.createElement("td");
         var ID_V_Age = "V_Age_" + voiceID;
         Cell_V_Age.setAttribute("id", ID_V_Age);
-        Cell_V_Age.innerHTML = "Age TODO";
+        Cell_V_Age.innerHTML = VoiceAttr4AgeRange[Roll_v_Age]+"〔"+Roll_v_Age+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Age);
 
+        var Roll_v_Pitch = Math.floor(Math.random() * VoiceAttr5Pitch.length);
         var Cell_V_Pitch = document.createElement("td");
         var ID_V_Pitch = "V_Pitch_" + voiceID;
         Cell_V_Pitch.setAttribute("id", ID_V_Pitch);
-        Cell_V_Pitch.innerHTML = "Pitch TODO";
+        Cell_V_Pitch.innerHTML = VoiceAttr5Pitch[Roll_v_Pitch]+"〔"+Roll_v_Pitch+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Pitch);
 
+        var Roll_v_Size = Math.floor(Math.random() * VoiceAttr6Size.length);
         var Cell_V_Size = document.createElement("td");
         var ID_V_Size = "V_Size_" + voiceID;
         Cell_V_Size.setAttribute("id", ID_V_Size);
-        Cell_V_Size.innerHTML = "Size TODO";
+        Cell_V_Size.innerHTML = VoiceAttr6Size[Roll_v_Size]+"〔"+Roll_v_Size+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Size);
 
+        var Roll_v_Tone = Math.floor(Math.random() * VoiceAttr7Tempo.length);
         var Cell_V_Tempo = document.createElement("td");
         var ID_V_Tempo = "V_Tempo_" + voiceID;
         Cell_V_Tempo.setAttribute("id", ID_V_Tempo);
-        Cell_V_Tempo.innerHTML = "Tempo TODO";
+        Cell_V_Tempo.innerHTML = VoiceAttr7Tempo[Roll_v_Tone]+"〔"+Roll_v_Tone+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Tempo);
 
+        var Roll_v_Tempo = Math.floor(Math.random() * VoiceAttr8Volume.length);
         var Cell_V_Volume = document.createElement("td");
         var ID_V_Volume = "V_Volume_" + voiceID;
         Cell_V_Volume.setAttribute("id", ID_V_Volume);
-        Cell_V_Volume.innerHTML = "Volume TODO";
+        Cell_V_Volume.innerHTML = VoiceAttr8Volume[Roll_v_Tempo]+"〔"+Roll_v_Tempo+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Volume);
 
+        var Roll_v_Volume = Math.floor(Math.random() * VoiceAttr9ToneAttitude.length);
         var Cell_V_Attitude = document.createElement("td");
         var ID_V_Attitude = "V_Attitude_" + voiceID;
         Cell_V_Attitude.setAttribute("id", ID_V_Attitude);
-        Cell_V_Attitude.innerHTML = "Attitude TODO";
+        Cell_V_Attitude.innerHTML = VoiceAttr9ToneAttitude[Roll_v_Volume]+"〔"+Roll_v_Volume+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Attitude);
 
+        var Roll_v_Attitude = Math.floor(Math.random() * VoiceAttr10Accents.length);
         var Cell_V_Accents = document.createElement("td");
         var ID_V_Accents = "V_Accents_" + voiceID;
         Cell_V_Accents.setAttribute("id", ID_V_Accents);
-        Cell_V_Accents.innerHTML = "Accents TODO";
+        Cell_V_Accents.innerHTML = VoiceAttr10Accents[Roll_v_Attitude]+"〔"+Roll_v_Attitude+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Accents);
         
+        var Roll_v_Accents = Math.floor(Math.random() * VoiceAttr11VocalIssues.length);
         var Cell_V_VocalIssues = document.createElement("td");
         var ID_V_VocalIssues = "V_VocalIssues_" + voiceID;
         Cell_V_VocalIssues.setAttribute("id", ID_V_VocalIssues);
-        Cell_V_VocalIssues.innerHTML = "Vocal Issues TODO";
+        Cell_V_VocalIssues.innerHTML = VoiceAttr11VocalIssues[Roll_v_Accents]+"〔"+Roll_v_Accents+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_VocalIssues);
 
         // // Create random roll (pick 1 from Racs[]) , append to td element:  "B_Rac"        
