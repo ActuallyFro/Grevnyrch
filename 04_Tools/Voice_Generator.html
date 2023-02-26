@@ -310,29 +310,19 @@
           throw new Error('16 integer inputs are required');
         }
         const uuid = inputs.map((n) => n.toString(16).padStart(2, '0')).join('');
-        // set the version to 4 (randomly generated) and the variant to 8 (RFC 4122)
-        const uuidChars = uuid.split('');
-        uuidChars[12] = '4';
-        uuidChars[16] = '8';
-        var tempStr = uuidChars.join('');
+        var UUIDStr = uuid.substring(0,8) + "-" + uuid.substring(8,12) + "-" + uuid.substring(12,16) + "-" + uuid.substring(16,20) + "-" + uuid.substring(20,32);
 
-        //format tempStr string as UUID
-        var UUIDStr = tempStr.substring(0,8) + "-" + tempStr.substring(8,12) + "-" + tempStr.substring(12,16) + "-" + tempStr.substring(16,20) + "-" + tempStr.substring(20,32);
-
-        var UUIDStr;
         return UUIDStr;
       }
 
 
       function importUUID(passedUUID) {
-
-        // remove all dashes from passedUUID
         var tempStr = passedUUID.replace(/-/g, '');
 
-        //read in every 2 characters and convert to integer, and save to inputs [Roll_V_Laban, Roll_V_Placement, Roll_V_AirQuality, Roll_V_Age, Roll_V_Pitch, Roll_V_Size, Roll_V_Tone, Roll_V_Tempo, Roll_V_Volume, Roll_V_Attitude, Roll_V_Accents, Roll_V_ThroatRestriction, Roll_V_Airflow, Roll_V_TonguePosition, Roll_V_JawPosition, Roll_V_LipPosition]
         var inputs = [];
         for (var i = 0; i < 16; i++) {
           inputs[i] = parseInt(tempStr.substring(i*2, i*2+2), 16);
+          console.log("Read in: "+inputs[i]);
         }
         return inputs;
       }
