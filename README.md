@@ -37,12 +37,13 @@ City Districts
 Tools
 =====
 1. [GLS Logger](https://actuallyfro.github.io/Grevnyrch/02_GLSL/GLSL.html)
-2. [Voice Generator](https://actuallyfro.github.io/Grevnyrch/04_Tools/Voice_Generator.html)
-3. [Initiative.sh](https://initiative.sh/)
-4. [Treasure - Donjon](https://donjon.bin.sh/5e/random/#type=treasure;cr=0;loot_type=Individual%20Treasure?refer_by=scabard.com)
-5. [Fantasy Names Generator](https://www.fantasynamegenerators.com/shop-names.php)
+2. [Bounty Generator](https://actuallyfro.github.io/Grevnyrch/04_Tools/Bounty_Generator.html)
+3. [Voice Generator](https://actuallyfro.github.io/Grevnyrch/04_Tools/Voice_Generator.html)
+4. [Initiative.sh](https://initiative.sh/)
+5. [Treasure - Donjon](https://donjon.bin.sh/5e/random/#type=treasure;cr=0;loot_type=Individual%20Treasure?refer_by=scabard.com)
+6. [Fantasy Names Generator](https://www.fantasynamegenerators.com/shop-names.php)
 
-###Name Generator:
+### Name Generator:
 1. [Name Generator - Inns](https://www.fantasynamegenerators.com/inn-names.php)
 2. [Name Generator - Shops](https://www.fantasynamegenerators.com/shop-names.php)
 3. [NPC Name/features](https://initiative.sh/) Run command: `npc`
