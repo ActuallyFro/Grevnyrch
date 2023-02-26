@@ -197,6 +197,11 @@
                 <th scope="col">Attitude</th>
                 <th scope="col">Accents</th>
                 <th scope="col">Vocal Issues</th>
+                <th scope="col">Throat Restriction</th>
+                <th scope="col">Airflow</th>
+                <th scope="col">Tongue Position</th>
+                <th scope="col">Jaw Position</th>
+                <th scope="col">Lip Position</th>
 
               </tr>
             </thead>
@@ -332,6 +337,47 @@
         Cell_V_VocalIssues.innerHTML = VoiceAttr11VocalIssues[Roll_v_Accents]+"〔"+Roll_v_Accents+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_VocalIssues);
 
+        // <th scope="col">Throat Restriction</th>
+        //         <th scope="col">Airflow</th>
+        //         <th scope="col">Tongue Position</th>
+        //         <th scope="col">Jaw Position</th>
+        //         <th scope="col">Lip Position</th>
+
+        var Roll_V_ThroatRestriction = Math.floor(Math.random() * VoiceAttr12ThroatRestriction.length);
+        var Cell_V_ThroatRestriction = document.createElement("td");
+        var ID_V_ThroatRestriction = "V_ThroatRestriction_" + voiceID;
+        Cell_V_ThroatRestriction.setAttribute("id", ID_V_ThroatRestriction);
+        Cell_V_ThroatRestriction.innerHTML = VoiceAttr12ThroatRestriction[Roll_V_ThroatRestriction]+"〔"+Roll_V_ThroatRestriction+"〕";
+        NewVoiceRowEntry.appendChild(Cell_V_ThroatRestriction);
+
+        var Roll_V_Airflow = Math.floor(Math.random() * VoiceAttr13Airflow.length);
+        var Cell_V_Airflow = document.createElement("td");
+        var ID_V_Airflow = "V_Airflow_" + voiceID;
+        Cell_V_Airflow.setAttribute("id", ID_V_Airflow);
+        Cell_V_Airflow.innerHTML = VoiceAttr13Airflow[Roll_V_Airflow]+"〔"+Roll_V_Airflow+"〕";
+        NewVoiceRowEntry.appendChild(Cell_V_Airflow);
+        
+        var Roll_V_TonguePosition = Math.floor(Math.random() * VoiceAttr14TonguePosition.length);
+        var Cell_V_TonguePosition = document.createElement("td");
+        var ID_V_TonguePosition = "V_TonguePosition_" + voiceID;
+        Cell_V_TonguePosition.setAttribute("id", ID_V_TonguePosition);
+        Cell_V_TonguePosition.innerHTML = VoiceAttr14TonguePosition[Roll_V_TonguePosition]+"〔"+Roll_V_TonguePosition+"〕";
+        NewVoiceRowEntry.appendChild(Cell_V_TonguePosition);
+
+        var Roll_V_JawPosition = Math.floor(Math.random() * VoiceAttr15JawPosition.length);
+        var Cell_V_JawPosition = document.createElement("td");
+        var ID_V_JawPosition = "V_JawPosition_" + voiceID;
+        Cell_V_JawPosition.setAttribute("id", ID_V_JawPosition);
+        Cell_V_JawPosition.innerHTML = VoiceAttr15JawPosition[Roll_V_JawPosition]+"〔"+Roll_V_JawPosition+"〕";
+        NewVoiceRowEntry.appendChild(Cell_V_JawPosition);
+
+        var Roll_V_LipPosition = Math.floor(Math.random() * VoiceAttr16LipPosition.length);
+        var Cell_V_LipPosition = document.createElement("td");
+        var ID_V_LipPosition = "V_LipPosition_" + voiceID;
+        Cell_V_LipPosition.setAttribute("id", ID_V_LipPosition);
+        Cell_V_LipPosition.innerHTML = VoiceAttr16LipPosition[Roll_V_LipPosition]+"〔"+Roll_V_LipPosition+"〕";
+        NewVoiceRowEntry.appendChild(Cell_V_LipPosition);
+
         document.getElementById("VoiceTable").appendChild(NewVoiceRowEntry);
 
       }
@@ -340,8 +386,8 @@
     <hr>
     <!-- ul/li list -->
     <ul>
-      <li><a href="https://www.youtube.com/watch?v=bSE3w2Xg77c" target="_blank">MOST useful Voice Exercise Ever</a></li>
-      <li><a href="https://www.youtube.com/watch?v=7GY0UMjdwwo" target="_blank">5 Minute Warmup</a></li>
+      <!-- <li><a href="https://www.youtube.com/watch?v=bSE3w2Xg77c" target="_blank">MOST useful Voice Exercise Ever (Semi-Supine/Alexander Technique)</a></li>
+      <li><a href="https://www.youtube.com/watch?v=7GY0UMjdwwo" target="_blank">5 Minute Warmup</a></li> -->
       <li><a href="https://www.youtube.com/watch?v=FVmAEezr6ao" target="_blank">100 Voices</a></li>
       <li><a href="https://www.youtube.com/watch?v=MGVzLP_ANzY" target="_blank">100 More Voices</a></li>
     </ul>
