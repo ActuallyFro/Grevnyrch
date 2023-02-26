@@ -323,6 +323,20 @@
         return UUIDStr;
       }
 
+
+      function importUUID(passedUUID) {
+
+        // remove all dashes from passedUUID
+        var tempStr = passedUUID.replace(/-/g, '');
+
+        //read in every 2 characters and convert to integer, and save to inputs [Roll_V_Laban, Roll_V_Placement, Roll_V_AirQuality, Roll_V_Age, Roll_V_Pitch, Roll_V_Size, Roll_V_Tone, Roll_V_Tempo, Roll_V_Volume, Roll_V_Attitude, Roll_V_Accents, Roll_V_ThroatRestriction, Roll_V_Airflow, Roll_V_TonguePosition, Roll_V_JawPosition, Roll_V_LipPosition]
+        var inputs = [];
+        for (var i = 0; i < 16; i++) {
+          inputs[i] = parseInt(tempStr.substring(i*2, i*2+2), 16);
+        }
+        return inputs;
+      }
+
       function randomVoiceGenerate(passedUUID) {
 
         //var BountyCRLevel = document.getElementById("BountyCRLevel").value;
@@ -387,8 +401,24 @@
             return;
           }
 
-          // ADD FUNCTION TO IMPORT HEX to INT for all 16!
-
+          var inputs = importUUID(passedUUID);
+          Roll_V_Laban=inputs[0];
+          Roll_V_Placement=inputs[1];
+          Roll_V_AirQuality=inputs[2];
+          Roll_V_Age=inputs[3];
+          Roll_V_Pitch=inputs[4];
+          Roll_V_Size=inputs[5];
+          Roll_V_Tone=inputs[6];
+          Roll_V_Tempo=inputs[7];
+          Roll_V_Volume=inputs[8];
+          Roll_V_Attitude=inputs[9];
+          Roll_V_Accents=inputs[10];
+          Roll_V_ThroatRestriction=inputs[11];
+          Roll_V_Airflow=inputs[12];
+          Roll_V_TonguePosition=inputs[13];
+          Roll_V_JawPosition=inputs[14];
+          Roll_V_LipPosition=inputs[15];
+        
         } 
 
         var Cell_V_Laban = document.createElement("td");
@@ -488,7 +518,14 @@
         Cell_V_LipPosition.innerHTML = VoiceAttr16LipPosition[Roll_V_LipPosition]+"〔"+Roll_V_LipPosition+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_LipPosition);
 
-        var VoiceUUID_String = generateUUID(Roll_V_Laban, Roll_V_Placement, Roll_V_AirQuality, Roll_V_Age, Roll_V_Pitch, Roll_V_Size, Roll_V_Tone, Roll_V_Tempo, Roll_V_Volume, Roll_V_Attitude, Roll_V_Accents, Roll_V_ThroatRestriction, Roll_V_Airflow, Roll_V_TonguePosition, Roll_V_JawPosition, Roll_V_LipPosition);
+
+        var VoiceUUID_String = "ERROR";
+        if (passedUUID != null) {
+          VoiceUUID_String = passedUUID;
+        } else {
+          VoiceUUID_String = generateUUID(Roll_V_Laban, Roll_V_Placement, Roll_V_AirQuality, Roll_V_Age, Roll_V_Pitch, Roll_V_Size, Roll_V_Tone, Roll_V_Tempo, Roll_V_Volume, Roll_V_Attitude, Roll_V_Accents, Roll_V_ThroatRestriction, Roll_V_Airflow, Roll_V_TonguePosition, Roll_V_JawPosition, Roll_V_LipPosition);
+        }
+
         NewVoiceRowEntry.firstChild.setAttribute("title", VoiceUUID_String);
         // HACK:
         NewVoiceRowEntry.firstChild.innerHTML += "<button onclick=\"alert('"+ VoiceUUID_String + "')\">Show UUID</button>";
