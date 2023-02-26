@@ -299,6 +299,11 @@
         element.classList.toggle("light-mode");
       } 
 
+      function isUUID(str) {
+        const uuidRegex = /^[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}$/i;
+        return uuidRegex.test(str);
+      }
+
       //ChatGPT
       function generateUUID(...inputs) {
         if (inputs.length !== 16) {
@@ -332,13 +337,22 @@
         var Cell_VoiceID = document.createElement("td");
         // This ID is not "useful": Cell_VoiceID.innerHTML = voiceID;
         NewVoiceRowEntry.appendChild(Cell_VoiceID);
+        var isUUIDValid = false;
 
         if (passedUUID == null) {
           console.log("passedUUID is null");
         } else {
-          console.log("passedUUID is: " + passedUUID);
+          isUUIDValid = isUUID(passedUUID);
+          console.log("passedUUID is: " + passedUUID + " isUUIDValid: " + isUUIDValid);
+          // ALERT if passedUUID is not valid
+          if (isUUIDValid == false) {
+            var strLenUUID = passedUUID.length;
+            var UUIDStandardLen = 36;
+            alert("Provided UUID is not valid (" + passedUUID + ") Skipping import of UUID! [Length: " + strLenUUID + " vs. " + UUIDStandardLen + "]");
+            return;
+          }
         }
-
+        
         var Roll_v_Laban = Math.floor(Math.random() * VoiceAttr1Laban.length);
         var Roll_v_Placement = Math.floor(Math.random() * VoiceAttr2Placement.length);
         var Roll_v_AirQuality = Math.floor(Math.random() * VoiceAttr3AirQuality.length);
