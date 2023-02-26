@@ -14,10 +14,15 @@
     <script src="bootstrap.bundle.min.5.2.0.js"></script>
 
     <style>
-      body {
+      /* body {
         margin: 0;
         padding: 0;
+      } */
+
+      .table td, .table th {
+        font-size: 12px; /* adjust the font size as needed */
       }
+
     </style>
 
     <!--  https://www.vocabilities.com/100.html -->
@@ -194,6 +199,7 @@
           <table id="Voice" class="table table-striped table-hover style="width: 77%; margin: 0 auto;">
             <thead>
               <tr>
+                <th ?scope="col">ID</th>
                 <th scope="col">Laban Effort</th>
                 <th scope="col">Placement</th>
                 <th scope="col">Air Quality</th>
@@ -245,6 +251,31 @@
           document.body.classList.remove('dark');
         }
       });
+
+      //Rather would have a 'click the cell to copy UUID to clipboard...' feature
+      // document.getElementById('td[title]').addEventListener('click', function() {
+      //   //ChatGPt -- Click to copy Title to Clipboard...
+      //   // const tds = document.querySelectorAll('td[title]');
+      //   // for (const td of tds) {
+      //     td.addEventListener('click', () => {
+      //       const title = td.getAttribute('title');
+      //       const tempInput = document.createElement('input');
+      //       tempInput.setAttribute('value', title);
+      //       document.body.appendChild(tempInput);
+      //       tempInput.select();
+      //       document.execCommand('copy');
+      //       document.body.removeChild(tempInput);
+      //       alert(`Copied "${title}" to clipboard!`);
+      //     });
+      //   // }
+      // });
+
+      //EXAMPLE for click listener
+      // document.addEventListener('click', (event) => {
+      //   console.log('Mouse clicked at position:', event.clientX, event.clientY);
+      //   alert('You clicked at position: ' + event.clientX + ', ' + event.clientY);
+      // });
+
       
       function toggleDarkMode() {
         var element = document.body;
@@ -256,6 +287,25 @@
         element.classList.toggle("light-mode");
       } 
 
+      //ChatGPT
+      function generateUUID(...inputs) {
+        if (inputs.length !== 16) {
+          throw new Error('16 integer inputs are required');
+        }
+        const uuid = inputs.map((n) => n.toString(16).padStart(2, '0')).join('');
+        // set the version to 4 (randomly generated) and the variant to 8 (RFC 4122)
+        const uuidChars = uuid.split('');
+        uuidChars[12] = '4';
+        uuidChars[16] = '8';
+        var tempStr = uuidChars.join('');
+
+        //format tempStr string as UUID
+        var UUIDStr = tempStr.substring(0,8) + "-" + tempStr.substring(8,12) + "-" + tempStr.substring(12,16) + "-" + tempStr.substring(16,20) + "-" + tempStr.substring(20,32);
+
+        var UUIDStr;
+        return UUIDStr;
+      }
+
       function randomVoiceGenerate() {
 
         //var BountyCRLevel = document.getElementById("BountyCRLevel").value;
@@ -266,6 +316,10 @@
         var voiceIDRoll = Math.floor(Math.random() * 10000000);
         var voiceIDStr = voiceIDRoll.toString();
         var voiceID = voiceIDStr.padStart(7, "0");        
+
+        var Cell_VoiceID = document.createElement("td");
+        Cell_VoiceID.innerHTML = voiceID;
+        NewVoiceRowEntry.appendChild(Cell_VoiceID);
 
         var Roll_v_Laban = Math.floor(Math.random() * VoiceAttr1Laban.length);
         var Cell_V_Laban = document.createElement("td");
@@ -345,12 +399,6 @@
         Cell_V_VocalIssues.innerHTML = VoiceAttr11VocalIssues[Roll_v_Accents]+"〔"+Roll_v_Accents+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_VocalIssues);
 
-        // <th scope="col">Throat Restriction</th>
-        //         <th scope="col">Airflow</th>
-        //         <th scope="col">Tongue Position</th>
-        //         <th scope="col">Jaw Position</th>
-        //         <th scope="col">Lip Position</th>
-
         var Roll_V_ThroatRestriction = Math.floor(Math.random() * VoiceAttr12ThroatRestriction.length);
         var Cell_V_ThroatRestriction = document.createElement("td");
         var ID_V_ThroatRestriction = "V_ThroatRestriction_" + voiceID;
@@ -386,9 +434,15 @@
         Cell_V_LipPosition.innerHTML = VoiceAttr16LipPosition[Roll_V_LipPosition]+"〔"+Roll_V_LipPosition+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_LipPosition);
 
+        var VoiceUUID_String = generateUUID(Roll_v_Laban, Roll_v_Placement, Roll_v_AirQuality, Roll_v_Age, Roll_v_Pitch, Roll_v_Size, Roll_v_Tone, Roll_v_Tempo, Roll_v_Volume, Roll_v_Attitude, Roll_v_Accents, Roll_V_ThroatRestriction, Roll_V_Airflow, Roll_V_TonguePosition, Roll_V_JawPosition, Roll_V_LipPosition);
+        NewVoiceRowEntry.firstChild.setAttribute("title", VoiceUUID_String);
+        // HACK:
+        NewVoiceRowEntry.firstChild.innerHTML += "<button onclick=\"alert('"+ VoiceUUID_String + "')\">Show UUID</button>";
+
         document.getElementById("VoiceTable").appendChild(NewVoiceRowEntry);
 
       }
+
     </script>
 
     <hr>
