@@ -13,6 +13,8 @@
     <link href="bootstrap.min.5.2.0.css" rel="stylesheet">
     <script src="bootstrap.bundle.min.5.2.0.js"></script>
 
+    <!--  https://www.vocabilities.com/100.html -->
+
     <script>
       VoiceAttr1Laban = [
         ["Dabbing","Sudden, direct & light"],
@@ -216,12 +218,6 @@
         var voiceIDStr = voiceIDRoll.toString();
         var voiceID = voiceIDStr.padStart(7, "0");        
 
-        // // Create random roll (pick 1 from 100) , append to td element:  "B_Action"
-        // var Roll_B_Action = Math.floor(Math.random() * 100);
-        // var ID_B_Action = "B_Action_" + voiceID;
-        // var Cell_B_Action = document.createElement("td");
-        // Cell_B_Action.setAttribute("id", ID_B_Action);
-
         var Roll_v_Laban = Math.floor(Math.random() * VoiceAttr1Laban.length);
         var Cell_V_Laban = document.createElement("td");
         var ID_V_Laban = "V_Laban_" + voiceID;
@@ -300,222 +296,9 @@
         Cell_V_VocalIssues.innerHTML = VoiceAttr11VocalIssues[Roll_v_Accents]+"〔"+Roll_v_Accents+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_VocalIssues);
 
-        // // Create random roll (pick 1 from Racs[]) , append to td element:  "B_Rac"        
-        // var Roll_B_Rac = Math.floor(Math.random() * Racs.length);
-        // var ID_B_Rac = "B_Rac_" + voiceID;
-        // var Cell_B_Rac = document.createElement("td");
-        // Cell_B_Rac.setAttribute("id", ID_B_Rac);
-        // Cell_B_Rac.innerHTML = Racs[Roll_B_Rac][0]+"〔"+Roll_B_Rac+"〕";
-        // NewBountyRowEntry.appendChild(Cell_B_Rac);
-
-        // // Create random roll (pick 1 from Classes[]) , append to td element:  "B_Class"
-        // var Roll_B_Class = Math.floor(Math.random() * classes.length);
-        // var ID_B_Class = "B_Class_" + voiceID;
-        // var Cell_B_Class = document.createElement("td");
-        // Cell_B_Class.setAttribute("id", ID_B_Class);
-        // Cell_B_Class.innerHTML = classes[Roll_B_Class][0]+"〔"+Roll_B_Class+"〕";
-        // NewBountyRowEntry.appendChild(Cell_B_Class);
-
-        // // Create random roll (pick 1 from backgrounds[]) , append to td element:  "B_Background"
-        // var Roll_B_Background = Math.floor(Math.random() * backgrounds.length);
-        // var ID_B_Background = "B_Background_" + voiceID;
-        // var Cell_B_Background = document.createElement("td");
-        // Cell_B_Background.setAttribute("id", ID_B_Background);
-        // Cell_B_Background.innerHTML = backgrounds[Roll_B_Background][0]+"〔"+Roll_B_Background+"〕";
-        // NewBountyRowEntry.appendChild(Cell_B_Background);
-
-        // // Create random roll (pick 1 from 20; modulus with even) , append to td element:  "B_CR"
-        // var Roll_B_CR = Math.floor(Math.random() * 6) + Math.floor(Math.random() * 10);
-        // var offsetCR;
-        // if (Roll_B_CR < 6) {
-        //   offsetCR = -1;
-        // } else if (Roll_B_CR < 13) {
-        //   offsetCR = 0;
-        // } else {
-        //   offsetCR = 1;
-        // }
-        // var targetCR = parseInt(BountyCRLevel) + offsetCR;
-        // console.log("targetCR: " + targetCR);
-        // if (targetCR < 0) {
-        //   targetCR = 0;
-        // } else if (targetCR > 20) {
-        //   targetCR = 20;
-        // }
-
-
-        // // var Roll_B_CR = Math.floor(Math.random() * 20);
-        // var ID_B_CR = "B_CR_" + voiceID;
-        // var Cell_B_CR = document.createElement("td");
-        // Cell_B_CR.setAttribute("id", ID_B_CR);
-        // Cell_B_CR.innerHTML = targetCR;
-        // NewBountyRowEntry.appendChild(Cell_B_CR);
-
-        // // Create random roll (pick 1 from 4) , append to td element:  "B_Location_InOut"
-        // var Roll_B_Location_InOut = Math.floor(Math.random() * RollLocationInOut.length);
-
-        // //////////
-        // var validLocations = GenerateValidLocationsFromCR(BountyCRLevel);
-      
-        // var locationMismatch = true;
-        // var filteredValidLocations = [];
-        // for (var ij = 0; ij < validLocations.length; ij++) {
-        //   // for (var j = 0; j < Locations.length; j++) {
-        //     //console: log -- RollLocationInOut[Roll_B_Location_InOut] == Locations[j][1]
-        //     var LocationIndex = getLocationIndex(validLocations[ij]);
-        //     console.log("RollLocationInOut[Roll_B_Location_InOut] ("+RollLocationInOut[Roll_B_Location_InOut]+") == Locations[LocationIndex][1] ("+Locations[LocationIndex][1]+")");
-        //     if (RollLocationInOut[Roll_B_Location_InOut] == Locations[LocationIndex][1]) {
-        //       console.log("MATCH!");
-        //       filteredValidLocations.push(validLocations[ij]);
-        //       locationMismatch=false;
-        //     }
-        //   // }
-        // }
-
-        // //shuffle validLocations
-        // if (locationMismatch) {
-        //   console.log("[DEBUG] Location Mismatch! FLIPPING!");
-        //   filteredValidLocations = validLocations; //override
-        //   //toggle: Roll_B_Location_InOut
-        //   if (Roll_B_Location_InOut == 0) {
-        //     Roll_B_Location_InOut = 1;
-        //   } else {
-        //     Roll_B_Location_InOut = 0;
-        //   }
-        // }
-
-        // for (var i = filteredValidLocations.length - 1; i > 0; i--) {
-        //   var j = Math.floor(Math.random() * (i + 1));
-        //   var temp = filteredValidLocations[i];
-        //   filteredValidLocations[i] = filteredValidLocations[j];
-        //   filteredValidLocations[j] = temp;
-        // }
-
-        // //////////
-
-        // var ID_B_Location_InOut = "B_Location_InOut_" + voiceID;
-        // var Cell_B_Location_InOut = document.createElement("td");
-        // Cell_B_Location_InOut.setAttribute("id", ID_B_Location_InOut);
-        // var sum = Roll_B_Location_InOut + 1;
-        // Cell_B_Location_InOut.innerHTML = RollLocationInOut[Roll_B_Location_InOut]+"〔"+sum+"〕";
-        // NewBountyRowEntry.appendChild(Cell_B_Location_InOut);
-
-        // // Create random roll (pick 1 from 6 and add pick 1 from 10) , append to td element:  "B_Location"
-        // var Roll_B_Location = Math.floor(Math.random() * 6) + Math.floor(Math.random() * 10);
-
-        // targetLocation = filteredValidLocations[0];
-        // console.log("Only one valid location: " + targetLocation);
-
-        // var ID_B_Location = "B_Location_" + voiceID;
-        // var Cell_B_Location = document.createElement("td");
-        // Cell_B_Location.setAttribute("id", ID_B_Location);
-        // Cell_B_Location.innerHTML = targetLocation + "〔" + Roll_B_Location + " - no impact〕";
-        // NewBountyRowEntry.appendChild(Cell_B_Location);
-
-
-        // // Create random roll (pick 1 from ) , append to td element:  "B_Hideout"
-        // var Roll_B_Hideout = Math.floor(Math.random() * Hideout.length);
-        // var ID_B_Hideout = "B_Hideout_" + voiceID;
-        // var Cell_B_Hideout = document.createElement("td");
-        // Cell_B_Hideout.setAttribute("id", ID_B_Hideout);
-        // Cell_B_Hideout.innerHTML = Hideout[Roll_B_Hideout][0]+"〔"+Roll_B_Hideout+"〕";
-        // NewBountyRowEntry.appendChild(Cell_B_Hideout);
-        
         document.getElementById("VoiceTable").appendChild(NewVoiceRowEntry);
 
       }
     </script>
   </body> 
 </html>
-
-<!--  https://www.vocabilities.com/100.html
-
-* Attribute 1: Laban Efforts
-** Dabbing - (Sudden, direct & light)
-** Flicking - (Sudden, indirect & light)
-** Pressing - (Sustained, direct & strong)
-** Thrusting - (Sudden, direct & strong)
-** Gliding - (Sustained, direct & light)
-** Floating - (Sustained, indirect & light)
-** Wringing - (Sustained, indirect & strong)
-** Slashing - (Sudden, indirect & strong)
-!-->
-
-
-<!--
-* Attribute 2: Voice placement
-** Nasal - (Like the Aussie accent)
-** Throaty - (Like Kermit the frog or Jordan Peterson)
-** Mixed - (regular)
-
-* Attribute 3: Air Quality
-** Breathy
-** Dry
-
-* Attribute 4: Age range
-** Young
-** Middle aged
-** Old
-
-* Attribute : Gender
-** Male
-** Female
-** Other/Non binary
-
-* Attribute 5: Size
-** Small 
-** Medium
-** Medium
-** Medium
-** Large
-
-* Attribute 6: Tempo
-** Slow 
-** Medium 
-** Medium 
-** Medium 
-** Medium 
-** Fast
-** Fast
-
-* Attribute 7: Volume
-** Quiet 
-** Mid 
-** Mid 
-** Mid 
-** Loud
-
-* Attribute 8: Tone/Attitude
-** Friendly 
-** Impartial 
-** Agressive
-
-* Attribute 9: Accents 
-** Too many to write down
-
-* Attribute 10: Vocal Issues
-** None
-** None
-** None
-** None
-** None
-** None
-** None
-** None
-** None
-** None
-** None
-** None
-** Sore throat
-** Lisp
-** Stutter/stammer
-** Mumbler ​
-** Cigar Smoker
-** Cougher
-
-Attribute 11: Pitch
-** Low
-** Medium
-** High
-
-
- -->
