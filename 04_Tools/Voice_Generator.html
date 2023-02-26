@@ -339,11 +339,46 @@
         NewVoiceRowEntry.appendChild(Cell_VoiceID);
         var isUUIDValid = false;
 
+        var Roll_V_Laban = 0;
+        var Roll_V_Placement = 0;
+        var Roll_V_AirQuality = 0;
+        var Roll_V_Age = 0;
+        var Roll_V_Pitch = 0;
+        var Roll_V_Size = 0;
+        var Roll_V_Tone = 0;
+        var Roll_V_Tempo = 0;
+        var Roll_V_Volume = 0;
+        var Roll_V_Attitude = 0;
+        var Roll_V_Accents = 0;
+        var Roll_V_ThroatRestriction = 0;
+        var Roll_V_Airflow = 0;
+        var Roll_V_TonguePosition = 0;
+        var Roll_V_JawPosition = 0;
+        var Roll_V_LipPosition = 0;
+
         if (passedUUID == null) {
-          console.log("passedUUID is null");
+          // console.log("passedUUID is null");
+
+          Roll_V_Laban = Math.floor(Math.random() * VoiceAttr1Laban.length);
+          Roll_V_Placement = Math.floor(Math.random() * VoiceAttr2Placement.length);
+          Roll_V_AirQuality = Math.floor(Math.random() * VoiceAttr3AirQuality.length);
+          Roll_V_Age = Math.floor(Math.random() * VoiceAttr4AgeRange.length);
+          Roll_V_Pitch = Math.floor(Math.random() * VoiceAttr5Pitch.length);
+          Roll_V_Size = Math.floor(Math.random() * VoiceAttr6Size.length);
+          Roll_V_Tone = Math.floor(Math.random() * VoiceAttr7Tempo.length);
+          Roll_V_Tempo = Math.floor(Math.random() * VoiceAttr8Volume.length);
+          Roll_V_Volume = Math.floor(Math.random() * VoiceAttr9ToneAttitude.length);
+          Roll_V_Attitude = Math.floor(Math.random() * VoiceAttr10Accents.length);
+          Roll_V_Accents = Math.floor(Math.random() * VoiceAttr11VocalIssues.length);
+          Roll_V_ThroatRestriction = Math.floor(Math.random() * VoiceAttr12ThroatRestriction.length);
+          Roll_V_Airflow = Math.floor(Math.random() * VoiceAttr13Airflow.length);
+          Roll_V_TonguePosition = Math.floor(Math.random() * VoiceAttr14TonguePosition.length);
+          Roll_V_JawPosition = Math.floor(Math.random() * VoiceAttr15JawPosition.length);
+          Roll_V_LipPosition = Math.floor(Math.random() * VoiceAttr16LipPosition.length);
+
         } else {
           isUUIDValid = isUUID(passedUUID);
-          console.log("passedUUID is: " + passedUUID + " isUUIDValid: " + isUUIDValid);
+          // console.log("passedUUID is: " + passedUUID + " isUUIDValid: " + isUUIDValid);
           // ALERT if passedUUID is not valid
           if (isUUIDValid == false) {
             var strLenUUID = passedUUID.length;
@@ -351,90 +386,76 @@
             alert("Provided UUID is not valid (" + passedUUID + ") Skipping import of UUID! [Length: " + strLenUUID + " vs. " + UUIDStandardLen + "]");
             return;
           }
-        }
-        
-        var Roll_v_Laban = Math.floor(Math.random() * VoiceAttr1Laban.length);
-        var Roll_v_Placement = Math.floor(Math.random() * VoiceAttr2Placement.length);
-        var Roll_v_AirQuality = Math.floor(Math.random() * VoiceAttr3AirQuality.length);
-        var Roll_v_Age = Math.floor(Math.random() * VoiceAttr4AgeRange.length);
-        var Roll_v_Pitch = Math.floor(Math.random() * VoiceAttr5Pitch.length);
-        var Roll_v_Size = Math.floor(Math.random() * VoiceAttr6Size.length);
-        var Roll_v_Tone = Math.floor(Math.random() * VoiceAttr7Tempo.length);
-        var Roll_v_Tempo = Math.floor(Math.random() * VoiceAttr8Volume.length);
-        var Roll_v_Volume = Math.floor(Math.random() * VoiceAttr9ToneAttitude.length);
-        var Roll_v_Attitude = Math.floor(Math.random() * VoiceAttr10Accents.length);
-        var Roll_v_Accents = Math.floor(Math.random() * VoiceAttr11VocalIssues.length);
-        var Roll_V_ThroatRestriction = Math.floor(Math.random() * VoiceAttr12ThroatRestriction.length);
-        var Roll_V_Airflow = Math.floor(Math.random() * VoiceAttr13Airflow.length);
-        var Roll_V_TonguePosition = Math.floor(Math.random() * VoiceAttr14TonguePosition.length);
-        var Roll_V_JawPosition = Math.floor(Math.random() * VoiceAttr15JawPosition.length);
-        var Roll_V_LipPosition = Math.floor(Math.random() * VoiceAttr16LipPosition.length);
+
+          // ADD FUNCTION TO IMPORT HEX to INT for all 16!
+
+        } 
 
         var Cell_V_Laban = document.createElement("td");
         var ID_V_Laban = "V_Laban_" + voiceID;
         Cell_V_Laban.setAttribute("id", ID_V_Laban);
-        Cell_V_Laban.setAttribute("title", VoiceAttr1Laban[Roll_v_Laban][1]);
-        Cell_V_Laban.innerHTML = VoiceAttr1Laban[Roll_v_Laban][0]+"〔"+Roll_v_Laban+"〕";
+        Cell_V_Laban.setAttribute("title", VoiceAttr1Laban[Roll_V_Laban][1]);
+        Cell_V_Laban.innerHTML = VoiceAttr1Laban[Roll_V_Laban][0]+"〔"+Roll_V_Laban+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Laban);
 
         var Cell_V_Placement = document.createElement("td");
         var ID_V_Placement = "V_Placement_" + voiceID;
         Cell_V_Placement.setAttribute("id", ID_V_Placement);
-        Cell_V_Placement.innerHTML = VoiceAttr2Placement[Roll_v_Placement]+"〔"+Roll_v_Placement+"〕";
+        Cell_V_Placement.innerHTML = VoiceAttr2Placement[Roll_V_Placement]+"〔"+Roll_V_Placement+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Placement);
 
         var Cell_V_AirQuality = document.createElement("td");
         var ID_V_AirQuality = "V_AirQuality_" + voiceID;
         Cell_V_AirQuality.setAttribute("id", ID_V_AirQuality);
-        Cell_V_AirQuality.innerHTML = VoiceAttr3AirQuality[Roll_v_AirQuality]+"〔"+Roll_v_AirQuality+"〕";
+        Cell_V_AirQuality.innerHTML = VoiceAttr3AirQuality[Roll_V_AirQuality]+"〔"+Roll_V_AirQuality+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_AirQuality);
 
         var Cell_V_Age = document.createElement("td");
         var ID_V_Age = "V_Age_" + voiceID;
         Cell_V_Age.setAttribute("id", ID_V_Age);
-        Cell_V_Age.innerHTML = VoiceAttr4AgeRange[Roll_v_Age]+"〔"+Roll_v_Age+"〕";
+        Cell_V_Age.innerHTML = VoiceAttr4AgeRange[Roll_V_Age]+"〔"+Roll_V_Age+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Age);
 
         var Cell_V_Pitch = document.createElement("td");
         var ID_V_Pitch = "V_Pitch_" + voiceID;
         Cell_V_Pitch.setAttribute("id", ID_V_Pitch);
-        Cell_V_Pitch.innerHTML = VoiceAttr5Pitch[Roll_v_Pitch]+"〔"+Roll_v_Pitch+"〕";
+        Cell_V_Pitch.innerHTML = VoiceAttr5Pitch[Roll_V_Pitch]+"〔"+Roll_V_Pitch+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Pitch);
 
         var Cell_V_Size = document.createElement("td");
         var ID_V_Size = "V_Size_" + voiceID;
         Cell_V_Size.setAttribute("id", ID_V_Size);
-        Cell_V_Size.innerHTML = VoiceAttr6Size[Roll_v_Size]+"〔"+Roll_v_Size+"〕";
+        Cell_V_Size.innerHTML = VoiceAttr6Size[Roll_V_Size]+"〔"+Roll_V_Size+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Size);
 
         var Cell_V_Tempo = document.createElement("td");
         var ID_V_Tempo = "V_Tempo_" + voiceID;
         Cell_V_Tempo.setAttribute("id", ID_V_Tempo);
-        Cell_V_Tempo.innerHTML = VoiceAttr7Tempo[Roll_v_Tone]+"〔"+Roll_v_Tone+"〕";
+        Cell_V_Tempo.innerHTML = VoiceAttr7Tempo[Roll_V_Tone]+"〔"+Roll_V_Tone+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Tempo);
 
         var Cell_V_Volume = document.createElement("td");
         var ID_V_Volume = "V_Volume_" + voiceID;
         Cell_V_Volume.setAttribute("id", ID_V_Volume);
-        Cell_V_Volume.innerHTML = VoiceAttr8Volume[Roll_v_Tempo]+"〔"+Roll_v_Tempo+"〕";
+        Cell_V_Volume.innerHTML = VoiceAttr8Volume[Roll_V_Tempo]+"〔"+Roll_V_Tempo+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Volume);
 
         var Cell_V_Attitude = document.createElement("td");
         var ID_V_Attitude = "V_Attitude_" + voiceID;
         Cell_V_Attitude.setAttribute("id", ID_V_Attitude);
-        Cell_V_Attitude.innerHTML = VoiceAttr9ToneAttitude[Roll_v_Volume]+"〔"+Roll_v_Volume+"〕";
+        Cell_V_Attitude.innerHTML = VoiceAttr9ToneAttitude[Roll_V_Volume]+"〔"+Roll_V_Volume+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Attitude);
 
         var Cell_V_Accents = document.createElement("td");
         var ID_V_Accents = "V_Accents_" + voiceID;
         Cell_V_Accents.setAttribute("id", ID_V_Accents);
-        Cell_V_Accents.innerHTML = VoiceAttr10Accents[Roll_v_Attitude]+"〔"+Roll_v_Attitude+"〕";
+        Cell_V_Accents.innerHTML = VoiceAttr10Accents[Roll_V_Attitude]+"〔"+Roll_V_Attitude+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_Accents);
         
         var Cell_V_VocalIssues = document.createElement("td");
         var ID_V_VocalIssues = "V_VocalIssues_" + voiceID;
         Cell_V_VocalIssues.setAttribute("id", ID_V_VocalIssues);
-        Cell_V_VocalIssues.innerHTML = VoiceAttr11VocalIssues[Roll_v_Accents]+"〔"+Roll_v_Accents+"〕";
+        Cell_V_VocalIssues.innerHTML = VoiceAttr11VocalIssues[Roll_V_Accents]+"〔"+Roll_V_Accents+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_VocalIssues);
 
         var Cell_V_ThroatRestriction = document.createElement("td");
@@ -467,7 +488,7 @@
         Cell_V_LipPosition.innerHTML = VoiceAttr16LipPosition[Roll_V_LipPosition]+"〔"+Roll_V_LipPosition+"〕";
         NewVoiceRowEntry.appendChild(Cell_V_LipPosition);
 
-        var VoiceUUID_String = generateUUID(Roll_v_Laban, Roll_v_Placement, Roll_v_AirQuality, Roll_v_Age, Roll_v_Pitch, Roll_v_Size, Roll_v_Tone, Roll_v_Tempo, Roll_v_Volume, Roll_v_Attitude, Roll_v_Accents, Roll_V_ThroatRestriction, Roll_V_Airflow, Roll_V_TonguePosition, Roll_V_JawPosition, Roll_V_LipPosition);
+        var VoiceUUID_String = generateUUID(Roll_V_Laban, Roll_V_Placement, Roll_V_AirQuality, Roll_V_Age, Roll_V_Pitch, Roll_V_Size, Roll_V_Tone, Roll_V_Tempo, Roll_V_Volume, Roll_V_Attitude, Roll_V_Accents, Roll_V_ThroatRestriction, Roll_V_Airflow, Roll_V_TonguePosition, Roll_V_JawPosition, Roll_V_LipPosition);
         NewVoiceRowEntry.firstChild.setAttribute("title", VoiceUUID_String);
         // HACK:
         NewVoiceRowEntry.firstChild.innerHTML += "<button onclick=\"alert('"+ VoiceUUID_String + "')\">Show UUID</button>";
